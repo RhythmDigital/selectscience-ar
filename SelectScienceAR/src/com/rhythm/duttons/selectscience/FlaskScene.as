@@ -1,10 +1,11 @@
 package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Back;
-	import com.greensock.easing.Elastic;
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.SceneLoader;
+	
+	import flash.display.BitmapData;
+	import flash.geom.Matrix;
 	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
@@ -17,8 +18,11 @@ package com.rhythm.duttons.selectscience
 	import away3d.library.assets.AssetType;
 	import away3d.loaders.parsers.DAEParser;
 	import away3d.materials.ColorMaterial;
+	import away3d.materials.MaterialBase;
+	import away3d.materials.TextureMaterial;
 	import away3d.primitives.PlaneGeometry;
-	import away3d.primitives.SphereGeometry;
+	import away3d.textures.BitmapTexture;
+	import away3d.utils.Cast;
 	
 	public class FlaskScene extends SceneLoader
 	{
@@ -33,7 +37,13 @@ package com.rhythm.duttons.selectscience
 		
 		private var flask:ObjectContainer3D;
 		private var bottle:Mesh;
-		private var flaskYOffset:int = 0;
+		private var flaskMaterial:FlaskMaterial;
+		private var flaskTextureBMD:BitmapData;
+		private var flaskTextureMat:BitmapTexture;
+		//private var flaskYOffset:int = 0;
+		
+		private var avg:Array = [];
+		private var flaskTextureMtx:Matrix;
 		
 		public function FlaskScene()
 		{
@@ -41,9 +51,9 @@ package com.rhythm.duttons.selectscience
 			
 			flask = new ObjectContainer3D();
 			flask.rotationX = 90;
-			flask.z = flaskYOffset;
-			//flask.scale(10);
-			flask.scaleX = 10;
+			//flask.z = flaskYOffset;
+			flask.scale(10);
+			//flask.scaleX = 10;
 			addChild(flask);
 			
 			var plane:Mesh = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
@@ -63,13 +73,14 @@ package com.rhythm.duttons.selectscience
 		override public function show():void
 		{
 			// reset animation
+		//
 			TweenMax.killTweensOf(flask);
-			flask.scaleY = 0; 
-			flask.scaleZ = 0;
-			flask.z = flaskYOffset;
+		//	flask.scaleY = 0; 
+		//	flask.scaleZ = 0;
+			//flask.z = flaskYOffset;
 			
-			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
-			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+		//	TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
+		//	TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
@@ -87,6 +98,13 @@ package com.rhythm.duttons.selectscience
 			if(e.asset.assetType == AssetType.MESH) {
 				
 				m.mesh = Mesh(e.asset);
+				
+				if(e.asset.assetNamespace == "bottle") {
+					bottle = m.mesh;
+					bottle.showBounds = true;
+					
+				}
+				//m.mesh.z = 0;//3;
 				flask.addChild(m.mesh);
 				
 			} else if (e.asset.assetType == AssetType.SKELETON) {
@@ -107,40 +125,69 @@ package com.rhythm.duttons.selectscience
 				var name:String = e.asset.assetNamespace;
 				node.name = e.asset.assetNamespace+name;
 				trace("SkeletonClipNode: " + node.name);
-				node.looping = true;
+				//node.looping = true;
 				
 				m.animationNode = node;
 				
-				
+				//TweenMax.to(
 			}
 			
 			// adjust materials
 			if(e.asset.assetType == AssetType.MATERIAL) {
 				//trace("Material: " + e.asset.assetFullPath);
 				if(e.asset.assetFullPath.indexOf("Bottle") !== -1) {
-					ColorMaterial(e.asset).alpha = .7;
-					ColorMaterial(e.asset).alphaBlending = true;
-					ColorMaterial(e.asset).alphaThreshold = 0.3;
-					ColorMaterial(e.asset).bothSides = true;
+				
+					//var mat:MaterialBase = e.asset as MaterialBase;
+					//mat.dispose();
 					
-					trace("Bottle Mat: " + e.asset);
+					flaskMaterial = new FlaskMaterial();
+					flaskMaterial.stop();
+					
+					flaskTextureMtx = new Matrix()
+					flaskTextureMtx.scale(.5,.5);
+					flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
+					flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
+					
+					/*ColorMaterial(e.asset).alphaBlending = true;
+					ColorMaterial(e.asset).alphaThreshold = 0.3;
+					ColorMaterial(e.asset).bothSides = true;*/
+					
+					trace("Bottle Mat: " + flaskTextureMat);
 				}
 			}
-			
+		}
+		
+		public function update():void
+		{
 			
 		}
 		
 		override protected function onResourceComplete(e:LoaderEvent):void
 		{
 			trace("Flask complete.");
+			
+			
 			super.onResourceComplete(e);
 		}
 		
 		override protected function onAllResourcesLoaded():void
 		{
+			flaskTextureBMD.lock();
+			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
+			flaskTextureBMD.unlock();
+			flaskTextureMat.invalidateContent();
+			
+			
+
 			getModelByName("bottle").initAnimation();
 			getModelByName("male").initAnimation();
 			getModelByName("female").initAnimation();
+			
+			bottle.material.dispose();
+			bottle.material = null;
+			bottle.material = new TextureMaterial(flaskTextureMat);
+			
+			super.onAllResourcesLoaded();
 		}
 	}
 }

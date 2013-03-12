@@ -1,5 +1,7 @@
 package com.rhythm.away3D4AR
 {
+	import flash.events.Event;
+	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
@@ -103,6 +105,8 @@ package com.rhythm.away3D4AR
 			if(numResourcesLoaded == totalResources) {
 				onAllResourcesLoaded();
 			}
+			
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		protected function onAllResourcesLoaded():void

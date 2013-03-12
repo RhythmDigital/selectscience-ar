@@ -4,7 +4,6 @@ package com.rhythm.duttons.selectscience
 	import com.greensock.easing.Back;
 	import com.greensock.easing.Elastic;
 	import com.rhythm.away3D4AR.SceneLoader;
-	import com.rhythm.display.FullscreenARView;
 	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
@@ -17,24 +16,22 @@ package com.rhythm.duttons.selectscience
 	import away3d.library.assets.AssetType;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.TextureMaterial;
-	import away3d.materials.lightpickers.StaticLightPicker;
-	import away3d.materials.methods.HardShadowMapMethod;
 	import away3d.primitives.PlaneGeometry;
 	import away3d.utils.Cast;
 
 	public class MonkeyScene extends SceneLoader
 	{
 		
-		[Embed(source="/assets/newmd5/MonkeyFlipMonkey.md5mesh", mimeType="application/octet-stream")]
+		[Embed(source="/assets/monkey/MonkeyFlipMonkey.md5mesh", mimeType="application/octet-stream")]
 		private var MD5_MONKEY:Class;
 		
-		[Embed(source="/assets/newmd5/MonkeyFlipMonkey.md5anim", mimeType="application/octet-stream")]
+		[Embed(source="/assets/monkey/MonkeyFlipMonkey.md5anim", mimeType="application/octet-stream")]
 		private var MD5_MONKEY_ANIM:Class;
 		
-		[Embed(source="/assets/newmd5/MonkeyFlipGlasses.md5mesh", mimeType="application/octet-stream")]
+		[Embed(source="/assets/monkey/MonkeyFlipGlasses.md5mesh", mimeType="application/octet-stream")]
 		private var MD5_GLASSES:Class;
 		
-		[Embed(source="/assets/newmd5/MonkeyFlipGlasses.md5anim", mimeType="application/octet-stream")]
+		[Embed(source="/assets/monkey/MonkeyFlipGlasses.md5anim", mimeType="application/octet-stream")]
 		private var MD5_GLASSES_ANIM:Class;
 		
 		[Embed(source="/MONKEYMESH_Painted.png", mimeType="image/png")]
@@ -72,6 +69,8 @@ package com.rhythm.duttons.selectscience
 			monkeyFull.rotationZ = 0;
 			monkeyFull.rotationY = 90;
 			monkeyFull.z = 50;
+			
+			//monkeyFull.scale(20);
 		}
 		
 		// load the model assets

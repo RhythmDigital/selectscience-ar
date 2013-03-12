@@ -27,21 +27,24 @@
 // https://code.google.com/p/awd/wiki/UsingSequencesTxtFiles
 
 
+
+// CHARACTER SLIDING ISSUE
+// http://away3d.com/forum/viewthread/889/
+
+
 package
 {
+	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
 	import com.rhythm.duttons.selectscience.MonkeyScene;
+	import com.rhythm.duttons.selectscience.RetroVirusScene;
 	
 	import flash.events.Event;
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.debug.AwayStats;
-	import away3d.entities.Mesh;
 	import away3d.lights.PointLight;
-	import away3d.materials.lightpickers.LightPickerBase;
-	import away3d.primitives.WireframeSphere;
-	
 	
 	[SWF(frameRate="30", width="1280", height="720", backgroundColor=0xff0000)]
 	public class SelectScienceAR extends FullscreenARView
@@ -52,16 +55,19 @@ package
 		[Embed(source="/assets/markers/16/n1_16.pat", mimeType="application/octet-stream")]
 		private static var Marker2:Class;
 		
-		[Embed(source="/assets/markers/16/n6_16.pat", mimeType="application/octet-stream")]
+		[Embed(source="/assets/markers/16/n9_16.pat", mimeType="application/octet-stream")]
 		private static var Marker3:Class;
 		
 		[Embed(source="/assets/camera_para_16x9.dat", mimeType="application/octet-stream")]
 		private static var CamParam:Class;
 		
-		private var flarParams:Object;	// AR Paramaters
+		private var scenes:Vector.<SceneLoader>;
+		private var sceneClasses:Array = [MonkeyScene, FlaskScene, RetroVirusScene];
 		private var monkeyScene:MonkeyScene;
 		private var flaskScene:FlaskScene;
+		private var virusScene:RetroVirusScene;
 		
+		private var flarParams:Object;	// AR Paramaters
 		private var light:PointLight;
 		
 		public function SelectScienceAR()
@@ -77,6 +83,9 @@ package
 				camPattern:CamParam, 
 				markers:[new Marker1, new Marker2, new Marker3]
 			};
+			
+			scenes = new Vector.<SceneLoader>();
+			
 			start(flarParams);
 		}
 		
@@ -127,41 +136,20 @@ package
 		override protected function constructScene(container:ObjectContainer3D, id:int):void
 		{
 			trace("Building scene : " + id);
-			
-			if(id == 0) {
-				monkeyScene = new MonkeyScene();
-				container.addChild(monkeyScene);
-			} else if(id == 1) {
-				flaskScene = new FlaskScene();
-				container.addChild(flaskScene);
-			} else if(id == 2) {
-				//monkeyScene = new MonkeyScene();
-				//container.addChild(monkeyScene);
-			}
+			scenes[id] = new sceneClasses[id]();
+			container.addChild(scenes[id]);
 		}
 		
 		override protected function showScene(id:int):void
 		{
 			trace("Show scene: " + id);
-			if(id == 0) {
-				monkeyScene.show();
-			} else if(id == 1) {
-				flaskScene.show();
-			} else if(id == 2) {
-				
-			}
+			scenes[id].show();
 		}
 		
 		override protected function hideScene(id:int):void
 		{
 			trace("Hide scene: " + id);
-			if(id == 0) {
-				monkeyScene.hide();
-			} else if(id == 1) {
-				flaskScene.hide();
-			} else if(id == 2) {
-			
-			}
+			scenes[id].hide();
 		}
 		
 		override protected function onEnterFrame(e:Event):void
@@ -169,7 +157,7 @@ package
 			try {
 				super.onEnterFrame(e);
 			} catch(err:Error) {
-				err.getStackTrace();
+				trace(err.getStackTrace());
 			}
 			
 		}

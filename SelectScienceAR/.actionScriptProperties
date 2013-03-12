@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="AWDTest.as" projectUUID="09ea1e5c-ee4e-4773-b6cd-632a996828bd" version="11">
+<actionScriptProperties analytics="false" mainApplicationPath="AwaySceneTest.as" projectUUID="09ea1e5c-ee4e-4773-b6cd-632a996828bd" version="11">
   <compiler additionalCompilerArguments="-locale en_US -swf-version=18" advancedTelemetry="false" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -35,10 +35,13 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="AWDTest.as">
+    <application path="AwaySceneTest.as">
       <airExcludes/>
     </application>
     <application path="SelectScienceAR.as">
+      <airExcludes/>
+    </application>
+    <application path="AWDTest.as">
       <airExcludes/>
     </application>
   </applications>
@@ -48,7 +51,7 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default" platformId="default">
-      <airSettings airCertificatePath="/Users/jamiewhite/Documents/Development/rhythm/duttons/rhythm.p12" airTimestamp="true" anePathSet="true" version="1">
+      <airSettings airCertificatePath="/Users/jamiewhite/Documents/Development/rhythm-git/selectscience-ar/awayscenetest.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
         <newLaunchParams/>
@@ -60,4 +63,3 @@
     </buildTarget>
   </buildTargets>
 </actionScriptProperties>
-

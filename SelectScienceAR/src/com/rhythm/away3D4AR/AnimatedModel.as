@@ -1,10 +1,15 @@
 package com.rhythm.away3D4AR
 {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
 	import away3d.animators.data.Skeleton;
 	import away3d.animators.nodes.SkeletonClipNode;
 	import away3d.entities.Mesh;
+	import away3d.events.AnimationStateEvent;
+	import away3d.events.AnimatorEvent;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.MaterialBase;
 
@@ -51,9 +56,39 @@ package com.rhythm.away3D4AR
 		{
 			trace("Animation initialised.");
 			animationNode.name = "default";
+			//animationNode.stitchFinalFrame = false;
+			animationNode.looping = true;
+			animationNode.addEventListener(AnimationStateEvent.PLAYBACK_COMPLETE, onComplete);
 			animationSet.addAnimation(animationNode);
 			mesh.animator = animator;
-			animator.play("default");//animationNode.name);
+			animator.play("default");
+			
+			animator.updatePosition = true;
+			animator.addEventListener(AnimationStateEvent.PLAYBACK_COMPLETE, onComplete);
+			
+			var t:Timer = new Timer(animationNode.totalDuration);
+			t.addEventListener(TimerEvent.TIMER, onTimerTick);
+			t.start();
+		}
+		
+		protected function onTimerTick(e:TimerEvent):void
+		{
+			trace(name + " RESET ANIMATION");
+			reset();
+			animator.reset("default", 0);11
+		}
+		
+		public function reset():void
+		{
+			mesh.x = 0;
+			mesh.y = 0;
+			mesh.z = 0;
+		}
+		
+		protected function onComplete(e:AnimationStateEvent):void
+		{
+			trace("ANIMATION COMPLETE.");	
+			reset();
 		}
 		
 		public function toString():String

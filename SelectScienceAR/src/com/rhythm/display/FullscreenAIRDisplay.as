@@ -7,7 +7,7 @@ package com.rhythm.display
 	
 	public class FullscreenAIRDisplay extends Sprite
 	{
-		public static const FULLSCREEN_ENABLED:Boolean = false;
+		public static const FULLSCREEN_ENABLED:Boolean = true;
 		
 		public function FullscreenAIRDisplay()
 		{

@@ -13,60 +13,13 @@ exportNormals=1;exportTexCoords=1;
 exportVertexColors=0;exportVertexColorsAnimation=0;exportTangents=0;exportTexTangents=0;
 exportXRefs=1;dereferenceXRefs=1;
 cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
-      <source_data>file:///Users/andy/Desktop/DUTT0055%20Flash%20AR/MAYA/scenes/CHEMISTRY/CHEMISTRY_RIGGED2.mb</source_data>
+      <source_data>file:///Users/andy/Desktop/DUTT0055%20Flash%20AR/MAYA/scenes/CHEMISTRY/CHEMISTRY_RIGGED_UV.mb</source_data>
     </contributor>
-    <created>2013-03-07T21:51:54</created>
-    <modified>2013-03-07T21:51:54</modified>
+    <created>2013-03-12T16:03:56</created>
+    <modified>2013-03-12T16:03:56</modified>
     <unit name="centimeter" meter="0.009999999776"/>
     <up_axis>Y_UP</up_axis>
   </asset>
-  <library_lights>
-    <light id="pasted__pasted__pointLightShape1" name="pasted__pasted__pointLightShape1">
-      <technique_common>
-        <point>
-          <color>1 0.90334635973 0.677999973297</color>
-          <constant_attenuation>1</constant_attenuation>
-          <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0</quadratic_attenuation>
-        </point>
-      </technique_common>
-      <extra>
-        <technique profile="OpenCOLLADAMaya">
-          <originalMayaNodeId>pasted__pasted__pointLightShape1</originalMayaNodeId>
-        </technique>
-      </extra>
-    </light>
-    <light id="pasted__pasted__pointLightShape2" name="pasted__pasted__pointLightShape2">
-      <technique_common>
-        <point>
-          <color>0.768999993801 0.893778502941 1</color>
-          <constant_attenuation>1</constant_attenuation>
-          <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0</quadratic_attenuation>
-        </point>
-      </technique_common>
-      <extra>
-        <technique profile="OpenCOLLADAMaya">
-          <originalMayaNodeId>pasted__pasted__pointLightShape2</originalMayaNodeId>
-        </technique>
-      </extra>
-    </light>
-    <light id="pasted__pasted__pointLightShape3" name="pasted__pasted__pointLightShape3">
-      <technique_common>
-        <point>
-          <color>1 1 1</color>
-          <constant_attenuation>1</constant_attenuation>
-          <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0</quadratic_attenuation>
-        </point>
-      </technique_common>
-      <extra>
-        <technique profile="OpenCOLLADAMaya">
-          <originalMayaNodeId>pasted__pasted__pointLightShape3</originalMayaNodeId>
-        </technique>
-      </extra>
-    </light>
-  </library_lights>
   <library_cameras>
     <camera id="perspShape" name="perspShape">
       <optics>
@@ -120,7 +73,7 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
       <optics>
         <technique_common>
           <orthographic>
-            <xmag>6.82038</xmag>
+            <xmag>8.684911</xmag>
             <aspect_ratio>1.5</aspect_ratio>
             <znear>0.099999964237</znear>
             <zfar>1000</zfar>
@@ -396,7 +349,7 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
     </geometry>
   </library_geometries>
   <library_visual_scenes>
-    <visual_scene id="VisualSceneNode" name="CHEMISTRY_RIGGED2">
+    <visual_scene id="VisualSceneNode" name="CHEMISTRY_RIGGED_UV">
       <node id="persp" name="persp" type="NODE">
         <matrix sid="transform">-0.190808995375 -0.45890682171 0.867753684102 29.75761 0 0.883995165103 0.467496040705 19.84559 -0.981627183448 0.089202449868 -0.168674229369 -3.772556 0 0 0 1</matrix>
         <instance_camera url="#perspShape"/>
@@ -416,7 +369,7 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
         </extra>
       </node>
       <node id="front" name="front" type="NODE">
-        <matrix sid="transform">1 0 0 -1.402802 0 1 0 1.511249 0 0 1 100.1 0 0 0 1</matrix>
+        <matrix sid="transform">1 0 0 -1.256888 0 1 0 8.601296 0 0 1 100.1 0 0 0 1</matrix>
         <instance_camera url="#frontShape"/>
         <extra>
           <technique profile="OpenCOLLADAMaya">
@@ -434,7 +387,7 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
         </extra>
       </node>
       <node id="camera1" name="camera1" type="NODE">
-        <matrix sid="transform">0.062790519529 -0.552299557431 0.831277660904 21.59147 0 0.83292124071 0.553391549243 19.60024 -0.998026728428 -0.03474774288 0.052299557431 1.249555 0 0 0 1</matrix>
+        <matrix sid="transform">-0.570713567684 -0.489589584544 0.659232934832 15.41854 0 0.802817475191 0.596224874966 19.81389 -0.821149209134 0.340273625534 -0.458178825465 -10.77133 0 0 0 1</matrix>
         <instance_camera url="#cameraShape1"/>
         <extra>
           <technique profile="OpenCOLLADAMaya">
@@ -442,91 +395,74 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
           </technique>
         </extra>
       </node>
-      <node id="Lights" name="Lights" type="NODE">
+      <node id="ROOT" name="ROOT" type="NODE">
         <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
-        <node id="pasted__group" name="pasted__group" type="NODE">
+        <node id="MALE" name="MALE" type="NODE">
           <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
-          <node id="pasted__pasted__pointLight1" name="pasted__pasted__pointLight1" type="NODE">
-            <matrix sid="transform">1 0 0 -7.446035 0 1 0 11.47797 0 0 1 10.4764 0 0 0 1</matrix>
-            <instance_light url="#pasted__pasted__pointLightShape1"/>
+          <instance_controller url="#MALEShape-skin">
+            <skeleton>#BOTTLE</skeleton>
+            <skeleton>#CONTENTS</skeleton>
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="lambert3SG" target="#Male"/>
+              </technique_common>
+            </bind_material>
+          </instance_controller>
+          <extra>
+            <technique profile="OpenCOLLADAMaya">
+              <originalMayaNodeId>MALE</originalMayaNodeId>
+            </technique>
+          </extra>
+        </node>
+        <node id="BOTTLE" name="BOTTLE" sid="BOTTLE" type="JOINT">
+          <matrix sid="transform">0 -1 0 0 1 0 0 0 0 0 1 0 0 0 0 1</matrix>
+          <node id="CONTENTS" name="CONTENTS" sid="CONTENTS" type="JOINT">
+            <matrix sid="transform">0 1 0 1.140902 -1 0 0 0 0 0 1 0 0 0 0 1</matrix>
             <extra>
               <technique profile="OpenCOLLADAMaya">
-                <originalMayaNodeId>pasted__pasted__pointLight1</originalMayaNodeId>
+                <originalMayaNodeId>CONTENTS</originalMayaNodeId>
+                <visibility>1</visibility>
               </technique>
             </extra>
           </node>
-          <node id="pasted__pasted__pointLight2" name="pasted__pasted__pointLight2" type="NODE">
-            <matrix sid="transform">1 0 0 8.571599 0 1 0 -4.714245 0 0 1 5.151617 0 0 0 1</matrix>
-            <instance_light url="#pasted__pasted__pointLightShape2"/>
+          <node id="particle_emitter_bottom" name="particle_emitter_bottom" type="NODE">
+            <matrix sid="transform">0 1 0 -0.002961247717 -1 0 0 -0.04987811498 0 0 1 0 0 0 0 1</matrix>
             <extra>
               <technique profile="OpenCOLLADAMaya">
-                <originalMayaNodeId>pasted__pasted__pointLight2</originalMayaNodeId>
+                <originalMayaNodeId>particle_emitter_bottom</originalMayaNodeId>
               </technique>
             </extra>
           </node>
-          <node id="pasted__pasted__pointLight3" name="pasted__pasted__pointLight3" type="NODE">
-            <matrix sid="transform">1 0 0 6.470074 0 1 0 11.03823 0 0 1 -1.731636 0 0 0 1</matrix>
-            <instance_light url="#pasted__pasted__pointLightShape3"/>
+          <node id="particle_emitter_top" name="particle_emitter_top" type="NODE">
+            <matrix sid="transform">0 1 0 -0.002961247717 -1 0 0 -0.04987811498 0 0 1 0 0 0 0 1</matrix>
             <extra>
               <technique profile="OpenCOLLADAMaya">
-                <originalMayaNodeId>pasted__pasted__pointLight3</originalMayaNodeId>
+                <originalMayaNodeId>particle_emitter_top</originalMayaNodeId>
               </technique>
             </extra>
           </node>
           <extra>
             <technique profile="OpenCOLLADAMaya">
-              <originalMayaNodeId>pasted__group</originalMayaNodeId>
+              <originalMayaNodeId>BOTTLE</originalMayaNodeId>
+              <visibility>1</visibility>
             </technique>
           </extra>
         </node>
         <extra>
           <technique profile="OpenCOLLADAMaya">
-            <originalMayaNodeId>Lights</originalMayaNodeId>
-          </technique>
-        </extra>
-      </node>
-      <node id="BOTTLE" name="BOTTLE" sid="BOTTLE" type="JOINT">
-        <matrix sid="transform">0 -1 0 -0.049878114979 1 0 0 0.002961247717 0 0 1 0 0 0 0 1</matrix>
-        <node id="CONTENTS" name="CONTENTS" sid="CONTENTS" type="JOINT">
-          <matrix sid="transform">0 1 0 1.140902 -1 0 0 0 0 0 1 0 0 0 0 1</matrix>
-          <extra>
-            <technique profile="OpenCOLLADAMaya">
-              <originalMayaNodeId>CONTENTS</originalMayaNodeId>
-            </technique>
-          </extra>
-        </node>
-        <extra>
-          <technique profile="OpenCOLLADAMaya">
-            <originalMayaNodeId>BOTTLE</originalMayaNodeId>
+            <originalMayaNodeId>ROOT</originalMayaNodeId>
             <visibility>1</visibility>
-          </technique>
-        </extra>
-      </node>
-      <node id="MALE" name="MALE" type="NODE">
-        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
-        <instance_controller url="#MALEShape-skin">
-          <skeleton>#BOTTLE</skeleton>
-          <skeleton>#CONTENTS</skeleton>
-          <bind_material>
-            <technique_common>
-              <instance_material symbol="lambert3SG" target="#Male"/>
-            </technique_common>
-          </bind_material>
-        </instance_controller>
-        <extra>
-          <technique profile="OpenCOLLADAMaya">
-            <originalMayaNodeId>MALE</originalMayaNodeId>
           </technique>
         </extra>
       </node>
     </visual_scene>
   </library_visual_scenes>
   <library_animations>
-    <animation id="BOTTLE.matrix_BOTTLE">
-      <source id="BOTTLE.matrix_BOTTLE_transform-input" name="BOTTLE.matrix_BOTTLE_transform-input">
-        <float_array id="BOTTLE.matrix_BOTTLE_transform-input-array" count="99">0.04166662693 0.081666648387 0.121666669845 0.161666631698 0.201666653156 0.241666615009 0.281666636466 0.321666657924 0.361666679382 0.401666641235 0.441666662693 0.481666624546 0.521666646003 0.561666667461 0.601666688919 0.641666650772 0.681666672229 0.721666693687 0.76166665554 0.801666676998 0.841666638851 0.881666660308 0.921666681766 0.961666643619 1.001667 1.041667 1.081667 1.121667 1.161667 1.201667 1.241667 1.281667 1.321667 1.361667 1.401667 1.441667 1.481667 1.521667 1.561667 1.601667 1.641667 1.681667 1.721667 1.761667 1.801667 1.841667 1.881667 1.921667 1.961667 2.001667 2.041667 2.081667 2.121667 2.161667 2.201667 2.241667 2.281667 2.321667 2.361667 2.401667 2.441667 2.481667 2.521667 2.561667 2.601667 2.641667 2.681667 2.721667 2.761667 2.801667 2.841667 2.881667 2.921667 2.961667 3.001667 3.041667 3.081667 3.121667 3.161667 3.201667 3.241667 3.281667 3.321667 3.361667 3.401667 3.441667 3.481667 3.521667 3.561667 3.601667 3.641667 3.681667 3.721667 3.761667 3.801667 3.841667 3.881667 3.921667 3.961667 </float_array>
+    <animation id="ROOT.visibility_ROOT">
+      <source id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-input" name="ROOT.visibility_ROOT_ROOT.visibility_ROOT-input">
+        <float_array id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-input-array" count="2">0 4 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.matrix_BOTTLE_transform-input-array" count="99" stride="1">
+          <accessor source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
@@ -535,34 +471,34 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
           <post_infinity>CONSTANT</post_infinity>
         </technique>
       </source>
-      <source id="BOTTLE.matrix_BOTTLE_transform-output" name="BOTTLE.matrix_BOTTLE_transform-output">
-        <float_array id="BOTTLE.matrix_BOTTLE_transform-output-array" count="1584">0 -1 0 -0.049878060817 1 0 0 0.002961218357 0 0 1 0 0 0 0 1 0 -1 0 -0.049878060817 0.999982059001 0 0.005987048149 0.027009785175 -0.005987048149 0 0.999982059001 0.003136754035 0 0 0 1 0 -1 0 -0.049878060817 0.999746084213 0 0.022532641887 0.093476235866 -0.022532641887 0 0.999746084213 0.011806249618 0 0 0 1 0 -1 0 -0.049878060817 0.998871088027 0 0.047503530979 0.193841397762 -0.047503530979 0 0.998871088027 0.024897396564 0 0 0 1 0 -1 0 -0.049878060817 0.996894776821 0 0.078745186328 0.319586336612 -0.078745186328 0 0.996894776821 0.041298866271 0 0 0 1 0 -1 0 -0.049878060817 0.993471443653 0 0.114080905914 0.462191820144 -0.114080905914 0 0.993471443653 0.059899628162 0 0 0 1 0 -1 0 -0.049878060817 0.988483905792 0 0.151325941085 0.613138973712 -0.151325941085 0 0.988483905792 0.079588353633 0 0 0 1 0 -1 0 -0.049878060817 0.98210889101 0 0.188313901424 0.763908505439 -0.188313901424 0 0.98210889101 0.099253952503 0 0 0 1 0 -1 0 -0.049878060817 0.974835216999 0 0.222926557064 0.905981659889 -0.222926557064 0 0.974835216999 0.117785274982 0 0 0 1 0 -1 0 -0.049878060817 0.967435896396 0 0.253116190433 1.030839 -0.253116190433 0 0.967435896396 0.134070992469 0 0 0 1 0 -1 0 -0.049878060817 0.960895657539 0 0.276910662651 1.129962 -0.276910662651 0 0.960895657539 0.147000074386 0 0 0 1 0 -1 0 -0.049878060817 0.956298530101 0 0.292392134666 1.194831 -0.292392134666 0 0.956298530101 0.155461251735 0 0 0 1 0 -1 0 -0.049878060817 0.954674482345 0 0.29765188694 1.216928 -0.29765188694 0 0.954674482345 0.158344388008 0 0 0 1 0 -1 0 -0.049878060817 0.955964207649 0 0.293483197689 1.191116 -0.293483197689 0 0.955964207649 0.155521512031 0 0 0 1 0 -1 0 -0.049878060817 0.959328651428 0 0.282291531562 1.123503 -0.282291531562 0 0.959328651428 0.148059546947 0 0 0 1 0 -1 0 -0.049878060817 0.964241802692 0 0.265024065971 1.022518 -0.265024065971 0 0.964241802692 0.136783123016 0 0 0 1 0 -1 0 -0.049878060817 0.970121383666 0 0.242619991302 0.896593153476 -0.242619991302 0 0.970121383666 0.122517049312 0 0 0 1 0 -1 0 -0.049878060817 0.97638630867 0 0.216031968593 0.75415790081 -0.216031968593 0 0.97638630867 0.106086075305 0 0 0 1 0 -1 0 -0.049878060817 0.982504189014 0 0.186240553855 0.603643536567 -0.186240553855 0 0.982504189014 0.088314890861 0 0 0 1 0 -1 0 -0.049878060817 0.988030195236 0 0.154260516166 0.453480243682 -0.154260516166 0 0.988030195236 0.070028245449 0 0 0 1 0 -1 0 -0.049878060817 0.992635309696 0 0.121140837669 0.312099039554 -0.121140837669 0 0.992635309696 0.052050888538 0 0 0 1 0 -1 0 -0.049878060817 0.996124267578 0 0.087957143783 0.187930166721 -0.087957143783 0 0.996124267578 0.035207569599 0 0 0 1 0 -1 0 -0.049878060817 0.99844187498 0 0.055801987648 0.089404463768 -0.055801987648 0 0.99844187498 0.020322918891 0 0 0 1 0 -1 0 -0.049878060817 0.999667823314 0 0.025772750377 0.024952709674 -0.025772750377 0 0.999667823314 0.008221805095 0 0 0 1 0 -1 0 -0.049878060817 0.999999463558 0 -0.001046001911 0.00300502777 0.001046001911 0 0.999999463558 -2.73006e-4 0 0 0 1 0 -1 0 -0.049878060817 0.999605596065 0 -0.028082132339 0.028816461563 0.028082132339 0 0.999605596065 -0.005731344223 0 0 0 1 0 -1 0 -0.049878060817 0.998310267925 0 -0.058108150959 0.096429944038 0.058108150959 0 0.998310267925 -0.009276807308 0 0 0 1 0 -1 0 -0.049878060817 0.995936334133 0 -0.090060293674 0.197414398193 0.090060293674 0 0.995936334133 -0.01118427515 0 0 0 1 0 -1 0 -0.049878060817 0.992422699928 0 -0.122870802879 0.32333946228 0.122870802879 0 0.992422699928 -0.011728584766 0 0 0 1 0 -1 0 -0.049878060817 0.987839400768 0 -0.155477821826 0.46577489376 0.155477821826 0 0.987839400768 -0.011184751987 0 0 0 1 0 -1 0 -0.049878060817 0.982391059398 0 -0.186836361885 0.616289258003 0.186836361885 0 0.982391059398 -0.00982761383 0 0 0 1 0 -1 0 -0.049878060817 0.976409196853 0 -0.21592849493 0.766452372074 0.21592849493 0 0.976409196853 -0.007932066917 0 0 0 1 0 -1 0 -0.049878060817 0.97033393383 0 -0.241768598556 0.907833993434 0.241768598556 0 0.97033393383 -0.005773127079 0 0 0 1 0 -1 0 -0.049878060817 0.964685797691 0 -0.263403356075 1.032003 0.263403356075 0 0.964685797691 -0.003625631332 0 0 0 1 0 -1 0 -0.049878060817 0.960027754306 0 -0.279904901981 1.130528 0.279904901981 0 0.960027754306 -0.001764476299 0 0 0 1 0 -1 0 -0.049878060817 0.956918537616 0 -0.290356516838 1.19498 0.290356516838 0 0.956918537616 -4.64632e-4 0 0 0 1 2.36633e-6 -1 -7.2741e-7 -0.049879014492 0.955857396125 2.4756e-6 -0.293831050395 1.216931 0.293831050395 0 0.955857396125 0 0 0 0 1 0.0013666749 -0.999998986721 -4.13333e-4 -0.05042541027 0.957183241844 0.001427829265 -0.289479196071 1.192949 0.289479494094 0 0.957184195518 0 0 0 0 1 0.004828512668 -0.999987363815 -0.001396715641 -0.05180478096 0.960604727268 0.005026459693 -0.277872800827 1.129899 0.277876317501 0 0.960616886615 0 0 0 0 1 0.00978910923 -0.999948620796 -0.002637147903 -0.053764164447 0.965524971485 0.010138094425 -0.26011288166 1.035286 0.2601262331 0 0.965574622154 0 0 0 0 1 0.015642106533 -0.999870359897 -0.003821492195 -0.056050419807 0.971303284168 0.016102135181 -0.237298607826 0.916613698005 0.237329363822 0 0.971429228782 0 0 0 0 1 0.021758913993 -0.999752283096 -0.004687607288 -0.058410465717 0.97732925415 0.022258162498 -0.210551798343 0.781385481357 0.210604012012 0 0.977571427822 0 0 0 0 1 0.02748376131 -0.999609410762 -0.005060970783 -0.06059128046 0.98308044672 0.027945816516 -0.181030035018 0.637105166912 0.181100785732 0 0.983464539051 0 0 0 0 1 0.03213751316 -0.999471545219 -0.00487601757 -0.062339782714 0.988162338733 0.032505333423 -0.149928629398 0.491277515888 0.150007903575 0 0.988684773445 0 0 0 0 1 0.035028338432 -0.999377548694 -0.004181981086 -0.063402831554 0.992330431938 0.035277068614 -0.118473052978 0.351406097412 0.118546843528 0 0.992948472499 0 0 0 0 1 0.035463869571 -0.999366044998 -0.003131628036 -0.063527405261 0.995492219924 0.035601854324 -0.087907731533 0.224994480609 0.08796352148 0 0.996123671531 0 0 0 0 1 0.032761633396 -0.99946129322 -0.001953303813 -0.062460362911 0.997689604759 0.032819807529 -0.059484124183 0.119547367095 0.059516191482 0 0.998227357864 0 0 0 0 1 0.026254475116 -0.999654889106 -9.05353e-4 -0.059948742389 0.99906104803 0.026270031929 -0.03445136547 0.042568206787 0.034463226795 0 0.99940598011 0 0 0 0 1 0.015289187431 -0.999883115291 -2.14905e-4 -0.055739343166 0.999784350395 0.015290677547 -0.014052927494 0.001560986042 0.014054596424 0 0.999901235103 0 0 0 0 1 -7.8484e-4 -0.999999701976 -3.72739e-7 -0.049577236175 0.999999582767 -7.8484e-4 4.74923e-4 0.004036366939 -4.74923e-4 0 0.99999988079 0 0 0 0 1 -0.025203704833 -0.999682307243 -2.54833e-4 -0.040215849876 0.999631226062 -0.025205016136 0.010107159614 0.058427751064 -0.010110378265 0 0.999948859214 0 0 0 0 1 -0.058969080448 -0.998259305953 -9.81397e-4 -0.027258634567 0.998121082782 -0.058977246284 0.016611278057 0.16141718626 -0.016640245914 0 0.99986153841 0 0 0 0 1 -0.100026965141 -0.994982600212 -0.002048134803 -0.011464834213 0.994774103164 -0.100047945976 0.020369291305 0.303754627704 -0.020471990108 0 0.999790430068 0 0 0 0 1 -0.146276652812 -0.989238500595 -0.003220796585 0.006406188011 0.988998770713 -0.146312117576 0.021776378154 0.476190149784 -0.022013306617 0 0.999757707118 0 0 0 0 1 -0.1955858469 -0.980677425861 -0.004239618778 0.025595366954 0.980447113513 -0.195631802082 0.021252810955 0.669473707675 -0.021671533584 0 0.999765157699 0 0 0 0 1 -0.245826363563 -0.969301581382 -0.004881560802 0.045343458652 0.969110548496 -0.245874822139 0.01924431324 0.874355316162 -0.019853830337 0 0.999802887439 0 0 0 0 1 -0.294923782348 -0.955507695674 -0.005004703998 0.064891338348 0.955370128154 -0.294966220855 0.01621222496 1.081586 -0.016967177391 0 0.999856054782 0 0 0 0 1 -0.340907275676 -0.940085768699 -0.004574894905 0.083479464054 0.940001130104 -0.340937972068 0.012614667415 1.281914 -0.013418674468 0 0.999909937381 0 0 0 0 1 -0.381950199604 -0.924175620079 -0.003672778606 0.100348770618 0.924132883548 -0.381967842578 0.008886396884 1.466089 -0.009615480899 0 0.999953746795 0 0 0 0 1 -0.416381478309 -0.909186601638 -0.002483665943 0.11474007368 0.90917044878 -0.416388869285 0.005423188209 1.624863 -0.005964875221 0 0.999982237815 0 0 0 0 1 -0.442663967609 -0.896686673164 -0.001272261142 0.125894129276 0.896682977676 -0.442665815353 0.00257718563 1.748984 -0.002874135971 0 0.999995887279 0 0 0 0 1 -0.459331512451 -0.88826483488 -3.44789e-4 0.133051693439 0.888264596462 -0.459331691265 6.6676e-4 1.829204 -7.50633e-4 0 0.999999701976 0 0 0 0 1 -0.464889943599 -0.885368466377 0 0.135452151298 0.885368466377 -0.464889943599 0 1.856272 0 0 1 0 0 0 0 1 -0.459132909774 -0.888367593288 0 0.131851375102 0.888367593288 -0.459132909774 0 1.824924 0 0 1 0 0 0 0 1 -0.443619847297 -0.89621502161 0 0.122378587722 0.89621502161 -0.443619847297 0 1.741959 0 0 1 0 0 0 0 1 -0.419528484344 -0.907742142677 0 0.108151316642 0.907742142677 -0.419528484344 0 1.616396 0 0 1 0 0 0 0 1 -0.388005316257 -0.921657145023 0 0.090287208557 0.921657145023 -0.388005316257 0 1.457252 0 0 1 0 0 0 0 1 -0.35023933649 -0.936660230159 0 0.069903731346 0.936660230159 -0.35023933649 0 1.273544 0 0 1 0 0 0 0 1 -0.307512044906 -0.951544165611 0 0.048118472099 0.951544165611 -0.307512044906 0 1.07429 0 0 1 0 0 0 0 1 -0.261224091053 -0.965278208255 0 0.026049256324 0.965278208255 -0.261224091053 0 0.868508219718 0 0 1 0 0 0 0 1 -0.212894082069 -0.977075278759 0 0.004813432693 0.977075278759 -0.212894082069 0 0.66521602869 0 0 1 0 0 0 0 1 -0.164139986038 -0.98643708229 0 -0.014471232891 0.98643708229 -0.164139986038 0 0.473430931568 0 0 1 0 0 0 0 1 -0.116645395755 -0.993173599243 0 -0.030687332153 0.993173599243 -0.116645395755 0 0.302170455455 0 0 1 0 0 0 0 1 -0.072120785713 -0.997395873069 0 -0.042717218399 0.997395873069 -0.072120785713 0 0.160452187061 0 0 1 0 0 0 0 1 -0.032267212867 -0.999479293823 0 -0.049443364143 0.999479293823 -0.032267212867 0 0.05729329586 0 0 1 0 0 0 0 1 0.001256644725 -0.999999225139 0 -0.049746036529 0.999999225139 0.001256644725 0 0.001711547374 0 0 1 0 0 0 0 1 0.031917631626 -0.999490499496 0 -0.041776061058 0.999490499496 0.031917631626 0 -0.001192390918 0 0 1 0 0 0 0 1 0.063101589679 -0.998007118701 0 -0.025731563568 0.998007118701 0.063101589679 0 0.041944503784 0 0 1 0 0 0 0 1 0.094160258769 -0.995557069778 0 -0.003290832042 0.995557069778 0.094160258769 0 0.122360229492 0 0 1 0 0 0 0 1 0.124450623989 -0.992225825786 0 0.02386778593 0.992225825786 0.124450623989 0 0.231292307376 0 0 1 0 0 0 0 1 0.153340458869 -0.988173425197 0 0.054066061973 0.988173425197 0.153340458869 0 0.359978616237 0 0 1 0 0 0 0 1 0.180212914943 -0.983627617359 0 0.085625767707 0.983627617359 0.180212914943 0 0.49965763092 0 0 1 0 0 0 0 1 0.204468727111 -0.978873074054 0 0.116868317127 0.978873074054 0.204468727111 0 0.641565442085 0 0 1 0 0 0 0 1 0.225526928901 -0.974236905574 0 0.146115422248 0.974236905574 0.225526928901 0 0.776940584182 0 0 1 0 0 0 0 1 0.242821633815 -0.970070958137 0 0.171688854694 0.970070958137 0.242821633815 0 0.897020757198 0 0 1 0 0 0 0 1 0.255796492099 -0.966730654239 0 0.191910266876 0.966730654239 0.255796492099 0 0.993043720722 0 0 1 0 0 0 0 1 0.263896644115 -0.964550971984 0 0.205101370811 0.964550971984 0.263896644115 0 1.056247 0 0 1 0 0 0 0 1 0.266553938388 -0.963819980621 0 0.209583461284 0.963819980621 0.266553938388 0 1.077874 0 0 1 0 0 0 0 1 0.261020302772 -0.965333342552 0 0.204066753387 0.965333342552 0.261020302772 0 1.055019 0 0 1 0 0 0 0 1 0.246484577655 -0.969146728515 0 0.18961572647 0.969146728515 0.246484577655 0 0.995150089263 0 0 1 0 0 0 0 1 0.224672019481 -0.974434435367 0 0.168032288551 0.974434435367 0.224672019481 0 0.905732870101 0 0 1 0 0 0 0 1 0.197315096855 -0.980340123176 0 0.141118228435 0.980340123176 0.197315096855 0 0.794231951236 0 0 1 0 0 0 0 1 0.166186213493 -0.986094355583 0 0.110675573348 0.986094355583 0.166186213493 0 0.668112218379 0 0 1 0 0 0 0 1 0.13311111927 -0.991101145744 0 0.07850587368 0.991101145744 0.13311111927 0 0.534837782382 0 0 1 0 0 0 0 1 0.099964916706 -0.994990944862 0 0.046411454677 0.994990944862 0.099964916706 0 0.401875197887 0 0 1 0 0 0 0 1 0.068654775619 -0.997640490531 0 0.016193985939 0.997640490531 0.068654775619 0 0.276688575744 0 0 1 0 0 0 0 1 0.041099548339 -0.999155044555 0 -0.010344564914 0.999155044555 0.041099548339 0 0.16674286127 0 0 1 0 0 0 0 1 0.019211649894 -0.999815464019 0 -0.031402528285 0.999815464019 0.019211649894 0 0.079502940177 0 0 1 0 0 0 0 1 0.004887759685 -0.999988079071 0 -0.045177817344 0.999988079071 0.004887759685 0 0.022433757781 0 0 1 0 0 0 0 1 </float_array>
+      <source id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-output" name="ROOT.visibility_ROOT_ROOT.visibility_ROOT-output">
+        <float_array id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-output-array" count="2">1 1 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.matrix_BOTTLE_transform-output-array" count="99" stride="16">
-            <param name="TRANSFORM" type="float4x4"/>
+          <accessor source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-output-array" count="2" stride="1">
+            <param type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="BOTTLE.matrix_BOTTLE_transform-interpolation" name="BOTTLE.matrix_BOTTLE_transform-interpolation">
-        <Name_array id="BOTTLE.matrix_BOTTLE_transform-interpolation-array" count="99">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR </Name_array>
+      <source id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-interpolation" name="ROOT.visibility_ROOT_ROOT.visibility_ROOT-interpolation">
+        <Name_array id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-interpolation-array" count="2">STEP STEP </Name_array>
         <technique_common>
-          <accessor source="#BOTTLE.matrix_BOTTLE_transform-interpolation-array" count="99" stride="1">
+          <accessor source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
-      <sampler id="BOTTLE.matrix_BOTTLE_transform-sampler">
-        <input semantic="INPUT" source="#BOTTLE.matrix_BOTTLE_transform-input"/>
-        <input semantic="OUTPUT" source="#BOTTLE.matrix_BOTTLE_transform-output"/>
-        <input semantic="INTERPOLATION" source="#BOTTLE.matrix_BOTTLE_transform-interpolation"/>
+      <sampler id="ROOT.visibility_ROOT_ROOT.visibility_ROOT-sampler">
+        <input semantic="INPUT" source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-input"/>
+        <input semantic="OUTPUT" source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-output"/>
+        <input semantic="INTERPOLATION" source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-interpolation"/>
       </sampler>
-      <channel source="#BOTTLE.matrix_BOTTLE_transform-sampler" target="BOTTLE/transform"/>
+      <channel source="#ROOT.visibility_ROOT_ROOT.visibility_ROOT-sampler" target="ROOT/visibility"/>
     </animation>
     <animation id="BOTTLE.visibility_BOTTLE">
       <source id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input" name="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input">
-        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input-array" count="6">0.04166662693 0.519999980926 1 2 3.04 4 </float_array>
+        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input-array" count="2">0 4 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input-array" count="6" stride="1">
+          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
@@ -572,34 +508,34 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
         </technique>
       </source>
       <source id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output" name="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output">
-        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output-array" count="6">1 1 1 1 1 1 </float_array>
+        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output-array" count="2">1 1 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output-array" count="6" stride="1">
+          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-output-array" count="2" stride="1">
             <param type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation" name="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation">
-        <Name_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation-array" count="6">BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER </Name_array>
+        <Name_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation-array" count="2">BEZIER BEZIER </Name_array>
         <technique_common>
-          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation-array" count="6" stride="1">
+          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent" name="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent">
-        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent-array" count="12">-0.291666686534 1 0.360555529594 1 0.839999973773 1 1.666667 1 2.693333 1 3.68 1 </float_array>
+        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent-array" count="4">-0.333333313465 1 2.666666 1 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent-array" count="6" stride="2">
+          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-intangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent" name="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent">
-        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent-array" count="12">0.201111078262 1 0.680000007152 1 1.333333 1 2.346667 1 3.36 1 4.333333 1 </float_array>
+        <float_array id="BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent-array" count="4">1.333333 1 4.333333 1 </float_array>
         <technique_common>
-          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent-array" count="6" stride="2">
+          <accessor source="#BOTTLE.visibility_BOTTLE_BOTTLE.visibility_BOTTLE-outtangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -616,9 +552,9 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
     </animation>
     <animation id="CONTENTS.matrix_CONTENTS">
       <source id="CONTENTS.matrix_CONTENTS_transform-input" name="CONTENTS.matrix_CONTENTS_transform-input">
-        <float_array id="CONTENTS.matrix_CONTENTS_transform-input-array" count="99">0.04166662693 0.081666648387 0.121666669845 0.161666631698 0.201666653156 0.241666615009 0.281666636466 0.321666657924 0.361666679382 0.401666641235 0.441666662693 0.481666624546 0.521666646003 0.561666667461 0.601666688919 0.641666650772 0.681666672229 0.721666693687 0.76166665554 0.801666676998 0.841666638851 0.881666660308 0.921666681766 0.961666643619 1.001667 1.041667 1.081667 1.121667 1.161667 1.201667 1.241667 1.281667 1.321667 1.361667 1.401667 1.441667 1.481667 1.521667 1.561667 1.601667 1.641667 1.681667 1.721667 1.761667 1.801667 1.841667 1.881667 1.921667 1.961667 2.001667 2.041667 2.081667 2.121667 2.161667 2.201667 2.241667 2.281667 2.321667 2.361667 2.401667 2.441667 2.481667 2.521667 2.561667 2.601667 2.641667 2.681667 2.721667 2.761667 2.801667 2.841667 2.881667 2.921667 2.961667 3.001667 3.041667 3.081667 3.121667 3.161667 3.201667 3.241667 3.281667 3.321667 3.361667 3.401667 3.441667 3.481667 3.521667 3.561667 3.601667 3.641667 3.681667 3.721667 3.761667 3.801667 3.841667 3.881667 3.921667 3.961667 </float_array>
+        <float_array id="CONTENTS.matrix_CONTENTS_transform-input-array" count="101">0 0.039999961853 0.07999998331 0.119999945163 0.159999966621 0.199999988079 0.239999949932 0.279999971389 0.319999992847 0.360000014305 0.399999976158 0.439999997615 0.479999959468 0.519999980926 0.560000002384 0.600000023841 0.639999985694 0.680000007152 0.72000002861 0.759999990463 0.80000001192 0.839999973773 0.879999995231 0.920000016689 0.959999978542 1 1.04 1.08 1.12 1.16 1.2 1.24 1.28 1.32 1.36 1.4 1.44 1.48 1.52 1.56 1.6 1.64 1.68 1.72 1.76 1.8 1.84 1.88 1.92 1.96 2 2.04 2.08 2.12 2.16 2.2 2.24 2.28 2.32 2.36 2.4 2.44 2.48 2.52 2.56 2.6 2.64 2.68 2.72 2.76 2.8 2.84 2.88 2.92 2.96 3 3.04 3.08 3.12 3.16 3.2 3.24 3.28 3.32 3.36 3.4 3.44 3.48 3.52 3.56 3.6 3.64 3.68 3.72 3.76 3.8 3.84 3.88 3.92 3.96 4 </float_array>
         <technique_common>
-          <accessor source="#CONTENTS.matrix_CONTENTS_transform-input-array" count="99" stride="1">
+          <accessor source="#CONTENTS.matrix_CONTENTS_transform-input-array" count="101" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
@@ -628,17 +564,17 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
         </technique>
       </source>
       <source id="CONTENTS.matrix_CONTENTS_transform-output" name="CONTENTS.matrix_CONTENTS_transform-output">
-        <float_array id="CONTENTS.matrix_CONTENTS_transform-output-array" count="1584">0 1 0 1.140902 -1 0 0 0 0 0 1 0 0 0 0 1 0 1 0 1.140902 -0.997985005378 0 -0.063450574874 0 -0.063450574874 0 0.997985005378 0 0 0 0 1 0 1 0 1.140902 -0.991948068141 0 -0.126645445823 0 -0.126645445823 0 0.991948068141 0 0 0 0 1 0 1 0 1.140902 -0.981913506984 0 -0.189329922199 0 -0.189329922199 0 0.981913506984 0 0 0 0 1 0 1 0 1.140902 -0.967921853065 0 -0.251251459121 0 -0.251251459121 0 0.967921853065 0 0 0 0 1 0 1 0 1.140902 -0.950029432773 0 -0.312160372734 0 -0.312160372734 0 0.950029432773 0 0 0 0 1 0 1 0 1.140902 -0.928308308124 0 -0.371811270713 0 -0.371811270713 0 0.928308308124 0 0 0 0 1 0 1 0 1.140902 -0.90284615755 0 -0.429963767528 0 -0.429963767528 0 0.90284615755 0 0 0 0 1 0 1 0 1.140902 -0.873745381832 0 -0.486383557319 0 -0.486383557319 0 0.873745381832 0 0 0 0 1 0 1 0 1.140902 -0.841123461723 0 -0.540843188762 0 -0.540843188762 0 0.841123461723 0 0 0 0 1 0 1 0 1.140902 -0.805111765861 0 -0.59312313795 0 -0.59312313795 0 0.805111765861 0 0 0 0 1 0 1 0 1.140902 -0.765855491161 0 -0.643012762069 0 -0.643012762069 0 0.765855491161 0 0 0 0 1 0 1 0 1.140902 -0.72351270914 0 -0.690311074256 0 -0.690311074256 0 0.72351270914 0 0 0 0 1 0 1 0 1.140902 -0.678254187107 0 -0.734827339649 0 -0.734827339649 0 0.678254187107 0 0 0 0 1 0 1 0 1.140902 -0.630262255668 0 -0.776382327079 0 -0.776382327079 0 0.630262255668 0 0 0 0 1 0 1 0 1.140902 -0.579730331897 0 -0.814808428287 0 -0.814808428287 0 0.579730331897 0 0 0 0 1 0 1 0 1.140902 -0.526862084865 0 -0.849950790405 0 -0.849950790405 0 0.526862084865 0 0 0 0 1 0 1 0 1.140902 -0.471870541572 0 -0.881667852401 0 -0.881667852401 0 0.471870541572 0 0 0 0 1 0 1 0 1.140902 -0.414977431297 0 -0.909831702709 0 -0.909831702709 0 0.414977431297 0 0 0 0 1 0 1 0 1.140902 -0.356411874294 0 -0.934328973293 0 -0.934328973293 0 0.356411874294 0 0 0 0 1 0 1 0 1.140902 -0.296410024166 0 -0.955060780048 0 -0.955060780048 0 0.296410024166 0 0 0 0 1 0 1 0 1.140902 -0.235213577747 0 -0.971943736076 0 -0.971943736076 0 0.235213577747 0 0 0 0 1 0 1 0 1.140902 -0.173069179058 0 -0.984909653663 0 -0.984909653663 0 0.173069179058 0 0 0 0 1 0 1 0 1.140902 -0.110227406024 0 -0.993906378746 0 -0.993906378746 0 0.110227406024 0 0 0 0 1 0 1 0 1.140902 -0.04694122076 0 -0.998897671699 0 -0.998897671699 0 0.04694122076 0 0 0 0 1 0 1 0 1.140902 0.016533911228 0 -0.999863326549 0 -0.999863326549 0 -0.016533911228 0 0 0 0 1 0 1 0 1.140902 0.079942584037 0 -0.996799468994 0 -0.996799468994 0 -0.079942584037 0 0 0 0 1 0 1 0 1.140902 0.143028974533 0 -0.989718496799 0 -0.989718496799 0 -0.143028974533 0 0 0 0 1 0 1 0 1.140902 0.205538928508 0 -0.97864896059 0 -0.97864896059 0 -0.205538928508 0 0 0 0 1 0 1 0 1.140902 0.267220914363 0 -0.963635265827 0 -0.963635265827 0 -0.267220914363 0 0 0 0 1 0 1 0 1.140902 0.327825605869 0 -0.944738268852 0 -0.944738268852 0 -0.327825605869 0 0 0 0 1 0 1 0 1.140902 0.387109160423 0 -0.922033905982 0 -0.922033905982 0 -0.387109160423 0 0 0 0 1 0 1 0 1.140902 0.444832861423 0 -0.895613610744 0 -0.895613610744 0 -0.444832861423 0 0 0 0 1 0 1 0 1.140902 0.500763654708 0 -0.86558407545 0 -0.86558407545 0 -0.500763654708 0 0 0 0 1 0 1 0 1.140902 0.554676353931 0 -0.832066178321 0 -0.832066178321 0 -0.554676353931 0 0 0 0 1 0 1 0 1.140902 0.606353878974 0 -0.795194923877 0 -0.795194923877 0 -0.606353878974 0 0 0 0 1 0 1 0 1.140902 0.655587613582 0 -0.755119144916 0 -0.755119144916 0 -0.655587613582 0 0 0 0 1 0 1 0 1.140902 0.702179253101 0 -0.712000191211 0 -0.712000191211 0 -0.702179253101 0 0 0 0 1 0 1 0 1.140902 0.745941162109 0 -0.666011869907 0 -0.666011869907 0 -0.745941162109 0 0 0 0 1 0 1 0 1.140902 0.786696970462 0 -0.61733931303 0 -0.61733931303 0 -0.786696970462 0 0 0 0 1 0 1 0 1.140902 0.824282288551 0 -0.566179037094 0 -0.566179037094 0 -0.824282288551 0 0 0 0 1 0 1 0 1.140902 0.858545720577 0 -0.512737035751 0 -0.512737035751 0 -0.858545720577 0 0 0 0 1 0 1 0 1.140902 0.889349222183 0 -0.457228541374 0 -0.457228541374 0 -0.889349222183 0 0 0 0 1 0 1 0 1.140902 0.916568577289 0 -0.399877548217 0 -0.399877548217 0 -0.916568577289 0 0 0 0 1 0 1 0 1.140902 0.940094113349 0 -0.34091502428 0 -0.34091502428 0 -0.940094113349 0 0 0 0 1 0 1 0 1.140902 0.959831118583 0 -0.280578434467 0 -0.280578434467 0 -0.959831118583 0 0 0 0 1 0 1 0 1.140902 0.97569990158 0 -0.219111263751 0 -0.219111263751 0 -0.97569990158 0 0 0 0 1 0 1 0 1.140902 0.987636566162 0 -0.156761109828 0 -0.156761109828 0 -0.987636566162 0 0 0 0 1 0 1 0 1.140902 0.995593070983 0 -0.093778789043 0 -0.093778789043 0 -0.995593070983 0 0 0 0 1 0 1 0 1.140902 0.999537229537 0 -0.030418753623 0 -0.030418753623 0 -0.999537229537 0 0 0 0 1 0 1 0 1.140902 0.999453246593 0 0.033063292503 0 0.033063292503 0 -0.999453246593 0 0 0 0 1 0 1 0 1.140902 0.995341479778 0 0.096412479877 0 0.096412479877 0 -0.995341479778 0 0 0 0 1 0 1 0 1.140902 0.987218379974 0 0.159373164176 0 0.159373164176 0 -0.987218379974 0 0 0 0 1 0 1 0 1.140902 0.975116848945 0 0.221691548824 0 0.221691548824 0 -0.975116848945 0 0 0 0 1 0 1 0 1.140902 0.959085524082 0 0.283116519451 0 0.283116519451 0 -0.959085524082 0 0 0 0 1 0 1 0 1.140902 0.939189076423 0 0.343400478363 0 0.343400478363 0 -0.939189076423 0 0 0 0 1 0 1 0 1.140902 0.915507495403 0 0.40230089426 0 0.40230089426 0 -0.915507495403 0 0 0 0 1 0 1 0 1.140902 0.88813650608 0 0.459579706192 0 0.459579706192 0 -0.88813650608 0 0 0 0 1 0 1 0 1.140902 0.857186138629 0 0.515006721019 0 0.515006721019 0 -0.857186138629 0 0 0 0 1 0 1 0 1.140902 0.822781443595 0 0.568357884883 0 0.568357884883 0 -0.822781443595 0 0 0 0 1 0 1 0 1.140902 0.785060942173 0 0.619418501853 0 0.619418501853 0 -0.785060942173 0 0 0 0 1 0 1 0 1.140902 0.744176626205 0 0.667982935905 0 0.667982935905 0 -0.744176626205 0 0 0 0 1 0 1 0 1.140902 0.700292944908 0 0.713855564594 0 0.713855564594 0 -0.700292944908 0 0 0 0 1 0 1 0 1.140902 0.653587341308 0 0.756851077079 0 0.756851077079 0 -0.653587341308 0 0 0 0 1 0 1 0 1.140902 0.604247748851 0 0.796796500682 0 0.796796500682 0 -0.604247748851 0 0 0 0 1 0 1 0 1.140902 0.552473008632 0 0.833530783653 0 0.833530783653 0 -0.552473008632 0 0 0 0 1 0 1 0 1.140902 0.498471796512 0 0.866905868053 0 0.866905868053 0 -0.498471796512 0 0 0 0 1 0 1 0 1.140902 0.442461788654 0 0.896787345409 0 0.896787345409 0 -0.442461788654 0 0 0 0 1 0 1 0 1.140902 0.38466823101 0 0.923054873943 0 0.923054873943 0 -0.38466823101 0 0 0 0 1 0 1 0 1.140902 0.325324773788 0 0.945602357387 0 0.945602357387 0 -0.325324773788 0 0 0 0 1 0 1 0 1.140902 0.264670312404 0 0.964338958263 0 0.964338958263 0 -0.264670312404 0 0 0 0 1 0 1 0 1.140902 0.202949166297 0 0.979189276695 0 0.979189276695 0 -0.202949166297 0 0 0 0 1 0 1 0 1.140902 0.14041018486 0 0.990093410015 0 0.990093410015 0 -0.14041018486 0 0 0 0 1 0 1 0 1.140902 0.07730525732 0 0.997007489204 0 0.997007489204 0 -0.07730525732 0 0 0 0 1 0 1 0 1.140902 0.013888478279 0 0.999903559684 0 0.999903559684 0 -0.013888478279 0 0 0 0 1 0 1 0 1.140902 -0.049583852291 0 0.998769938945 0 0.998769938945 0 0.049583852291 0 0 0 0 1 0 1 0 1.140902 -0.112856388092 0 0.993611276149 0 0.993611276149 0 0.112856388092 0 0 0 0 1 0 1 0 1.140902 -0.175674140453 0 0.984448373317 0 0.984448373317 0 0.175674140453 0 0 0 0 1 0 1 0 1.140902 -0.237783908843 0 0.97131806612 0 0.97131806612 0 0.237783908843 0 0 0 0 1 0 1 0 1.140902 -0.29893541336 0 0.954273343086 0 0.954273343086 0 0.29893541336 0 0 0 0 1 0 1 0 1.140902 -0.358882188796 0 0.933382868766 0 0.933382868766 0 0.358882188796 0 0 0 0 1 0 1 0 1.140902 -0.417383015155 0 0.908730626106 0 0.908730626106 0 0.417383015155 0 0 0 0 1 0 1 0 1.140902 -0.474201440811 0 0.88041639328 0 0.88041639328 0 0.474201440811 0 0 0 0 1 0 1 0 1.140902 -0.529108822345 0 0.848554015159 0 0.848554015159 0 0.529108822345 0 0 0 0 1 0 1 0 1.140902 -0.581883847713 0 0.813271939754 0 0.813271939754 0 0.581883847713 0 0 0 0 1 0 1 0 1.140902 -0.632313847541 0 0.774712324142 0 0.774712324142 0 0.632313847541 0 0 0 0 1 0 1 0 1.140902 -0.680195629596 0 0.733030617237 0 0.733030617237 0 0.680195629596 0 0 0 0 1 0 1 0 1.140902 -0.725336432456 0 0.688394546508 0 0.688394546508 0 0.725336432456 0 0 0 0 1 0 1 0 1.140902 -0.767553865909 0 0.640984416007 0 0.640984416007 0 0.767553865909 0 0 0 0 1 0 1 0 1.140902 -0.806678056716 0 0.590991139411 0 0.590991139411 0 0.806678056716 0 0 0 0 1 0 1 0 1.140902 -0.842551290988 0 0.538616120815 0 0.538616120815 0 0.842551290988 0 0 0 0 1 0 1 0 1.140902 -0.875028967857 0 0.484070479869 0 0.484070479869 0 0.875028967857 0 0 0 0 1 0 1 0 1.140902 -0.903980314731 0 0.427574038505 0 0.427574038505 0 0.903980314731 0 0 0 0 1 0 1 0 1.140902 -0.929288744926 0 0.369354128837 0 0.369354128837 0 0.929288744926 0 0 0 0 1 0 1 0 1.140902 -0.950851917266 0 0.309646010398 0 0.309646010398 0 0.950851917266 0 0 0 0 1 0 1 0 1.140902 -0.968583106994 0 0.248690009117 0 0.248690009117 0 0.968583106994 0 0 0 0 1 0 1 0 1.140902 -0.982411026954 0 0.186731398105 0 0.186731398105 0 0.982411026954 0 0 0 0 1 0 1 0 1.140902 -0.99227964878 0 0.124020636081 0 0.124020636081 0 0.99227964878 0 0 0 0 1 0 1 0 1.140902 -0.998149335384 0 0.060810089111 0 0.060810089111 0 0.998149335384 0 0 0 0 1 </float_array>
+        <float_array id="CONTENTS.matrix_CONTENTS_transform-output-array" count="1616">0 1 0 1.140902 -1 0 0 0 0 0 1 0 0 0 0 1 0 1 0 1.140902 -0.99802672863 0 -0.062790513038 0 -0.062790513038 0 0.99802672863 0 0 0 0 1 0 1 0 1.140902 -0.992114722728 0 -0.125333189964 0 -0.125333189964 0 0.992114722728 0 0 0 0 1 0 1 0 1.140902 -0.982287228107 0 -0.187381267547 0 -0.187381267547 0 0.982287228107 0 0 0 0 1 0 1 0 1.140902 -0.968583166599 0 -0.248689830303 0 -0.248689830303 0 0.968583166599 0 0 0 0 1 0 1 0 1.140902 -0.951056540012 0 -0.309017002582 0 -0.309017002582 0 0.951056540012 0 0 0 0 1 0 1 0 1.140902 -0.929776489734 0 -0.36812454462 0 -0.36812454462 0 0.929776489734 0 0 0 0 1 0 1 0 1.140902 -0.904827058315 0 -0.425779283046 0 -0.425779283046 0 0.904827058315 0 0 0 0 1 0 1 0 1.140902 -0.876306712627 0 -0.481753647327 0 -0.481753647327 0 0.876306712627 0 0 0 0 1 0 1 0 1.140902 -0.844327926635 0 -0.535826802253 0 -0.535826802253 0 0.844327926635 0 0 0 0 1 0 1 0 1.140902 -0.809017002582 0 -0.587785243988 0 -0.587785243988 0 0.809017002582 0 0 0 0 1 0 1 0 1.140902 -0.770513236522 0 -0.637423992156 0 -0.637423992156 0 0.770513236522 0 0 0 0 1 0 1 0 1.140902 -0.7289686203 0 -0.684547066688 0 -0.684547066688 0 0.7289686203 0 0 0 0 1 0 1 0 1.140902 -0.684547126293 0 -0.7289686203 0 -0.7289686203 0 0.684547126293 0 0 0 0 1 0 1 0 1.140902 -0.637423992156 0 -0.770513236522 0 -0.770513236522 0 0.637423992156 0 0 0 0 1 0 1 0 1.140902 -0.587785243988 0 -0.809017002582 0 -0.809017002582 0 0.587785243988 0 0 0 0 1 0 1 0 1.140902 -0.535826802253 0 -0.844327926635 0 -0.844327926635 0 0.535826802253 0 0 0 0 1 0 1 0 1.140902 -0.481753647327 0 -0.876306712627 0 -0.876306712627 0 0.481753647327 0 0 0 0 1 0 1 0 1.140902 -0.425779223442 0 -0.904827058315 0 -0.904827058315 0 0.425779223442 0 0 0 0 1 0 1 0 1.140902 -0.36812454462 0 -0.929776489734 0 -0.929776489734 0 0.36812454462 0 0 0 0 1 0 1 0 1.140902 -0.309016942977 0 -0.951056540012 0 -0.951056540012 0 0.309016942977 0 0 0 0 1 0 1 0 1.140902 -0.248689889907 0 -0.968583166599 0 -0.968583166599 0 0.248689889907 0 0 0 0 1 0 1 0 1.140902 -0.187381327152 0 -0.982287228107 0 -0.982287228107 0 0.187381327152 0 0 0 0 1 0 1 0 1.140902 -0.125333189964 0 -0.992114722728 0 -0.992114722728 0 0.125333189964 0 0 0 0 1 0 1 0 1.140902 -0.062790513038 0 -0.99802672863 0 -0.99802672863 0 0.062790513038 0 0 0 0 1 0 1 0 1.140902 0 0 -1 0 -1 0 0 0 0 0 0 1 0 1 0 1.140902 0.062790453433 0 -0.99802672863 0 -0.99802672863 0 -0.062790453433 0 0 0 0 1 0 1 0 1.140902 0.125333249568 0 -0.992114663124 0 -0.992114663124 0 -0.125333249568 0 0 0 0 1 0 1 0 1.140902 0.187381327152 0 -0.982287228107 0 -0.982287228107 0 -0.187381327152 0 0 0 0 1 0 1 0 1.140902 0.248689830303 0 -0.968583166599 0 -0.968583166599 0 -0.248689830303 0 0 0 0 1 0 1 0 1.140902 0.309017062187 0 -0.951056480407 0 -0.951056480407 0 -0.309017062187 0 0 0 0 1 0 1 0 1.140902 0.36812454462 0 -0.929776489734 0 -0.929776489734 0 -0.36812454462 0 0 0 0 1 0 1 0 1.140902 0.425779223442 0 -0.904827058315 0 -0.904827058315 0 -0.425779223442 0 0 0 0 1 0 1 0 1.140902 0.481753706932 0 -0.876306653022 0 -0.876306653022 0 -0.481753706932 0 0 0 0 1 0 1 0 1.140902 0.535826802253 0 -0.844327926635 0 -0.844327926635 0 -0.535826802253 0 0 0 0 1 0 1 0 1.140902 0.587785243988 0 -0.809017002582 0 -0.809017002582 0 -0.587785243988 0 0 0 0 1 0 1 0 1.140902 0.637424051761 0 -0.770513176918 0 -0.770513176918 0 -0.637424051761 0 0 0 0 1 0 1 0 1.140902 0.684547126293 0 -0.7289686203 0 -0.7289686203 0 -0.684547126293 0 0 0 0 1 0 1 0 1.140902 0.7289686203 0 -0.684547126293 0 -0.684547126293 0 -0.7289686203 0 0 0 0 1 0 1 0 1.140902 0.770513176918 0 -0.637424051761 0 -0.637424051761 0 -0.770513176918 0 0 0 0 1 0 1 0 1.140902 0.809017002582 0 -0.587785243988 0 -0.587785243988 0 -0.809017002582 0 0 0 0 1 0 1 0 1.140902 0.844327926635 0 -0.535826802253 0 -0.535826802253 0 -0.844327926635 0 0 0 0 1 0 1 0 1.140902 0.876306653022 0 -0.481753706932 0 -0.481753706932 0 -0.876306653022 0 0 0 0 1 0 1 0 1.140902 0.904827058315 0 -0.425779223442 0 -0.425779223442 0 -0.904827058315 0 0 0 0 1 0 1 0 1.140902 0.929776489734 0 -0.36812454462 0 -0.36812454462 0 -0.929776489734 0 0 0 0 1 0 1 0 1.140902 0.951056480407 0 -0.309017062187 0 -0.309017062187 0 -0.951056480407 0 0 0 0 1 0 1 0 1.140902 0.968583166599 0 -0.248689830303 0 -0.248689830303 0 -0.968583166599 0 0 0 0 1 0 1 0 1.140902 0.982287228107 0 -0.187381327152 0 -0.187381327152 0 -0.982287228107 0 0 0 0 1 0 1 0 1.140902 0.992114663124 0 -0.125333249568 0 -0.125333249568 0 -0.992114663124 0 0 0 0 1 0 1 0 1.140902 0.99802672863 0 -0.062790453433 0 -0.062790453433 0 -0.99802672863 0 0 0 0 1 0 1 0 1.140902 1 0 0 0 0 0 -1 0 0 0 0 1 0 1 0 1.140902 0.99802672863 0 0.062790453433 0 0.062790453433 0 -0.99802672863 0 0 0 0 1 0 1 0 1.140902 0.992114722728 0 0.125333070755 0 0.125333070755 0 -0.992114722728 0 0 0 0 1 0 1 0 1.140902 0.982287287712 0 0.187381088733 0 0.187381088733 0 -0.982287287712 0 0 0 0 1 0 1 0 1.140902 0.968583106994 0 0.248690009117 0 0.248690009117 0 -0.968583106994 0 0 0 0 1 0 1 0 1.140902 0.951056480407 0 0.309017062187 0 0.309017062187 0 -0.951056480407 0 0 0 0 1 0 1 0 1.140902 0.929776489734 0 0.36812454462 0 0.36812454462 0 -0.929776489734 0 0 0 0 1 0 1 0 1.140902 0.904827058315 0 0.425779223442 0 0.425779223442 0 -0.904827058315 0 0 0 0 1 0 1 0 1.140902 0.876306712627 0 0.481753587722 0 0.481753587722 0 -0.876306712627 0 0 0 0 1 0 1 0 1.140902 0.84432798624 0 0.535826683044 0 0.535826683044 0 -0.84432798624 0 0 0 0 1 0 1 0 1.140902 0.809016883373 0 0.587785363197 0 0.587785363197 0 -0.809016883373 0 0 0 0 1 0 1 0 1.140902 0.770513176918 0 0.637424051761 0 0.637424051761 0 -0.770513176918 0 0 0 0 1 0 1 0 1.140902 0.7289686203 0 0.684547126293 0 0.684547126293 0 -0.7289686203 0 0 0 0 1 0 1 0 1.140902 0.684547126293 0 0.7289686203 0 0.7289686203 0 -0.684547126293 0 0 0 0 1 0 1 0 1.140902 0.637424051761 0 0.770513176918 0 0.770513176918 0 -0.637424051761 0 0 0 0 1 0 1 0 1.140902 0.587785363197 0 0.809016883373 0 0.809016883373 0 -0.587785363197 0 0 0 0 1 0 1 0 1.140902 0.535826683044 0 0.84432798624 0 0.84432798624 0 -0.535826683044 0 0 0 0 1 0 1 0 1.140902 0.481753587722 0 0.876306712627 0 0.876306712627 0 -0.481753587722 0 0 0 0 1 0 1 0 1.140902 0.425779223442 0 0.904827058315 0 0.904827058315 0 -0.425779223442 0 0 0 0 1 0 1 0 1.140902 0.36812454462 0 0.929776489734 0 0.929776489734 0 -0.36812454462 0 0 0 0 1 0 1 0 1.140902 0.309017062187 0 0.951056480407 0 0.951056480407 0 -0.309017062187 0 0 0 0 1 0 1 0 1.140902 0.248690009117 0 0.968583106994 0 0.968583106994 0 -0.248690009117 0 0 0 0 1 0 1 0 1.140902 0.187381088733 0 0.982287287712 0 0.982287287712 0 -0.187381088733 0 0 0 0 1 0 1 0 1.140902 0.125333070755 0 0.992114722728 0 0.992114722728 0 -0.125333070755 0 0 0 0 1 0 1 0 1.140902 0.062790453433 0 0.99802672863 0 0.99802672863 0 -0.062790453433 0 0 0 0 1 0 1 0 1.140902 0 0 1 0 1 0 0 0 0 0 0 1 0 1 0 1.140902 -0.062790453433 0 0.99802672863 0 0.99802672863 0 0.062790453433 0 0 0 0 1 0 1 0 1.140902 -0.125333070755 0 0.992114722728 0 0.992114722728 0 0.125333070755 0 0 0 0 1 0 1 0 1.140902 -0.187381088733 0 0.982287287712 0 0.982287287712 0 0.187381088733 0 0 0 0 1 0 1 0 1.140902 -0.248690009117 0 0.968583106994 0 0.968583106994 0 0.248690009117 0 0 0 0 1 0 1 0 1.140902 -0.309017062187 0 0.951056480407 0 0.951056480407 0 0.309017062187 0 0 0 0 1 0 1 0 1.140902 -0.36812454462 0 0.929776489734 0 0.929776489734 0 0.36812454462 0 0 0 0 1 0 1 0 1.140902 -0.425779223442 0 0.904827058315 0 0.904827058315 0 0.425779223442 0 0 0 0 1 0 1 0 1.140902 -0.481753587722 0 0.876306712627 0 0.876306712627 0 0.481753587722 0 0 0 0 1 0 1 0 1.140902 -0.535826683044 0 0.84432798624 0 0.84432798624 0 0.535826683044 0 0 0 0 1 0 1 0 1.140902 -0.587785363197 0 0.809016883373 0 0.809016883373 0 0.587785363197 0 0 0 0 1 0 1 0 1.140902 -0.637424051761 0 0.770513176918 0 0.770513176918 0 0.637424051761 0 0 0 0 1 0 1 0 1.140902 -0.684547126293 0 0.7289686203 0 0.7289686203 0 0.684547126293 0 0 0 0 1 0 1 0 1.140902 -0.7289686203 0 0.684547126293 0 0.684547126293 0 0.7289686203 0 0 0 0 1 0 1 0 1.140902 -0.770513176918 0 0.637424051761 0 0.637424051761 0 0.770513176918 0 0 0 0 1 0 1 0 1.140902 -0.809016883373 0 0.587785363197 0 0.587785363197 0 0.809016883373 0 0 0 0 1 0 1 0 1.140902 -0.84432798624 0 0.535826683044 0 0.535826683044 0 0.84432798624 0 0 0 0 1 0 1 0 1.140902 -0.876306712627 0 0.481753587722 0 0.481753587722 0 0.876306712627 0 0 0 0 1 0 1 0 1.140902 -0.904827058315 0 0.425779223442 0 0.425779223442 0 0.904827058315 0 0 0 0 1 0 1 0 1.140902 -0.929776489734 0 0.36812454462 0 0.36812454462 0 0.929776489734 0 0 0 0 1 0 1 0 1.140902 -0.951056480407 0 0.309017062187 0 0.309017062187 0 0.951056480407 0 0 0 0 1 0 1 0 1.140902 -0.968583106994 0 0.248690009117 0 0.248690009117 0 0.968583106994 0 0 0 0 1 0 1 0 1.140902 -0.982287287712 0 0.187381088733 0 0.187381088733 0 0.982287287712 0 0 0 0 1 0 1 0 1.140902 -0.992114722728 0 0.125333070755 0 0.125333070755 0 0.992114722728 0 0 0 0 1 0 1 0 1.140902 -0.99802672863 0 0.062790453433 0 0.062790453433 0 0.99802672863 0 0 0 0 1 0 1 0 1.140902 -1 0 0 0 0 0 1 0 0 0 0 1 </float_array>
         <technique_common>
-          <accessor source="#CONTENTS.matrix_CONTENTS_transform-output-array" count="99" stride="16">
+          <accessor source="#CONTENTS.matrix_CONTENTS_transform-output-array" count="101" stride="16">
             <param name="TRANSFORM" type="float4x4"/>
           </accessor>
         </technique_common>
       </source>
       <source id="CONTENTS.matrix_CONTENTS_transform-interpolation" name="CONTENTS.matrix_CONTENTS_transform-interpolation">
-        <Name_array id="CONTENTS.matrix_CONTENTS_transform-interpolation-array" count="99">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR </Name_array>
+        <Name_array id="CONTENTS.matrix_CONTENTS_transform-interpolation-array" count="101">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR </Name_array>
         <technique_common>
-          <accessor source="#CONTENTS.matrix_CONTENTS_transform-interpolation-array" count="99" stride="1">
+          <accessor source="#CONTENTS.matrix_CONTENTS_transform-interpolation-array" count="101" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
@@ -649,6 +585,42 @@ cameraXFov=0;cameraYFov=1doublePrecision=0</comments>
         <input semantic="INTERPOLATION" source="#CONTENTS.matrix_CONTENTS_transform-interpolation"/>
       </sampler>
       <channel source="#CONTENTS.matrix_CONTENTS_transform-sampler" target="CONTENTS/transform"/>
+    </animation>
+    <animation id="CONTENTS.visibility_CONTENTS">
+      <source id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-input" name="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-input">
+        <float_array id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-input-array" count="2">0 4 </float_array>
+        <technique_common>
+          <accessor source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+        <technique profile="OpenCOLLADAMaya">
+          <pre_infinity>CONSTANT</pre_infinity>
+          <post_infinity>CONSTANT</post_infinity>
+        </technique>
+      </source>
+      <source id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-output" name="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-output">
+        <float_array id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-output-array" count="2">1 1 </float_array>
+        <technique_common>
+          <accessor source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-output-array" count="2" stride="1">
+            <param type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-interpolation" name="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-interpolation">
+        <Name_array id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-interpolation-array" count="2">STEP STEP </Name_array>
+        <technique_common>
+          <accessor source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-sampler">
+        <input semantic="INPUT" source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-input"/>
+        <input semantic="OUTPUT" source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-output"/>
+        <input semantic="INTERPOLATION" source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-interpolation"/>
+      </sampler>
+      <channel source="#CONTENTS.visibility_CONTENTS_CONTENTS.visibility_CONTENTS-sampler" target="CONTENTS/visibility"/>
     </animation>
   </library_animations>
   <scene>
