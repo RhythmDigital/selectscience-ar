@@ -22,6 +22,7 @@ package com.rhythm.away3D4AR
 		protected var plane:Mesh;
 		public var ready:Boolean;
 		public var showing:Boolean;
+		public var id:int = 0;
 		
 		public function SceneLoader()
 		{
@@ -141,6 +142,7 @@ package com.rhythm.away3D4AR
 				initCustomMaterials();
 				ready = true;
 				onAllResourcesLoaded();
+				dispatchEvent(new Event("SCENE_LOADED"));
 			}
 			
 			dispatchEvent(new Event(Event.COMPLETE));

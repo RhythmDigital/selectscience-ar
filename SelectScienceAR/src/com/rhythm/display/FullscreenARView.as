@@ -59,6 +59,8 @@ package com.rhythm.display
 		private var cameraResized:BitmapData;
 		private var cameraResizeMatrix:Matrix;
 		
+		protected var cameraID:int = 0;
+		
 		public function FullscreenARView()
 		{
 			super();
@@ -162,7 +164,7 @@ package com.rhythm.display
 			}
 			
 			//setup the render loop
-			addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			
 			stage.addEventListener(Event.RESIZE, onResize);
 		}
 		
@@ -174,6 +176,11 @@ package com.rhythm.display
 				cameraResized.draw(bmd,cameraResizeMatrix);
 				bg.invalidateContent();
 			}
+		}
+		
+		public function startRender():void
+		{
+			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		protected function onEnterFrame(e:Event):void

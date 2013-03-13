@@ -34,6 +34,9 @@
 
 package
 {
+	import com.bit101.components.ComboBox;
+	import com.bit101.components.Label;
+	import com.bit101.components.PushButton;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.rhythm.away3D4AR.SceneFX;
@@ -43,7 +46,14 @@ package
 	import com.rhythm.duttons.selectscience.MonkeyScene;
 	import com.rhythm.duttons.selectscience.RetroVirusScene;
 	
+	import flash.display.Screen;
+	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.media.Camera;
+	import flash.text.TextFieldAutoSize;
+	import flash.ui.Keyboard;
+	import flash.ui.Mouse;
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.debug.AwayStats;
@@ -53,7 +63,7 @@ package
 	import away3d.materials.methods.HardShadowMapMethod;
 	import away3d.primitives.WireframeSphere;
 	
-	[SWF(frameRate="30", width="1280", height="720", backgroundColor="#000000")]
+	[SWF(frameRate="30", width="800", height="600", backgroundColor="#000000")]
 	public class SelectScienceAR extends FullscreenARView
 	{
 		[Embed(source="/assets/markers/16/n4_16.pat", mimeType="application/octet-stream")]
@@ -77,14 +87,91 @@ package
 		private var flarParams:Object;	// AR Paramaters
 		private var light:PointLight;
 		
+		private var status:LoadingStatus;
+		private var statusID:int = 0;
+		private var modelsLoaded:int = 0;
+		
+		private var startupScreen:Sprite;
+		private var idleScreen:IdleScreen;
+		
 		public function SelectScienceAR()
 		{
 			super();
+			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			
+			status = new LoadingStatus();
+			idleScreen = new IdleScreen();
+			
+			showStartupScreen();
+		}
+		
+		protected function onKeyDown(e:KeyboardEvent):void
+		{
+			if(e.keyCode == Keyboard.ESCAPE) stage.nativeWindow.close();
+		}
+		
+		private function showStartupScreen():void
+		{
+			stage.nativeWindow.width = 350;
+			stage.nativeWindow.height = 250;
+			
+			startupScreen = new Sprite();
+			addChild(startupScreen);
+			
+			var screens:Array = [];
+			var i:int = 0;
+			for each(var screen:Screen in Screen.screens){
+				screens.push("Screen " + i + ": " + screen.bounds.width + "x" + screen.bounds.height);
+					
+				i++;
+			}
+			
+			startupScreen.addChild(new SetupText);
+			
+			
+			var screenSelect:ComboBox = new ComboBox(startupScreen, 10, 70, "Please select a screen...", screens);
+			screenSelect.width = 330;
+			
+			var camSelect:ComboBox = new ComboBox(startupScreen, 10, 95, "Please select a camera...", Camera.names);
+			camSelect.width = 330;
+			
+			var goBtn:PushButton = new PushButton(startupScreen, 10, 130, "START", function():void {
+				var screenID:int = screenSelect.selectedIndex;
+				cameraID = camSelect.selectedIndex > 0 ? camSelect.selectedIndex : 0;
+				removeChild(startupScreen);
+				initWithScreen(screenID > 0 ? Screen.screens[screenID] : Screen.mainScreen);
+			});
+			
+			goBtn.width = 150;
+			goBtn.height = 80;
+			goBtn.x = stage.stageWidth/2 - goBtn.width/2;
+			
+			stage.nativeWindow.visible = true;
+		}
+		
+		private function updateStatus(msg:String):void
+		{
+			if(!this.contains(status)) {
+				status.x = 0;
+				status.y = 0;
+				status.txtStatus.autoSize = TextFieldAutoSize.LEFT;
+				addChild(status);
+			}
+			
+			status.txtStatus.text = msg;
+			status.txtStatus.x = (stage.stageWidth >> 1) - (status.txtStatus.textWidth>>1);
+			status.txtStatus.y = (stage.stageHeight >> 1) - (status.txtStatus.textHeight>>1);
+			
+			statusID++;
 		}
 		
 		override protected function init():void
 		{
 			super.init();
+			
+			
+			updateStatus("Loading...");
 			
 			flarParams = {
 				camPattern:CamParam, 
@@ -100,18 +187,71 @@ package
 		{
 			super.init3D();
 			
-			addChild(new AwayStats(view));
+			//addChild(new AwayStats(view));
+			
+			modelsLoaded++;
+			updateStatus("Loading 3D Models (" + modelsLoaded + "/3)...");
 		}
 		
 		override protected function constructScene(container:ObjectContainer3D, id:int):void
 		{
 			trace("Building scene : " + id);
 			scenes[id] = new sceneClasses[id]();
+			scenes[id].id = id;
+			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
 			container.addChild(scenes[id]);
+		}
+		
+		private function onSceneLoaded(e:Event):void
+		{
+			
+			if(modelsLoaded == 3) {
+				removeChild(status);
+				startSelectScience();
+				
+				Mouse.hide();
+			} else {
+				modelsLoaded++;
+				updateStatus("Loading 3D Models (" + modelsLoaded + "/3)...");
+				stage.invalidate();
+				
+			}
+			
+		}
+		
+		private function startSelectScience():void
+		{
+			startRender();
+			showIdleScreen(true);
+		}
+		
+		private function showIdleScreen(immediate:Boolean = false):void
+		{
+			TweenMax.killAll(idleScreen);
+			
+			idleScreen.x = stage.stageWidth/2 - idleScreen.width/2;
+			idleScreen.y = stage.stageHeight/2 - idleScreen.height/2;
+			
+			addChild(idleScreen);
+			idleScreen.alpha = 0;
+			TweenMax.to(idleScreen, 2, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Quad.easeOut, overwrite:2});
+		}
+		
+		private function hideIdleScreen():void
+		{
+			TweenMax.killAll(idleScreen);
+			
+			TweenMax.to(idleScreen, .5, {ease:Quad.easeOut, autoAlpha:0, onComplete:removeIdleScreen, overwrite:2});
+		}
+		
+		private function removeIdleScreen():void
+		{
+			if(this.contains(idleScreen)) removeChild(idleScreen);
 		}
 		
 		override protected function showScene(id:int):void
 		{
+			hideIdleScreen();
 			trace("Show scene: " + id);
 			scenes[id].show();
 		}
@@ -120,6 +260,7 @@ package
 		{
 			trace("Hide scene: " + id);
 			scenes[id].hide();
+			showIdleScreen();
 		}
 		
 		override protected function onEnterFrame(e:Event):void

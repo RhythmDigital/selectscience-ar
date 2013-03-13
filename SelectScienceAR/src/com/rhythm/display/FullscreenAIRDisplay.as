@@ -1,10 +1,10 @@
 package com.rhythm.display
 {
+	import flash.display.Screen;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageDisplayState;
 	import flash.display.StageScaleMode;
-	import flash.events.Event;
 	import flash.events.FullScreenEvent;
 	
 	public class FullscreenAIRDisplay extends Sprite
@@ -16,15 +16,11 @@ package com.rhythm.display
 			super();
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
-		protected function onAddedToStage(e:Event):void
-		{
-			trace("added.");
-			
-			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		public function initWithScreen(screen:Screen):void {
+		
+			stage.nativeWindow.x = screen.bounds.x;
 			
 			if(FULLSCREEN_ENABLED)
 			{
@@ -33,6 +29,7 @@ package com.rhythm.display
 			} else {
 				init();
 			}
+			
 		}
 		
 		protected function onFullScreenEntered(e:FullScreenEvent):void
