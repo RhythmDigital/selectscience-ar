@@ -91,6 +91,7 @@ package
 			sphere.y = 0;
 			sphere.z = -300;
 			sphere.x = -200;
+			
 			//view.scene.addChild(sphere);
 			/*
 			if(Constants.DEBUG_MODE) {
@@ -99,6 +100,7 @@ package
 				view.scene.addChild(trident);
 			}
 			*/
+			
 			light.x = sphere.x;
 			light.y = sphere.y;
 			light.z = sphere.z;

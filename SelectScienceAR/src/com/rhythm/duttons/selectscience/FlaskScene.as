@@ -148,10 +148,9 @@ package com.rhythm.duttons.selectscience
 			flaskMaterial.gotoAndStop(0);
 			
 			flaskTextureMtx = new Matrix()
-			flaskTextureMtx.scale(0.5,0.5);
+			flaskTextureMtx.scale(1,1);
 			flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
 			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
-			
 			
 			flaskTextureBMD.lock();
 			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
