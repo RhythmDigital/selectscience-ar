@@ -1,7 +1,9 @@
 package com.rhythm.display
 {
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
 	import flash.display.StageDisplayState;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.FullScreenEvent;
 	
@@ -12,8 +14,8 @@ package com.rhythm.display
 		public function FullscreenAIRDisplay()
 		{
 			super();
-			stage.align = "TL";
-			stage.scaleMode = "noScale";
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}

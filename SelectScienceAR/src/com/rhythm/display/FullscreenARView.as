@@ -7,6 +7,7 @@ package com.rhythm.display
 	import flash.events.Event;
 	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
+	import flash.geom.Rectangle;
 	import flash.media.Video;
 	
 	import away3d.containers.ObjectContainer3D;
@@ -65,6 +66,8 @@ package com.rhythm.display
 		
 		public function start(flarParams:Object):void
 		{
+			
+			
 			sizeParamSetup();
 			initCamera();
 			initAR(flarParams);
@@ -74,7 +77,7 @@ package com.rhythm.display
 		
 		public function sizeParamSetup():void
 		{
-			var ratio:Number = stage.stageHeight/stage.stageWidth;
+			var ratio:Number = 9/16; // widescreen //stage.stageHeight/stage.stageWidth;
 			
 			var pow2W:int = 1024;
 			var pow2H:int = 512;
@@ -130,7 +133,11 @@ package com.rhythm.display
 		{
 			//setup the view
 			view = new View3D(new Scene3D, markerSys.getAway3DCamera());
+			view.width = stage.stageWidth;
+			view.height = stage.stageWidth/16*9;
+			view.y = (stage.stageHeight >> 1) - (view.height >> 1);
 			view.antiAlias = 3;
+			view.backgroundColor = 0x000000;
 			scene = view.scene;
 			addChild(view);
 			
