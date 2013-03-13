@@ -58,7 +58,7 @@ package
 			
 			view.scene.addChild(mover);
 			
-			initLights();
+		//	initLights();
 			initModels();
 		}
 		
@@ -90,7 +90,7 @@ package
 			sphere.y = 0;
 			sphere.z = -300;
 			sphere.x = -200;
-			//view.scene.addChild(sphere);
+			view.scene.addChild(sphere);
 			
 			var trident:Trident = new Trident();
 			trident.scale(1);
@@ -128,21 +128,21 @@ package
 		
 		private function initModels():void
 		{
-			monkey = new MonkeyScene();
+			/*monkey = new MonkeyScene();
 			monkey.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(monkey);
 			monkey.x = -150;
-			
+			*/
 			flask = new FlaskScene();
 			flask.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(flask);
-			
+			/*
 			retro = new RetroVirusScene();
 			retro.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(retro);
 			retro.x = 150;
-			
-			total = 3;
+			*/
+			total = 1;
 			numDone = 0;
 		}
 		
