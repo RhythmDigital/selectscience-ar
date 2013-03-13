@@ -20,6 +20,8 @@ package com.rhythm.away3D4AR
 		private var numResourcesLoaded:int;
 		private var totalResources:int;
 		protected var plane:Mesh;
+		public var ready:Boolean;
+		public var showing:Boolean;
 		
 		public function SceneLoader()
 		{
@@ -54,12 +56,14 @@ package com.rhythm.away3D4AR
 		
 		public function show():void
 		{
-			
+			if(!ready) return;
+			showing = true;
 		}
 		
 		public function hide():void
 		{
-			
+			if(!ready) return;
+			showing = false;
 		}
 		
 		protected function loadTexture():void
@@ -117,6 +121,11 @@ package com.rhythm.away3D4AR
 			// override
 		}
 		
+		public function update():void
+		{
+			
+		}
+		
 		protected function onAssetComplete(e:AssetEvent):void
 		{
 			trace("Asset loaded.");
@@ -130,6 +139,7 @@ package com.rhythm.away3D4AR
 			
 			if(numResourcesLoaded == totalResources) {
 				initCustomMaterials();
+				ready = true;
 				onAllResourcesLoaded();
 			}
 			

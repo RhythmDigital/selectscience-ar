@@ -94,6 +94,8 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
+			super.show();
+			
 			// reset animation
 			TweenMax.killTweensOf(monkeyFull);
 			TweenMax.killTweensOf(glassesScaler);
@@ -111,6 +113,7 @@ package com.rhythm.duttons.selectscience
 		
 		override public function hide():void
 		{
+			super.hide();
 			if(sc) sc.stop();
 		}
 		

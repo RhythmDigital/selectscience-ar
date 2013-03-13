@@ -53,7 +53,7 @@ package
 	import away3d.materials.methods.HardShadowMapMethod;
 	import away3d.primitives.WireframeSphere;
 	
-	[SWF(frameRate="30", width="1920", height="720", backgroundColor="#000000")]
+	[SWF(frameRate="30", width="1280", height="720", backgroundColor="#000000")]
 	public class SelectScienceAR extends FullscreenARView
 	{
 		[Embed(source="/assets/markers/16/n4_16.pat", mimeType="application/octet-stream")]
@@ -174,6 +174,11 @@ package
 		override protected function onEnterFrame(e:Event):void
 		{
 			try {
+				
+				for each(var s:SceneLoader in scenes) {
+					if(s.ready && s.showing) s.update();
+				}
+				
 				super.onEnterFrame(e);
 			} catch(err:Error) {
 				trace(err.getStackTrace());

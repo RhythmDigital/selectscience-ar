@@ -69,10 +69,7 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
-			if(!virusIdleMesh || !virusDanceMesh || !virusDanceAfroMesh) {
-				trace("MODEL NOT READY FOR SHOWING!!!");
-				return;
-			}
+			super.show();
 			
 			TweenMax.killTweensOf(virus);
 			TweenMax.killDelayedCallsTo(dance);
@@ -89,6 +86,7 @@ package com.rhythm.duttons.selectscience
 		
 		override public function hide():void
 		{
+			super.hide();
 			if(sc) sc.stop();
 			
 			TweenMax.killDelayedCallsTo(dance);

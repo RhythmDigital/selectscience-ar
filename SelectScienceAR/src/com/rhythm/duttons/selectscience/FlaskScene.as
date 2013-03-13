@@ -7,6 +7,7 @@ package com.rhythm.duttons.selectscience
 	import com.rhythm.away3D4AR.SceneLoader;
 	
 	import flash.display.BitmapData;
+	import flash.events.Event;
 	import flash.geom.Matrix;
 	
 	import away3d.animators.SkeletonAnimationSet;
@@ -70,6 +71,7 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
+			super.show();
 			// reset animation
 		//
 			TweenMax.killTweensOf(flask);
@@ -79,6 +81,11 @@ package com.rhythm.duttons.selectscience
 			
 			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
 			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+		}
+		
+		override public function hide():void
+		{
+			super.hide();
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
@@ -175,8 +182,19 @@ package com.rhythm.duttons.selectscience
 			femaleModel.mesh.material = femaleMat;
 			//femaleMat.shadowMethod = SceneFX.SHADOW;
 			//femaleMat.lightPicker = SceneFX.LIGHTPICKER;
+			
+			botMat.animateUVs = true;
+			botMat.repeat = true;
+			
+		
 		}
 		
+		override public function update():void
+		{
+			trace(bottle.subMeshes.length);
+			bottle.subMeshes[0].offsetU += 0.001;
+			//Mesh(water).subMeshes[0].offsetU+= 0.0001;
+		}	
 		
 		override protected function onAllResourcesLoaded():void
 		{
