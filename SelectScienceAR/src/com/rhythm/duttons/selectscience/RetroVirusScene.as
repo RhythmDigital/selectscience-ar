@@ -1,8 +1,15 @@
 package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Elastic;
+	import com.greensock.easing.Expo;
+	import com.greensock.easing.Quint;
+	import com.greensock.easing.Sine;
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.SceneLoader;
+	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
@@ -14,8 +21,6 @@ package com.rhythm.duttons.selectscience
 	import away3d.events.LoaderEvent;
 	import away3d.library.assets.AssetType;
 	import away3d.loaders.parsers.DAEParser;
-	import away3d.materials.ColorMaterial;
-	import away3d.primitives.PlaneGeometry;
 	
 	public class RetroVirusScene extends SceneLoader
 	{
@@ -27,21 +32,30 @@ package com.rhythm.duttons.selectscience
 		
 		[Embed(source="/assets/virus/DanceAnimation_JustAfro.dae", mimeType="application/octet-stream")]
 		private var DAE_VIRUS_DANCE_AFRO:Class;
+		
+		[Embed(source="/assets/audio/disco1.mp3")]
+		private var DISCO_MUSIC:Class;
 
 		private var virus:ObjectContainer3D;
 		private var virusIdleMesh:Mesh;
 		private var virusDanceMesh:Mesh;
 		private var virusDanceAfroMesh:Mesh;
+		private var discoMusic:Sound;
+		private var sc:SoundChannel;
+		
+		private var virusScale:int = 2;
 		
 		public function RetroVirusScene()
 		{
 			super();
 			
+			discoMusic = new DISCO_MUSIC();
+			
+			
 			virus = new ObjectContainer3D();
 			virus.rotationX = 90;
 			virus.z = 17;
-			virus.scale(2);
-			//virus.scaleX = 10;
+			virus.scale(virusScale);
 			addChild(virus);
 		}
 		
@@ -55,14 +69,30 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
-			//virusDanceMesh
-			if(virusIdleMesh && virusDanceMesh && virusDanceAfroMesh)
-				TweenMax.delayedCall(1, dance);
+			if(!virusIdleMesh || !virusDanceMesh || !virusDanceAfroMesh) {
+				trace("MODEL NOT READY FOR SHOWING!!!");
+				return;
+			}
+			
+			TweenMax.killTweensOf(virus);
+			TweenMax.killDelayedCallsTo(dance);
+			
+			virus.scaleY = 0; 
+			virus.scaleZ = 0;
+			virus.rotationZ = 0;
+			
+			//getModelByName("virus_idle").restartAnimation();
+			
+			TweenMax.to(virus, 1, {delay:.2, scaleY:virusScale, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(virus, 1.6, {delay:.3, scaleZ:virusScale, overwrite:2, ease:Elastic.easeOut, onComplete:dance});
 		}
 		
 		override public function hide():void
 		{
+			if(sc) sc.stop();
+			
 			TweenMax.killDelayedCallsTo(dance);
+			TweenMax.killTweensOf(virus);
 			
 			if(virus.contains(virusDanceMesh)) {
 				virus.removeChild(virusDanceMesh);
@@ -74,6 +104,7 @@ package com.rhythm.duttons.selectscience
 		private function dance():void
 		{
 			trace("DANCE!");
+			
 			if(virus.contains(virusIdleMesh))
 			{
 				virus.removeChild(virusIdleMesh);
@@ -82,18 +113,18 @@ package com.rhythm.duttons.selectscience
 			virus.addChild(virusDanceAfroMesh);
 			virus.addChild(virusDanceMesh);
 			
+			//getModelByName("virus_dance").restartAnimation();
+			//getModelByName("virus_dance_afro").restartAnimation();
 			
+			
+			sc = discoMusic.play(0,9999);
+			
+			TweenMax.to(virus, 1, {rotationZ: 1080, ease:Expo.easeOut, overwrite:2});
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
 		{
-			//trace("!!! " + e.assetPrevName);
 			trace(e.asset.assetNamespace + " ==> " + e.asset.assetType);
-			
-			// skel
-			// mesh
-			// animNode
-			// 
 			
 			var m:AnimatedModel = getModelByName(e.asset.assetNamespace);
 			
@@ -113,8 +144,6 @@ package com.rhythm.duttons.selectscience
 					// dance mesh
 					virusDanceAfroMesh = m.mesh;
 				}
-				
-				
 				
 			} else if (e.asset.assetType == AssetType.SKELETON) {
 				
@@ -137,17 +166,13 @@ package com.rhythm.duttons.selectscience
 				node.looping = true;
 				
 				m.animationNode = node;
-				
-				
 			}
 			
 			// adjust materials
-			if(e.asset.assetType == AssetType.MATERIAL) {
+			/*if(e.asset.assetType == AssetType.MATERIAL) {
 				trace("Material: " + e.asset.assetFullPath);
 				
-			}
-			
-			
+			}*/
 		}
 		
 		override protected function onResourceComplete(e:LoaderEvent):void

@@ -5,6 +5,9 @@ package com.rhythm.duttons.selectscience
 	import com.greensock.easing.Elastic;
 	import com.rhythm.away3D4AR.SceneLoader;
 	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
 	import away3d.animators.data.Skeleton;
@@ -37,6 +40,9 @@ package com.rhythm.duttons.selectscience
 		[Embed(source="/MONKEYMESH_Painted.png", mimeType="image/png")]
 		private var TEXTURE:Class;
 		
+		[Embed(source="/assets/audio/chimp1.mp3")]
+		private var MONKEY_SFX_1:Class;
+		
 		private var monkey:Mesh;
 		private var glasses:Mesh;
 		private var monkeySkel:Skeleton;
@@ -50,6 +56,10 @@ package com.rhythm.duttons.selectscience
 		private var monkeyFull:ObjectContainer3D;
 		private var glassesScaler:ObjectContainer3D;
 		
+		private var monkeyScale:int = 20;
+		private var monkeySfx1:Sound;
+		private var sc:SoundChannel;
+		
 		public function MonkeyScene()
 		{
 			trace("Monkey Scene");
@@ -62,11 +72,14 @@ package com.rhythm.duttons.selectscience
 			monkeyFull.addChild(glassesScaler);
 			
 			monkeyFull.rotationX = -90;
-			monkeyFull.rotationZ = 0;
+			monkeyFull.rotationZ = -90;
 			monkeyFull.rotationY = 90;
 			monkeyFull.z = 50;
+			monkeyFull.y = -25;
 			
-			//monkeyFull.scale(20);
+			monkeyFull.scale(monkeyScale);
+			
+			monkeySfx1 = new MONKEY_SFX_1();
 		}
 		
 		// load the model assets
@@ -90,13 +103,15 @@ package com.rhythm.duttons.selectscience
 			monkeyFull.scaleX = monkeyFull.scaleY = monkeyFull.scaleZ = 0;
 			glassesScaler.scaleX = glassesScaler.scaleY = glassesScaler.scaleZ = 0;
 			
-			TweenMax.to(glassesScaler, 2, {delay:1, scaleX:1, scaleY:1, scaleZ:1, overwrite:2, ease:Back.easeOut});
-			TweenMax.to(monkeyFull, 2, {delay:.2, scaleX:20, scaleY:20, scaleZ:20, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(glassesScaler, 2, {delay:.2, scaleX:1, scaleY:1, scaleZ:1, overwrite:2, ease:Back.easeOut});
+			TweenMax.to(monkeyFull, 2, {delay:.2, scaleX:monkeyScale, scaleY:monkeyScale, scaleZ:monkeyScale, overwrite:2, ease:Elastic.easeOut});
+			
+			sc = monkeySfx1.play(0, 9999);
 		}
 		
 		override public function hide():void
 		{
-			
+			if(sc) sc.stop();
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
