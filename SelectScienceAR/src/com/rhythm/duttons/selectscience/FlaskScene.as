@@ -81,6 +81,7 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
+			super.show();
 			// reset animation
 		//
 			TweenMax.killTweensOf(flask);
@@ -90,6 +91,11 @@ package com.rhythm.duttons.selectscience
 			
 			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
 			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+		}
+		
+		override public function hide():void
+		{
+			super.hide();
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
@@ -147,6 +153,14 @@ package com.rhythm.duttons.selectscience
 			super.onResourceComplete(e);
 		}
 		
+		private function redrawBottleTexture():void
+		{
+			flaskTextureBMD.lock();
+			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
+			flaskTextureBMD.unlock();
+			flaskTextureMat.invalidateContent();
+		}
+		
 		override protected function initCustomMaterials():void
 		{
 			initLights();
@@ -159,10 +173,7 @@ package com.rhythm.duttons.selectscience
 			flaskTextureBMD = new BitmapData(256, 256, true, 0x00000000);
 			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
 			
-			flaskTextureBMD.lock();
-			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
-			flaskTextureBMD.unlock();
-			flaskTextureMat.invalidateContent();	
+			redrawBottleTexture();	
 			
 			
 			bottle.material = new TextureMaterial(flaskTextureMat);
@@ -176,7 +187,9 @@ package com.rhythm.duttons.selectscience
 			// botMat.shadowMethod = shadowMap;
 			botMat.lightPicker = lightPicker;
 			//botMat.alphaBlending = true;
-			
+			botMat.animateUVs = true; // animate uv's
+			botMat.repeat = true; // infinate loop material (for uv animation)
+			bottle.subMeshes[0].offsetU = 1;
 			
 			var maleModel:AnimatedModel = getModelByName("male");
 			var femaleModel:AnimatedModel = getModelByName("female");
@@ -240,6 +253,11 @@ package com.rhythm.duttons.selectscience
 			//TweenMax.allTo([sphere,light], 1, {z:250, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
 		}
 		
+		override public function update():void
+		{
+			redrawBottleTexture();
+			bottle.subMeshes[0].offsetU += 0.01; // how fast the texture rotates.
+		}	
 		
 		override protected function onAllResourcesLoaded():void
 		{
