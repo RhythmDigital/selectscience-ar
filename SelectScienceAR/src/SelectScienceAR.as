@@ -35,11 +35,9 @@
 package
 {
 	import com.bit101.components.ComboBox;
-	import com.bit101.components.Label;
 	import com.bit101.components.PushButton;
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
-	import com.rhythm.away3D4AR.SceneFX;
+	import com.greensock.easing.Sine;
 	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
@@ -56,12 +54,8 @@ package
 	import flash.ui.Mouse;
 	
 	import away3d.containers.ObjectContainer3D;
-	import away3d.debug.AwayStats;
-	import away3d.debug.Trident;
 	import away3d.lights.PointLight;
-	import away3d.materials.lightpickers.StaticLightPicker;
-	import away3d.materials.methods.HardShadowMapMethod;
-	import away3d.primitives.WireframeSphere;
+	
 	
 	[SWF(frameRate="30", width="800", height="600", backgroundColor="#000000")]
 	public class SelectScienceAR extends FullscreenARView
@@ -93,6 +87,8 @@ package
 		
 		private var startupScreen:Sprite;
 		private var idleScreen:IdleScreen;
+		private var endMessages:EndMessages;
+		
 		
 		public function SelectScienceAR()
 		{
@@ -102,6 +98,7 @@ package
 			
 			status = new LoadingStatus();
 			idleScreen = new IdleScreen();
+			endMessages = new EndMessages();
 			
 			showStartupScreen();
 		}
@@ -138,7 +135,7 @@ package
 			
 			var goBtn:PushButton = new PushButton(startupScreen, 10, 130, "START", function():void {
 				var screenID:int = screenSelect.selectedIndex;
-				cameraID = camSelect.selectedIndex > 0 ? camSelect.selectedIndex : 0;
+				cameraID = camSelect.selectedIndex > 0 ? camSelect.selectedIndex : 0;				
 				removeChild(startupScreen);
 				initWithScreen(screenID > 0 ? Screen.screens[screenID] : Screen.mainScreen);
 			});
@@ -160,8 +157,10 @@ package
 			}
 			
 			status.txtStatus.text = msg;
-			status.txtStatus.x = (stage.stageWidth >> 1) - (status.txtStatus.textWidth>>1);
+			status.txtStatus.x = status.dotsAnim.x = (stage.stageWidth >> 1) - (status.txtStatus.textWidth>>1);
 			status.txtStatus.y = (stage.stageHeight >> 1) - (status.txtStatus.textHeight>>1);
+			
+			status.dotsAnim.y = status.txtStatus.y + 100;
 			
 			statusID++;
 		}
@@ -182,7 +181,7 @@ package
 			
 			start(flarParams);
 		}
-		
+		 
 		override protected function init3D():void
 		{
 			super.init3D();
@@ -199,13 +198,13 @@ package
 			scenes[id] = new sceneClasses[id]();
 			scenes[id].id = id;
 			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
+			
 			container.addChild(scenes[id]);
 		}
 		
 		private function onSceneLoaded(e:Event):void
 		{
-			
-			if(modelsLoaded == 3) {
+			if (modelsLoaded == 3) {
 				removeChild(status);
 				startSelectScience();
 				
@@ -214,9 +213,7 @@ package
 				modelsLoaded++;
 				updateStatus("Loading 3D Models (" + modelsLoaded + "/3)...");
 				stage.invalidate();
-				
 			}
-			
 		}
 		
 		private function startSelectScience():void
@@ -229,19 +226,18 @@ package
 		{
 			TweenMax.killAll(idleScreen);
 			
-			idleScreen.x = stage.stageWidth/2 - idleScreen.width/2;
-			idleScreen.y = stage.stageHeight/2 - idleScreen.height/2;
-			
+			idleScreen.width = stage.nativeWindow.width;
+			idleScreen.height = stage.nativeWindow.height;
 			addChild(idleScreen);
+			
 			idleScreen.alpha = 0;
-			TweenMax.to(idleScreen, 2, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Quad.easeOut, overwrite:2});
+			TweenMax.to(idleScreen, 1, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Sine.easeIn, overwrite:2});
 		}
 		
 		private function hideIdleScreen():void
 		{
-			TweenMax.killAll(idleScreen);
-			
-			TweenMax.to(idleScreen, .5, {ease:Quad.easeOut, autoAlpha:0, onComplete:removeIdleScreen, overwrite:2});
+			TweenMax.killAll(idleScreen);			
+			TweenMax.to(idleScreen, .5, {ease:Sine.easeIn, autoAlpha:0, onComplete:removeIdleScreen, overwrite:2});
 		}
 		
 		private function removeIdleScreen():void

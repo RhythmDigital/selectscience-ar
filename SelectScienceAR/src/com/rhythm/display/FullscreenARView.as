@@ -103,7 +103,7 @@ package com.rhythm.display
 			cameraResizeMatrix = new Matrix();
 			cameraResizeMatrix.scale(pow2W/camOutputW,pow2H/camOutputH);
 			
-			camera = new CameraBitmap(camOutputW, camOutputH, 20, camOutputW, camOutputH, 0, true);
+			camera = new CameraBitmap(camOutputW, camOutputH, 20, camOutputW, camOutputH, cameraID, true);
 			camera.addEventListener(Event.RENDER, onCameraRender);
 			
 			

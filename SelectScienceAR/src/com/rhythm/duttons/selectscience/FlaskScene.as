@@ -85,16 +85,16 @@ package com.rhythm.duttons.selectscience
 		override public function show():void
 		{
 			super.show();
-
+			
 			// flaskMaterial.play();
 
-			//TweenMax.killTweensOf(flask);
-			//flask.scaleY = 0; 
-			//flask.scaleZ = 0;
+			TweenMax.killTweensOf(flask);
+			flask.scaleY = 0; 
+			flask.scaleZ = 0;
 			//flask.z = flaskYOffset;
 			
-			//TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
-			//TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
 		}
 		
 		override public function hide():void
