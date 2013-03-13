@@ -129,39 +129,10 @@ package com.rhythm.duttons.selectscience
 				var name:String = e.asset.assetNamespace;
 				node.name = e.asset.assetNamespace+name;
 				trace("SkeletonClipNode: " + node.name);
-				//node.looping = true;
 				
 				m.animationNode = node;
-				
-				//TweenMax.to(
 			}
 			
-			// adjust materials
-			if(e.asset.assetType == AssetType.MATERIAL) {
-				//trace("Material: " + e.asset.assetFullPath);
-				if(e.asset.assetFullPath.indexOf("Bottle") !== -1) {
-				
-					//var mat:MaterialBase = e.asset as MaterialBase;
-					//mat.dispose();
-					
-					flaskMaterial = new FlaskMaterial();
-					flaskMaterial.stop();
-					
-					flaskTextureMtx = new Matrix()
-					flaskTextureMtx.scale(0.5,0.5);
-					flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
-					flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
-					
-					trace("Bottle Mat: " + flaskTextureMat);
-				} else {
-					
-					//m.material = e.asset as MaterialBase;
-					//trace("MATERIAL: " + m.material.name);
-//					if(e.asset is ColorMaterial) {
-//						trace(ColorMaterial(e.asset).color.toString(16));
-//					}
-				}
-			}
 		}
 		
 		override protected function onResourceComplete(e:LoaderEvent):void
@@ -171,8 +142,17 @@ package com.rhythm.duttons.selectscience
 			super.onResourceComplete(e);
 		}
 		
-		override protected function onAllResourcesLoaded():void
+		override protected function initCustomMaterials():void
 		{
+			flaskMaterial = new FlaskMaterial();
+			flaskMaterial.gotoAndStop(0);
+			
+			flaskTextureMtx = new Matrix()
+			flaskTextureMtx.scale(0.5,0.5);
+			flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
+			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
+			
+			
 			flaskTextureBMD.lock();
 			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
 			flaskTextureBMD.unlock();
@@ -188,33 +168,27 @@ package com.rhythm.duttons.selectscience
 			botMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			
-			
-			//bottle.material. = new HardShadowMapMethod(FullscreenARView.LIGHT);
-			/*
-			TextureMaterial(monkey.material).specular = .25;
-			TextureMaterial(monkey.material).gloss = 20;
-			*/
-			//TextureMaterial(bottle.material).alphaBlending = true;
-			//TextureMaterial(bottle.material).alphaThreshold = 0.5;
-			
-			var bottleModel:AnimatedModel = getModelByName("bottle");
 			var maleModel:AnimatedModel = getModelByName("male");
 			var femaleModel:AnimatedModel = getModelByName("female");
 			
-			bottleModel.init();
-			maleModel.init();
-			femaleModel.init();
-			
+			// Male Material
 			var maleMat:ColorMaterial = maleModel.getNewColourMaterial(0x8dcc, 1);
 			maleModel.mesh.material = maleMat;
-			
 			maleMat.shadowMethod = SceneFX.SHADOW;
 			maleMat.lightPicker = SceneFX.LIGHTPICKER;
 			
+			// Female Material
 			var femaleMat:ColorMaterial = femaleModel.getNewColourMaterial(0xcc558a, 1); 
 			femaleModel.mesh.material = femaleMat;
 			femaleMat.shadowMethod = SceneFX.SHADOW;
 			femaleMat.lightPicker = SceneFX.LIGHTPICKER;
+		}
+		
+		override protected function onAllResourcesLoaded():void
+		{
+			getModelByName("bottle").init();
+			getModelByName("male").init();
+			getModelByName("female").init();
 			
 			super.onAllResourcesLoaded();
 		}

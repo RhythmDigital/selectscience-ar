@@ -3,6 +3,7 @@ package com.rhythm.away3D4AR
 	import flash.events.Event;
 	
 	import away3d.containers.ObjectContainer3D;
+	import away3d.debug.Trident;
 	import away3d.entities.Mesh;
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
@@ -34,14 +35,22 @@ package com.rhythm.away3D4AR
 			addChild(plane);
 			
 			// Show a Trident
-			/*var trident:Trident = new Trident();
-			trident.scale(0.1);
-			addChild(trident);*/
+			if(Constants.DEBUG_MODE) {
+				var trident:Trident = new Trident();
+				trident.scale(0.1);
+				addChild(trident);
+			}
+			
 			
 			models = new Vector.<AnimatedModel>();
 			totalResources = 0;
 			numResourcesLoaded = 0;
 			addLoaderItems();
+		}
+		
+		protected function addGroundPlane():void
+		{
+			
 		}
 		
 		public function show():void
@@ -121,10 +130,16 @@ package com.rhythm.away3D4AR
 			numResourcesLoaded++;
 			
 			if(numResourcesLoaded == totalResources) {
+				initCustomMaterials();
 				onAllResourcesLoaded();
 			}
 			
 			dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		protected function initCustomMaterials():void
+		{
+			
 		}
 		
 		protected function onAllResourcesLoaded():void

@@ -2,6 +2,7 @@ package
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
+	import com.rhythm.away3D4AR.Constants;
 	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
@@ -92,10 +93,11 @@ package
 			sphere.x = -200;
 			//view.scene.addChild(sphere);
 			
-			var trident:Trident = new Trident();
-			trident.scale(1);
-			//view.scene.addChild(trident);
-			
+			if(Constants.DEBUG_MODE) {
+				var trident:Trident = new Trident();
+				trident.scale(1);
+				view.scene.addChild(trident);
+			}
 			light.x = sphere.x;
 			light.y = sphere.y;
 			light.z = sphere.z;
