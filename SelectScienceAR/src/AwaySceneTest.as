@@ -4,6 +4,7 @@ package
 	import com.greensock.easing.Quad;
 	import com.rhythm.away3D4AR.Constants;
 	import com.rhythm.away3D4AR.SceneFX;
+	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
 	import com.rhythm.duttons.selectscience.MonkeyScene;
@@ -65,65 +66,71 @@ package
 			initModels();
 		}
 		
-		private function initLights():void
-		{
-			//body material
-			//bodyMaterial = new TextureMaterial(Cast.bitmapTexture(TEXTURE));
-			//bodyMaterial.gloss = 20;
-			//bodyMaterial.specular = 1.5;
-			//bodyMaterial.specularMap = Cast.bitmapTexture(BodySpecular);
-			//bodyMaterial.normalMap = Cast.bitmapTexture(BodyNormals);
-			//bodyMaterial.addMethod(fogMethod);
-			//bodyMaterial.lightPicker = lightPicker;
-			//bodyMaterial.shadowMethod = shadowMapMethod;
-			
-			//add stats panel
-			light = new PointLight();
-			light.castsShadows = true;
-			light.shadowMapper.depthMapSize = 1024;
-			light.color = 0xffffff;
-			light.diffuse = 0.7;
-			light.specular = 0.6;
-			light.radius = 500;
-			light.fallOff = 700;
-			light.ambient = 0xa0a0c0;
-			light.ambient = 0.3;	
-			
-			var sphere:WireframeSphere = new WireframeSphere(20, 4,4,0xff0000, 2);
-			sphere.y = 0;
-			sphere.z = -300;
-			sphere.x = -200;
-			
-			//view.scene.addChild(sphere);
-			/*
-			if(Constants.DEBUG_MODE) {
-				var trident:Trident = new Trident();
-				trident.scale(1);
-				view.scene.addChild(trident);
-			}
-			*/
-			
-			light.x = sphere.x;
-			light.y = sphere.y;
-			light.z = sphere.z;
-			
-			TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
-			TweenMax.allTo([sphere,light], 2, {y:400, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
-			
-			SceneFX.LIGHT = light;
-			SceneFX.LIGHTPICKER = new StaticLightPicker([SceneFX.LIGHT]);
-			SceneFX.SHADOW = new HardShadowMapMethod(SceneFX.LIGHT);
-			SceneFX.SHADOW.alpha=0.3;
-			
-			view.scene.addChild(light);
-			
-		}
+//		private function initLights():void
+//		{
+//			//body material
+//			//bodyMaterial = new TextureMaterial(Cast.bitmapTexture(TEXTURE));
+//			//bodyMaterial.gloss = 20;
+//			//bodyMaterial.specular = 1.5;
+//			//bodyMaterial.specularMap = Cast.bitmapTexture(BodySpecular);
+//			//bodyMaterial.normalMap = Cast.bitmapTexture(BodyNormals);
+//			//bodyMaterial.addMethod(fogMethod);
+//			//bodyMaterial.lightPicker = lightPicker;
+//			//bodyMaterial.shadowMethod = shadowMapMethod;
+//			
+//			//add stats panel
+//			light = new PointLight();
+//			light.castsShadows = true;
+//			light.shadowMapper.depthMapSize = 1024;
+//			light.color = 0xffffff;
+//			light.diffuse = 0.7;
+//			light.specular = 0.6;
+//			light.radius = 500;
+//			light.fallOff = 700;
+//			light.ambient = 0xa0a0c0;
+//			light.ambient = 0.3;	
+//			
+//			var sphere:WireframeSphere = new WireframeSphere(20, 4,4,0xff0000, 2);
+//			sphere.y = 0;
+//			sphere.z = -300;
+//			sphere.x = -200;
+//			
+//			//view.scene.addChild(sphere);
+//			/*
+//			if(Constants.DEBUG_MODE) {
+//				var trident:Trident = new Trident();
+//				trident.scale(1);
+//				view.scene.addChild(trident);
+//			}
+//			*/
+//			
+//			light.x = sphere.x;
+//			light.y = sphere.y;
+//			light.z = sphere.z;
+//			
+//			TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+//			TweenMax.allTo([sphere,light], 2, {y:400, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+//			
+//			SceneFX.LIGHT = light;
+//			SceneFX.LIGHTPICKER = new StaticLightPicker([SceneFX.LIGHT]);
+//			SceneFX.SHADOW = new HardShadowMapMethod(SceneFX.LIGHT);
+//			SceneFX.SHADOW.alpha=0.3;
+//			
+//			view.scene.addChild(light);
+//			
+//		}
 		
 		protected function onEnterFrame(e:Event):void
 		{
 			var xPos:Number = Maths.map(mouseX, 0, stage.stageWidth, -1000, 1000);
 			var zPos:Number = Maths.map(mouseY, 0, stage.stageHeight, -1000, -300);
 
+			
+			
+			if(flask.ready && flask.showing) flask.update();
+			
+			
+			
 			view.camera.z = zPos;
 			view.camera.x = xPos;
 			//mover.rotationY = yRotation;

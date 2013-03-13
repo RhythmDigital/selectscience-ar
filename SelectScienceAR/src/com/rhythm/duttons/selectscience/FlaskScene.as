@@ -55,6 +55,9 @@ package com.rhythm.duttons.selectscience
 		private var light2:PointLight;
 		private var lightPicker:StaticLightPicker;
 		private var shadowMap:HardShadowMapMethod;
+
+		private var botMat:TextureMaterial;
+		private var flaskTextureBMP:Bitmap;
 		
 		public function FlaskScene()
 		{
@@ -82,20 +85,23 @@ package com.rhythm.duttons.selectscience
 		override public function show():void
 		{
 			super.show();
-			// reset animation
-		//
-			TweenMax.killTweensOf(flask);
-			flask.scaleY = 0; 
-			flask.scaleZ = 0;
+
+			// flaskMaterial.play();
+
+			//TweenMax.killTweensOf(flask);
+			//flask.scaleY = 0; 
+			//flask.scaleZ = 0;
 			//flask.z = flaskYOffset;
 			
-			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
-			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+			//TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
+			//TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
 		}
 		
 		override public function hide():void
 		{
 			super.hide();
+			
+			// flaskMaterial.gotoAndStop(0);
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
@@ -153,43 +159,18 @@ package com.rhythm.duttons.selectscience
 			super.onResourceComplete(e);
 		}
 		
-		private function redrawBottleTexture():void
-		{
-			flaskTextureBMD.lock();
-			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
-			flaskTextureBMD.unlock();
-			flaskTextureMat.invalidateContent();
-		}
-		
 		override protected function initCustomMaterials():void
 		{
 			initLights();
 			
 			flaskMaterial = new FlaskMaterial();
 			flaskMaterial.gotoAndStop(1);
+			// Constants.stage.addChild(flaskMaterial);
 			
 			flaskTextureMtx = new Matrix();
 			flaskTextureMtx.scale(1,1);
-			flaskTextureBMD = new BitmapData(256, 256, true, 0x00000000);
-			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
 			
-			redrawBottleTexture();	
-			
-			
-			bottle.material = new TextureMaterial(flaskTextureMat);
-			
-			var botMat:TextureMaterial = TextureMaterial(bottle.material);
-			// botMat.alphaThreshold = 0.1;
-			botMat.gloss = 40;
-			botMat.bothSides = true;
-			botMat.specular = 10;
-			botMat.alpha = .99;
-			// botMat.shadowMethod = shadowMap;
-			botMat.lightPicker = lightPicker;
-			//botMat.alphaBlending = true;
-			botMat.animateUVs = true; // animate uv's
-			botMat.repeat = true; // infinate loop material (for uv animation)
-			bottle.subMeshes[0].offsetU = 1;
+			applyBottleTexture();
 			
 			var maleModel:AnimatedModel = getModelByName("male");
 			var femaleModel:AnimatedModel = getModelByName("female");
@@ -207,56 +188,85 @@ package com.rhythm.duttons.selectscience
 			femaleMat.lightPicker = lightPicker;
 		}
 		
+		private function applyBottleTexture():void
+		{						
+			redrawBottleTexture();			
+			
+			if (botMat) botMat = null;
+			botMat = new TextureMaterial(flaskTextureMat);
+
+			botMat.gloss = 40;
+			botMat.bothSides = true;
+			botMat.specular = 10;
+			botMat.alpha = .99;
+			botMat.lightPicker = lightPicker;
+			
+			bottle.material = botMat;
+		}
+		
+		private function redrawBottleTexture():void
+		{
+			if (flaskTextureBMD) 
+			{
+				flaskTextureBMD.dispose();
+				flaskTextureBMD = null;
+			}			
+			
+			if (!flaskTextureBMP)
+			{
+				flaskTextureBMP = new Bitmap();
+				flaskTextureBMP.x = 257;
+				// Constants.stage.addChild(flaskTextureBMP);
+			}
+			
+			flaskTextureBMD = new BitmapData(256, 256, true, 0x00000000);
+			flaskTextureBMP.bitmapData = flaskTextureBMD;			
+			
+			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
+			
+			flaskTextureBMD.lock();
+			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
+			flaskTextureBMD.unlock();
+			flaskTextureMat.invalidateContent();
+		}
+		
 		private function initLights():void
 		{
 			///add stats panel
-			light1 = new PointLight();
-			light2 = new PointLight();
+			if (!light1) light1 = new PointLight();
 			
 			light1.castsShadows = true;
 			light1.shadowMapper.depthMapSize = 1024;
 			
-			light1.color = 0xffffff;
-			light2.color = 0xffff88;
-			
-			light1.diffuse = 0.7;
-			light2.diffuse = 0.7;
-			
+			light1.color = 0xffffff;			
+			light1.diffuse = .7;
+		
 			light1.specular = 10;
-			light2.specular = .3;
-			light1.radius = light2.radius = 1000;
-			light1.fallOff = light2.fallOff = 700;
-			light1.ambient = light2.ambient = 0xffff66;
-			light1.ambient = light2.ambient = 0.5;
+			light1.radius = 1000;
+			light1.fallOff = 700;
+ 			light1.ambient = 0xffff66;
+			light1.ambient = 0.5;
 			
-			light1.x = 100;
-			light1.y = 120;
-			light1.z = -50;
+			light1.x = 200;  // left - right
+			light1.y = 100; // up - down
+			light1.z = 200; // forwards - backwards
 			
-			light1.x = 200;
-			light1.y = 10;
-			light1.z = 200;
-			
-			lightPicker = new StaticLightPicker([light1]);
+			if (!lightPicker) lightPicker = new StaticLightPicker([light1]);
+			else lightPicker.lights = [light1];
 			
 			addChild(light1);		
-			// addChild(light2);	
 			
-			shadowMap = new HardShadowMapMethod(light1);
-			shadowMap.alpha=0.3;
+			if (!shadowMap) shadowMap = new HardShadowMapMethod(light1);			
+			shadowMap.alpha = 0.3;
 			
 			ColorMaterial(plane.material).shadowMethod = shadowMap;
 			ColorMaterial(plane.material).lightPicker = lightPicker;
-			
-			//TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
-			//TweenMax.allTo([sphere,light], 2, {y:0, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
-			//TweenMax.allTo([sphere,light], 1, {z:250, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
 		}
 		
 		override public function update():void
 		{
-			redrawBottleTexture();
-			bottle.subMeshes[0].offsetU += 0.01; // how fast the texture rotates.
+			// applyBottleTexture();
+			// initLights();
 		}	
 		
 		override protected function onAllResourcesLoaded():void
