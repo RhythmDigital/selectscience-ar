@@ -18,10 +18,10 @@ package
 	[SWF(width="1024", height="768", frameRate="60", backgroundColor="#ffffff")]
 	public class AWDTest extends Sprite
 	{
-		[Embed(source="/assets/3d/awd/v1.AWD", mimeType="application/octet-stream")]
+		// [Embed(source="/assets/3d/awd/v1.AWD", mimeType="application/octet-stream")]
 		private static var MONKEY_AWD:Class;
 		
-		[Embed(source="/assets/3d/awd/MONKEYMESH_Painted.png", mimeType="image/png")]
+		// [Embed(source="/assets/3d/awd/MONKEYMESH_Painted.png", mimeType="image/png")]
 		private static var MONKEY_TEXTURE:Class;
 		
 		private var scene:Scene3D;

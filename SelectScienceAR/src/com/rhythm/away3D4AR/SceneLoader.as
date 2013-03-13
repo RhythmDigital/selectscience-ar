@@ -29,9 +29,8 @@ package com.rhythm.away3D4AR
 			plane.rotationX = 90;
 			
 			var planeMat:ColorMaterial = ColorMaterial(plane.material);
-			planeMat.shadowMethod = SceneFX.SHADOW;
-			planeMat.lightPicker = SceneFX.LIGHTPICKER;
-			
+			//planeMat.shadowMethod = SceneFX.SHADOW;
+			//planeMat.lightPicker = SceneFX.LIGHTPICKER;
 			addChild(plane);
 			
 			// Show a Trident

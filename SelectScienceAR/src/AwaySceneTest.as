@@ -59,7 +59,7 @@ package
 			
 			view.scene.addChild(mover);
 			
-			initLights();
+		//	initLights();
 			initModels();
 		}
 		
@@ -133,21 +133,21 @@ package
 		
 		private function initModels():void
 		{
-			monkey = new MonkeyScene();
+			/*monkey = new MonkeyScene();
 			monkey.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(monkey);
 			monkey.x = -150;
-			
+			*/
 			flask = new FlaskScene();
 			flask.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(flask);
-			
+			/*
 			retro = new RetroVirusScene();
 			retro.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(retro);
 			retro.x = 150;
-			
-			total = 3;
+			*/
+			total = 1;
 			numDone = 0;
 		}
 		

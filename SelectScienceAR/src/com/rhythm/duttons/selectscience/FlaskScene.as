@@ -1,10 +1,10 @@
 package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Elastic;
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.away3D4AR.SceneLoader;
-	import com.rhythm.display.FullscreenARView;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
@@ -20,12 +20,7 @@ package com.rhythm.duttons.selectscience
 	import away3d.library.assets.AssetType;
 	import away3d.loaders.parsers.DAEParser;
 	import away3d.materials.ColorMaterial;
-	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
-	import away3d.materials.lightpickers.LightPickerBase;
-	import away3d.materials.lightpickers.StaticLightPicker;
-	import away3d.materials.methods.HardShadowMapMethod;
-	import away3d.primitives.PlaneGeometry;
 	import away3d.textures.BitmapTexture;
 	import away3d.utils.Cast;
 	
@@ -49,7 +44,6 @@ package com.rhythm.duttons.selectscience
 		
 		private var avg:Array = [];
 		private var flaskTextureMtx:Matrix;
-		private var plane:Mesh;
 		
 		public function FlaskScene()
 		{
@@ -79,12 +73,12 @@ package com.rhythm.duttons.selectscience
 			// reset animation
 		//
 			TweenMax.killTweensOf(flask);
-		//	flask.scaleY = 0; 
-		//	flask.scaleZ = 0;
+			flask.scaleY = 0; 
+			flask.scaleZ = 0;
 			//flask.z = flaskYOffset;
 			
-		//	TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
-		//	TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
@@ -164,7 +158,7 @@ package com.rhythm.duttons.selectscience
 			botMat.specular = 1.5;
 			botMat.alpha = .3;
 			//botMat.shadowMethod = shadowMap;
-			botMat.lightPicker = SceneFX.LIGHTPICKER;
+			// botMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			
 			var maleModel:AnimatedModel = getModelByName("male");
@@ -173,15 +167,16 @@ package com.rhythm.duttons.selectscience
 			// Male Material
 			var maleMat:ColorMaterial = maleModel.getNewColourMaterial(0x8dcc, 1);
 			maleModel.mesh.material = maleMat;
-			maleMat.shadowMethod = SceneFX.SHADOW;
-			maleMat.lightPicker = SceneFX.LIGHTPICKER;
+			//maleMat.shadowMethod = SceneFX.SHADOW;
+			//maleMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			// Female Material
 			var femaleMat:ColorMaterial = femaleModel.getNewColourMaterial(0xcc558a, 1); 
 			femaleModel.mesh.material = femaleMat;
-			femaleMat.shadowMethod = SceneFX.SHADOW;
-			femaleMat.lightPicker = SceneFX.LIGHTPICKER;
+			//femaleMat.shadowMethod = SceneFX.SHADOW;
+			//femaleMat.lightPicker = SceneFX.LIGHTPICKER;
 		}
+		
 		
 		override protected function onAllResourcesLoaded():void
 		{
