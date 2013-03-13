@@ -38,6 +38,7 @@ package
 	import com.bit101.components.PushButton;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Sine;
+	import com.rhythm.away3D4AR.Constants;
 	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
@@ -187,6 +188,7 @@ package
 			super.init3D();
 			
 			//addChild(new AwayStats(view));
+			Constants.scene = view.scene;
 			
 			modelsLoaded++;
 			updateStatus("Loading 3D Models (" + modelsLoaded + "/3)...");
@@ -198,7 +200,7 @@ package
 			scenes[id] = new sceneClasses[id]();
 			scenes[id].id = id;
 			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
-			
+			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
 			container.addChild(scenes[id]);
 		}
 		
