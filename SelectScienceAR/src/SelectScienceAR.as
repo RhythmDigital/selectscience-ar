@@ -36,6 +36,7 @@ package
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
+	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
@@ -136,10 +137,10 @@ package
 			TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
 			TweenMax.allTo([sphere,light], 2, {y:400, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
 			
-			FullscreenARView.LIGHT = light;
-			FullscreenARView.LIGHTPICKER = new StaticLightPicker([FullscreenARView.LIGHT]);
-			FullscreenARView.SHADOW = new HardShadowMapMethod(FullscreenARView.LIGHT);
-			FullscreenARView.SHADOW.alpha=0.3;
+			SceneFX.LIGHT = light;
+			SceneFX.LIGHTPICKER = new StaticLightPicker([SceneFX.LIGHT]);
+			SceneFX.SHADOW = new HardShadowMapMethod(SceneFX.LIGHT);
+			SceneFX.SHADOW.alpha=0.3;
 		}
 		
 		override protected function init3D():void

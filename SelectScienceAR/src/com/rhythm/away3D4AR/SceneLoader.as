@@ -1,11 +1,8 @@
 package com.rhythm.away3D4AR
 {
-	import com.rhythm.display.FullscreenARView;
-	
 	import flash.events.Event;
 	
 	import away3d.containers.ObjectContainer3D;
-	import away3d.debug.Trident;
 	import away3d.entities.Mesh;
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
@@ -31,8 +28,8 @@ package com.rhythm.away3D4AR
 			plane.rotationX = 90;
 			
 			var planeMat:ColorMaterial = ColorMaterial(plane.material);
-			planeMat.shadowMethod = FullscreenARView.SHADOW;
-			planeMat.lightPicker = FullscreenARView.LIGHTPICKER;
+			planeMat.shadowMethod = SceneFX.SHADOW;
+			planeMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			addChild(plane);
 			

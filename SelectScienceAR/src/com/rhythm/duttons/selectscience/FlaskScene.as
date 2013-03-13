@@ -2,6 +2,7 @@ package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
 	import com.rhythm.away3D4AR.AnimatedModel;
+	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	
@@ -180,11 +181,11 @@ package com.rhythm.duttons.selectscience
 			bottle.material = new TextureMaterial(flaskTextureMat);
 			var botMat:TextureMaterial = TextureMaterial(bottle.material); 
 			botMat.gloss = 20;
-			///botMat.bothSides = true;
+			botMat.bothSides = true;
 			botMat.specular = 1.5;
 			botMat.alpha = .3;
 			//botMat.shadowMethod = shadowMap;
-			botMat.lightPicker = FullscreenARView.LIGHTPICKER;
+			botMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			
 			
@@ -204,13 +205,16 @@ package com.rhythm.duttons.selectscience
 			maleModel.init();
 			femaleModel.init();
 			
-			maleModel.mesh.material = maleModel.getNewColourMaterial(0x8dcc, 1);
-			ColorMaterial(maleModel.mesh.material).shadowMethod = FullscreenARView.SHADOW;
-			ColorMaterial(maleModel.mesh.material).lightPicker = FullscreenARView.LIGHTPICKER;
+			var maleMat:ColorMaterial = maleModel.getNewColourMaterial(0x8dcc, 1);
+			maleModel.mesh.material = maleMat;
 			
-			femaleModel.mesh.material = femaleModel.getNewColourMaterial(0xcc558a, 1);
-			ColorMaterial(femaleModel.mesh.material).shadowMethod = FullscreenARView.SHADOW;
-			ColorMaterial(femaleModel.mesh.material).lightPicker = FullscreenARView.LIGHTPICKER;
+			maleMat.shadowMethod = SceneFX.SHADOW;
+			maleMat.lightPicker = SceneFX.LIGHTPICKER;
+			
+			var femaleMat:ColorMaterial = femaleModel.getNewColourMaterial(0xcc558a, 1); 
+			femaleModel.mesh.material = femaleMat;
+			femaleMat.shadowMethod = SceneFX.SHADOW;
+			femaleMat.lightPicker = SceneFX.LIGHTPICKER;
 			
 			super.onAllResourcesLoaded();
 		}

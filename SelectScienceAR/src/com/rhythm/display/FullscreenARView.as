@@ -23,11 +23,7 @@ package com.rhythm.display
 	import org.libspark.flartoolkit.support.away3dv40.FLARAway3DMarkerSystem;
 	
 	public class FullscreenARView extends FullscreenAIRDisplay
-	{
-		public static var LIGHT:PointLight;
-		public static var SHADOW:HardShadowMapMethod;
-		public static var LIGHTPICKER:StaticLightPicker;
-		
+	{	
 		//protected var bmp:Bitmap;
 		//protected var camera:CameraBitmap;
 		protected var bg:BitmapTexture;
