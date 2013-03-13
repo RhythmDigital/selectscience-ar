@@ -13,6 +13,8 @@ package com.rhythm.display
 	import away3d.containers.Scene3D;
 	import away3d.containers.View3D;
 	import away3d.lights.PointLight;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.materials.methods.HardShadowMapMethod;
 	import away3d.textures.BitmapTexture;
 	
 	import org.libspark.flartoolkit.core.types.FLARIntSize;
@@ -23,6 +25,8 @@ package com.rhythm.display
 	public class FullscreenARView extends FullscreenAIRDisplay
 	{
 		public static var LIGHT:PointLight;
+		public static var SHADOW:HardShadowMapMethod;
+		public static var LIGHTPICKER:StaticLightPicker;
 		
 		//protected var bmp:Bitmap;
 		//protected var camera:CameraBitmap;
@@ -68,6 +72,7 @@ package com.rhythm.display
 			sizeParamSetup();
 			initCamera();
 			initAR(flarParams);
+			initLights();
 			init3D();
 		}
 		
@@ -117,6 +122,11 @@ package com.rhythm.display
 			var markerSysConf:FLARMarkerSystemConfig = new FLARMarkerSystemConfig(new arParams.camPattern, rasterWidth, rasterHeight);
 			arSensor  = new FLARSensor(new FLARIntSize(rasterWidth, rasterHeight));
 			markerSys = new FLARAway3DMarkerSystem(markerSysConf);
+			
+		}
+		
+		protected function initLights():void
+		{
 			
 		}
 		

@@ -3,6 +3,7 @@ package com.rhythm.duttons.selectscience
 	import com.greensock.TweenMax;
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.SceneLoader;
+	import com.rhythm.display.FullscreenARView;
 	
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
@@ -20,6 +21,9 @@ package com.rhythm.duttons.selectscience
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
+	import away3d.materials.lightpickers.LightPickerBase;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.materials.methods.HardShadowMapMethod;
 	import away3d.primitives.PlaneGeometry;
 	import away3d.textures.BitmapTexture;
 	import away3d.utils.Cast;
@@ -44,6 +48,7 @@ package com.rhythm.duttons.selectscience
 		
 		private var avg:Array = [];
 		private var flaskTextureMtx:Matrix;
+		private var plane:Mesh;
 		
 		public function FlaskScene()
 		{
@@ -56,9 +61,7 @@ package com.rhythm.duttons.selectscience
 			//flask.scaleX = 10;
 			addChild(flask);
 			
-			var plane:Mesh = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
-			plane.rotationX = 90;
-			addChild(plane);
+			
 		}
 		
 		// load the model assets
@@ -97,11 +100,11 @@ package com.rhythm.duttons.selectscience
 			
 			if(e.asset.assetType == AssetType.MESH) {
 				
-				m.mesh = Mesh(e.asset);
+				m.mesh = new Mesh(Mesh(e.asset).geometry, null);
 				
 				if(e.asset.assetNamespace == "bottle") {
 					bottle = m.mesh;
-					bottle.showBounds = true;
+					//bottle.showBounds = true;
 					
 				}
 				//m.mesh.z = 0;//3;
@@ -144,28 +147,25 @@ package com.rhythm.duttons.selectscience
 					flaskMaterial.stop();
 					
 					flaskTextureMtx = new Matrix()
-					flaskTextureMtx.scale(.5,.5);
+					flaskTextureMtx.scale(0.5,0.5);
 					flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
 					flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
 					
-					/*ColorMaterial(e.asset).alphaBlending = true;
-					ColorMaterial(e.asset).alphaThreshold = 0.3;
-					ColorMaterial(e.asset).bothSides = true;*/
-					
 					trace("Bottle Mat: " + flaskTextureMat);
+				} else {
+					
+					//m.material = e.asset as MaterialBase;
+					//trace("MATERIAL: " + m.material.name);
+//					if(e.asset is ColorMaterial) {
+//						trace(ColorMaterial(e.asset).color.toString(16));
+//					}
 				}
 			}
-		}
-		
-		public function update():void
-		{
-			
 		}
 		
 		override protected function onResourceComplete(e:LoaderEvent):void
 		{
 			trace("Flask complete.");
-			
 			
 			super.onResourceComplete(e);
 		}
@@ -177,15 +177,40 @@ package com.rhythm.duttons.selectscience
 			flaskTextureBMD.unlock();
 			flaskTextureMat.invalidateContent();
 			
-			
-
-			getModelByName("bottle").initAnimation();
-			getModelByName("male").initAnimation();
-			getModelByName("female").initAnimation();
-			
-			bottle.material.dispose();
-			bottle.material = null;
 			bottle.material = new TextureMaterial(flaskTextureMat);
+			var botMat:TextureMaterial = TextureMaterial(bottle.material); 
+			botMat.gloss = 20;
+			///botMat.bothSides = true;
+			botMat.specular = 1.5;
+			botMat.alpha = .3;
+			//botMat.shadowMethod = shadowMap;
+			botMat.lightPicker = FullscreenARView.LIGHTPICKER;
+			
+			
+			
+			//bottle.material. = new HardShadowMapMethod(FullscreenARView.LIGHT);
+			/*
+			TextureMaterial(monkey.material).specular = .25;
+			TextureMaterial(monkey.material).gloss = 20;
+			*/
+			//TextureMaterial(bottle.material).alphaBlending = true;
+			//TextureMaterial(bottle.material).alphaThreshold = 0.5;
+			
+			var bottleModel:AnimatedModel = getModelByName("bottle");
+			var maleModel:AnimatedModel = getModelByName("male");
+			var femaleModel:AnimatedModel = getModelByName("female");
+			
+			bottleModel.init();
+			maleModel.init();
+			femaleModel.init();
+			
+			maleModel.mesh.material = maleModel.getNewColourMaterial(0x8dcc, 1);
+			ColorMaterial(maleModel.mesh.material).shadowMethod = FullscreenARView.SHADOW;
+			ColorMaterial(maleModel.mesh.material).lightPicker = FullscreenARView.LIGHTPICKER;
+			
+			femaleModel.mesh.material = femaleModel.getNewColourMaterial(0xcc558a, 1);
+			ColorMaterial(femaleModel.mesh.material).shadowMethod = FullscreenARView.SHADOW;
+			ColorMaterial(femaleModel.mesh.material).lightPicker = FullscreenARView.LIGHTPICKER;
 			
 			super.onAllResourcesLoaded();
 		}

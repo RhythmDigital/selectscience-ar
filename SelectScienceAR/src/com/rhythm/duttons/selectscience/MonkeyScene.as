@@ -55,10 +55,6 @@ package com.rhythm.duttons.selectscience
 			trace("Monkey Scene");
 			super();
 			
-			var plane:Mesh = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
-			plane.rotationX = 90;
-			addChild(plane);
-			
 			monkeyFull = new ObjectContainer3D();
 			addChild(monkeyFull);
 			

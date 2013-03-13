@@ -34,6 +34,8 @@
 
 package
 {
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Quad;
 	import com.rhythm.away3D4AR.SceneLoader;
 	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
@@ -44,7 +46,11 @@ package
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.debug.AwayStats;
+	import away3d.debug.Trident;
 	import away3d.lights.PointLight;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.materials.methods.HardShadowMapMethod;
+	import away3d.primitives.WireframeSphere;
 	
 	[SWF(frameRate="30", width="1280", height="720", backgroundColor=0xff0000)]
 	public class SelectScienceAR extends FullscreenARView
@@ -89,10 +95,8 @@ package
 			start(flarParams);
 		}
 		
-		override protected function init3D():void
+		override protected function initLights():void
 		{
-			super.init3D();
-			
 			//body material
 			//bodyMaterial = new TextureMaterial(Cast.bitmapTexture(TEXTURE));
 			//bodyMaterial.gloss = 20;
@@ -103,32 +107,46 @@ package
 			//bodyMaterial.lightPicker = lightPicker;
 			//bodyMaterial.shadowMethod = shadowMapMethod;
 			
-			//AssetLibrary.addEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete);
-			//AssetLibrary.loadData(new COLLADA(), null, null, new DAEParser);
-			
 			//add stats panel
-			/*light = new PointLight();
+			light = new PointLight();
 			light.castsShadows = true;
 			light.shadowMapper.depthMapSize = 1024;
 			light.color = 0xffffff;
-			light.diffuse = 1;
-			light.specular = 1;
-			light.radius = 400;
-			light.fallOff = 500;
+			light.diffuse = 0.7;
+			light.specular = 0.6;
+			light.radius = 500;
+			light.fallOff = 700;
 			light.ambient = 0xa0a0c0;
-			light.ambient = .5;	
+			light.ambient = 0.3;	
 			
 			var sphere:WireframeSphere = new WireframeSphere(20, 4,4,0xff0000, 2);
-			sphere.y = 20;
-			sphere.z = 200;
-			scene.addChild(sphere);
+			sphere.y = 0;
+			sphere.z = -300;
+			sphere.x = -200;
+			//view.scene.addChild(sphere);
 			
-			FullscreenARView.LIGHT = light;
+			var trident:Trident = new Trident();
+			trident.scale(1);
+			//view.scene.addChild(trident);
 			
 			light.x = sphere.x;
 			light.y = sphere.y;
 			light.z = sphere.z;
-			scene.addChild(light);*/
+			
+			TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			TweenMax.allTo([sphere,light], 2, {y:400, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			
+			FullscreenARView.LIGHT = light;
+			FullscreenARView.LIGHTPICKER = new StaticLightPicker([FullscreenARView.LIGHT]);
+			FullscreenARView.SHADOW = new HardShadowMapMethod(FullscreenARView.LIGHT);
+			FullscreenARView.SHADOW.alpha=0.3;
+		}
+		
+		override protected function init3D():void
+		{
+			super.init3D();
+			
+			view.scene.addChild(light);
 			
 			addChild(new AwayStats(view));
 		}

@@ -1,5 +1,8 @@
 package
 {
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Quad;
+	import com.rhythm.display.FullscreenARView;
 	import com.rhythm.duttons.selectscience.FlaskScene;
 	import com.rhythm.duttons.selectscience.MonkeyScene;
 	import com.rhythm.duttons.selectscience.RetroVirusScene;
@@ -14,6 +17,11 @@ package
 	import away3d.containers.ObjectContainer3D;
 	import away3d.containers.View3D;
 	import away3d.debug.AwayStats;
+	import away3d.debug.Trident;
+	import away3d.lights.PointLight;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.materials.methods.HardShadowMapMethod;
+	import away3d.primitives.WireframeSphere;
 	
 	[SWF(width="1280", height="720", frameRate="30", backgroundColor="#c2c2c2")] 
 	public class AwaySceneTest extends Sprite
@@ -28,6 +36,7 @@ package
 		private var world:ObjectContainer3D;
 		private var mover:ObjectContainer3D;
 		private var rotateAxis:Vector3D = new Vector3D(0,0.5,0);
+		private var light:PointLight;
 		
 		public function AwaySceneTest()
 		{
@@ -38,7 +47,7 @@ package
 			addChild(new AwayStats);
 			
 			world = new ObjectContainer3D();
-			world.rotationX = -90;
+			world.rotationX = -135;
 			world.y = -100;
 			world.scale(2);
 			
@@ -48,19 +57,70 @@ package
 			
 			view.scene.addChild(mover);
 			
-			
+			initLights();
 			initModels();
+		}
+		
+		private function initLights():void
+		{
+			//body material
+			//bodyMaterial = new TextureMaterial(Cast.bitmapTexture(TEXTURE));
+			//bodyMaterial.gloss = 20;
+			//bodyMaterial.specular = 1.5;
+			//bodyMaterial.specularMap = Cast.bitmapTexture(BodySpecular);
+			//bodyMaterial.normalMap = Cast.bitmapTexture(BodyNormals);
+			//bodyMaterial.addMethod(fogMethod);
+			//bodyMaterial.lightPicker = lightPicker;
+			//bodyMaterial.shadowMethod = shadowMapMethod;
+			
+			//add stats panel
+			light = new PointLight();
+			light.castsShadows = true;
+			light.shadowMapper.depthMapSize = 1024;
+			light.color = 0xffffff;
+			light.diffuse = 0.7;
+			light.specular = 0.6;
+			light.radius = 500;
+			light.fallOff = 700;
+			light.ambient = 0xa0a0c0;
+			light.ambient = 0.3;	
+			
+			var sphere:WireframeSphere = new WireframeSphere(20, 4,4,0xff0000, 2);
+			sphere.y = 0;
+			sphere.z = -300;
+			sphere.x = -200;
+			//view.scene.addChild(sphere);
+			
+			var trident:Trident = new Trident();
+			trident.scale(1);
+			//view.scene.addChild(trident);
+			
+			light.x = sphere.x;
+			light.y = sphere.y;
+			light.z = sphere.z;
+			
+			TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			TweenMax.allTo([sphere,light], 2, {y:400, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			
+			FullscreenARView.LIGHT = light;
+			FullscreenARView.LIGHTPICKER = new StaticLightPicker([FullscreenARView.LIGHT]);
+			FullscreenARView.SHADOW = new HardShadowMapMethod(FullscreenARView.LIGHT);
+			FullscreenARView.SHADOW.alpha=0.3;
+			
+			view.scene.addChild(light);
+			
 		}
 		
 		protected function onEnterFrame(e:Event):void
 		{
-			var yRotation:Number = Maths.map(mouseX, 0, stage.stageWidth, -180, 180);
-			var zPos:Number = Maths.map(mouseY, 0, stage.stageHeight, 500, -1000);
+			var xPos:Number = Maths.map(mouseX, 0, stage.stageWidth, -1000, 1000);
+			var zPos:Number = Maths.map(mouseY, 0, stage.stageHeight, -1000, -300);
 
-			mover.z = zPos;
-			mover.rotationY = yRotation;
+			view.camera.z = zPos;
+			view.camera.x = xPos;
+			//mover.rotationY = yRotation;
 			//mover.rotate(rotateAxis, 1);
-			view.camera.y = 0;
+			//view.camera.y = 0;
 			view.camera.lookAt(mover.position);
 			view.render();
 		}
@@ -82,8 +142,6 @@ package
 			retro.x = 150;
 			
 			total = 3;
-			
-			
 			numDone = 0;
 		}
 		

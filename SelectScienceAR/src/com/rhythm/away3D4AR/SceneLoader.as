@@ -1,24 +1,45 @@
 package com.rhythm.away3D4AR
 {
+	import com.rhythm.display.FullscreenARView;
+	
 	import flash.events.Event;
 	
 	import away3d.containers.ObjectContainer3D;
+	import away3d.debug.Trident;
+	import away3d.entities.Mesh;
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
 	import away3d.loaders.AssetLoader;
 	import away3d.loaders.parsers.MD5AnimParser;
 	import away3d.loaders.parsers.MD5MeshParser;
 	import away3d.loaders.parsers.ParserBase;
+	import away3d.materials.ColorMaterial;
+	import away3d.primitives.PlaneGeometry;
 	
 	public class SceneLoader extends ObjectContainer3D
 	{
 		protected var models:Vector.<AnimatedModel>;
 		private var numResourcesLoaded:int;
 		private var totalResources:int;
+		protected var plane:Mesh;
 		
 		public function SceneLoader()
 		{
 			super();
+			
+			plane = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
+			plane.rotationX = 90;
+			
+			var planeMat:ColorMaterial = ColorMaterial(plane.material);
+			planeMat.shadowMethod = FullscreenARView.SHADOW;
+			planeMat.lightPicker = FullscreenARView.LIGHTPICKER;
+			
+			addChild(plane);
+			
+			// Show a Trident
+			/*var trident:Trident = new Trident();
+			trident.scale(0.1);
+			addChild(trident);*/
 			
 			models = new Vector.<AnimatedModel>();
 			totalResources = 0;

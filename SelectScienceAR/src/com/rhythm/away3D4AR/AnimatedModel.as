@@ -21,6 +21,7 @@ package com.rhythm.away3D4AR
 		public var animator:SkeletonAnimator;
 		public var animationSet:SkeletonAnimationSet;
 		public var animationNode:SkeletonClipNode;
+		public var material:MaterialBase;
 		private var tempMaterial:MaterialBase;
 		
 		public function AnimatedModel(name:String)
@@ -45,22 +46,28 @@ package com.rhythm.away3D4AR
 		public function getNewColourMaterial(mCol:uint = 0xff0000, mAlpha:int = 1):ColorMaterial
 		{
 			var mat:ColorMaterial = new ColorMaterial(mCol, mAlpha);
-			mat.alpha = .7;
-			mat.alphaBlending = true;
-			mat.alphaThreshold = 0.3;
-			mat.bothSides = true;
+			
+			if(mAlpha < 1) {
+				mat.alpha = 1;
+				mat.alphaBlending = true;
+				mat.alphaThreshold = 0.5;
+				mat.bothSides = true;
+			}
+			
 			return mat;
 		}
 		
-		public function initAnimation():void
+		public function init():void
 		{
-			trace("Animation initialised.");
+			trace(name + " initialised.");
 			animationNode.name = "default";
 			//animationNode.stitchFinalFrame = false;
 			animationNode.looping = true;
 			animationNode.addEventListener(AnimationStateEvent.PLAYBACK_COMPLETE, onComplete);
 			animationSet.addAnimation(animationNode);
 			mesh.animator = animator;
+			//if(material) mesh.material = material;
+			//else mesh.material = getNewColourMaterial(Math.random()*0xFFFFFF, .6);
 			animator.play("default");
 			
 			animator.updatePosition = true;

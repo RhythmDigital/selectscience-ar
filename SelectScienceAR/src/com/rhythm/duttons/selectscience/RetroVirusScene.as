@@ -39,13 +39,10 @@ package com.rhythm.duttons.selectscience
 			
 			virus = new ObjectContainer3D();
 			virus.rotationX = 90;
+			virus.z = 17;
 			virus.scale(2);
 			//virus.scaleX = 10;
 			addChild(virus);
-			
-			var plane:Mesh = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
-			plane.rotationX = 90;
-			addChild(plane);
 		}
 		
 		// load the model assets
@@ -103,7 +100,6 @@ package com.rhythm.duttons.selectscience
 			if(e.asset.assetType == AssetType.MESH) {
 				
 				m.mesh = Mesh(e.asset);
-				m.mesh.y = 5;
 				
 				if(e.asset.assetNamespace == "virus_idle") {
 					// idle mesh
@@ -148,14 +144,7 @@ package com.rhythm.duttons.selectscience
 			// adjust materials
 			if(e.asset.assetType == AssetType.MATERIAL) {
 				trace("Material: " + e.asset.assetFullPath);
-//				if(e.asset.assetFullPath.indexOf("Bottle") !== -1) {
-//					ColorMaterial(e.asset).alpha = .7;
-//					ColorMaterial(e.asset).alphaBlending = true;
-//					ColorMaterial(e.asset).alphaThreshold = 0.3;
-//					ColorMaterial(e.asset).bothSides = true;
-//					
-//					trace("Bottle Mat: " + e.asset);
-//				}
+				
 			}
 			
 			
@@ -169,9 +158,9 @@ package com.rhythm.duttons.selectscience
 		
 		override protected function onAllResourcesLoaded():void
 		{
-			getModelByName("virus_idle").initAnimation();
-			getModelByName("virus_dance").initAnimation();
-			getModelByName("virus_dance_afro").initAnimation();
+			getModelByName("virus_idle").init();
+			getModelByName("virus_dance").init();
+			getModelByName("virus_dance_afro").init();
 			
 			super.onAllResourcesLoaded();
 		}
