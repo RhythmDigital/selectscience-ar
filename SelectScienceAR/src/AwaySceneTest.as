@@ -92,12 +92,13 @@ package
 			sphere.z = -300;
 			sphere.x = -200;
 			//view.scene.addChild(sphere);
-			
+			/*
 			if(Constants.DEBUG_MODE) {
 				var trident:Trident = new Trident();
 				trident.scale(1);
 				view.scene.addChild(trident);
 			}
+			*/
 			light.x = sphere.x;
 			light.y = sphere.y;
 			light.z = sphere.z;
