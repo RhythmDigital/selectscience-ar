@@ -23,6 +23,7 @@ package com.rhythm.away3D4AR
 		public var animationNode:SkeletonClipNode;
 		public var material:MaterialBase;
 		private var tempMaterial:MaterialBase;
+		private var t:Timer;
 		
 		public function AnimatedModel(name:String)
 		{
@@ -63,39 +64,51 @@ package com.rhythm.away3D4AR
 			animationNode.name = "default";
 			//animationNode.stitchFinalFrame = false;
 			animationNode.looping = true;
-			animationNode.addEventListener(AnimationStateEvent.PLAYBACK_COMPLETE, onComplete);
 			animationSet.addAnimation(animationNode);
 			mesh.animator = animator;
 			//if(material) mesh.material = material;
 			//else mesh.material = getNewColourMaterial(Math.random()*0xFFFFFF, .6);
-			animator.play("default");
 			
 			animator.updatePosition = true;
-			animator.addEventListener(AnimationStateEvent.PLAYBACK_COMPLETE, onComplete);
 			
-			var t:Timer = new Timer(animationNode.totalDuration);
-			t.addEventListener(TimerEvent.TIMER, onTimerTick);
-			t.start();
+			restartAnimation();
 		}
+		
+		public function restartAnimation():void
+		{
+			if(!t) {
+				animator.play("default");
+				resetMeshPos();
+				t = new Timer(animationNode.totalDuration);
+				t.addEventListener(TimerEvent.TIMER, onTimerTick);
+				t.start();
+			} else {
+				resetMeshPos();
+				t.start();
+				animator.reset("default", 0);
+				//resetMeshPos();
+			}
+		}
+		/*
+		public function stopAnimation():void
+		{
+			t.stop();
+			animator.stop();
+			reset();
+		}*/
 		
 		protected function onTimerTick(e:TimerEvent):void
 		{
 			trace(name + " RESET ANIMATION");
-			reset();
-			animator.reset("default", 0);11
+			t.stop();
+			restartAnimation();
 		}
 		
-		public function reset():void
+		public function resetMeshPos():void
 		{
 			mesh.x = 0;
 			mesh.y = 0;
 			mesh.z = 0;
-		}
-		
-		protected function onComplete(e:AnimationStateEvent):void
-		{
-			trace("ANIMATION COMPLETE.");	
-			reset();
 		}
 		
 		public function toString():String
