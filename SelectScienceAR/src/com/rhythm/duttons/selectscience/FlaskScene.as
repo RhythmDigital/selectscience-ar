@@ -2,10 +2,13 @@ package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Elastic;
+	import com.greensock.easing.Quad;
 	import com.rhythm.away3D4AR.AnimatedModel;
+	import com.rhythm.away3D4AR.Constants;
 	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.away3D4AR.SceneLoader;
 	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
 	
@@ -18,9 +21,13 @@ package com.rhythm.duttons.selectscience
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
 	import away3d.library.assets.AssetType;
+	import away3d.lights.PointLight;
 	import away3d.loaders.parsers.DAEParser;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.TextureMaterial;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.materials.methods.HardShadowMapMethod;
+	import away3d.primitives.WireframeSphere;
 	import away3d.textures.BitmapTexture;
 	import away3d.utils.Cast;
 	
@@ -44,6 +51,10 @@ package com.rhythm.duttons.selectscience
 		
 		private var avg:Array = [];
 		private var flaskTextureMtx:Matrix;
+		private var light1:PointLight;
+		private var light2:PointLight;
+		private var lightPicker:StaticLightPicker;
+		private var shadowMap:HardShadowMapMethod;
 		
 		public function FlaskScene()
 		{
@@ -138,27 +149,33 @@ package com.rhythm.duttons.selectscience
 		
 		override protected function initCustomMaterials():void
 		{
-			flaskMaterial = new FlaskMaterial();
-			flaskMaterial.gotoAndStop(0);
+			initLights();
 			
-			flaskTextureMtx = new Matrix()
+			flaskMaterial = new FlaskMaterial();
+			flaskMaterial.gotoAndStop(1);
+			
+			flaskTextureMtx = new Matrix();
 			flaskTextureMtx.scale(1,1);
-			flaskTextureBMD = new BitmapData(1024,1024,true,0x000000);
+			flaskTextureBMD = new BitmapData(256, 256, true, 0x00000000);
 			flaskTextureMat = Cast.bitmapTexture(flaskTextureBMD);
 			
 			flaskTextureBMD.lock();
 			flaskTextureBMD.draw(flaskMaterial, flaskTextureMtx);
 			flaskTextureBMD.unlock();
-			flaskTextureMat.invalidateContent();
+			flaskTextureMat.invalidateContent();	
+			
 			
 			bottle.material = new TextureMaterial(flaskTextureMat);
-			var botMat:TextureMaterial = TextureMaterial(bottle.material); 
-			botMat.gloss = 20;
+			
+			var botMat:TextureMaterial = TextureMaterial(bottle.material);
+			// botMat.alphaThreshold = 0.1;
+			botMat.gloss = 40;
 			botMat.bothSides = true;
-			botMat.specular = 1.5;
-			botMat.alpha = .3;
-			//botMat.shadowMethod = shadowMap;
-			// botMat.lightPicker = SceneFX.LIGHTPICKER;
+			botMat.specular = 10;
+			botMat.alpha = .99;
+			// botMat.shadowMethod = shadowMap;
+			botMat.lightPicker = lightPicker;
+			//botMat.alphaBlending = true;
 			
 			
 			var maleModel:AnimatedModel = getModelByName("male");
@@ -167,14 +184,60 @@ package com.rhythm.duttons.selectscience
 			// Male Material
 			var maleMat:ColorMaterial = maleModel.getNewColourMaterial(0x8dcc, 1);
 			maleModel.mesh.material = maleMat;
-			//maleMat.shadowMethod = SceneFX.SHADOW;
-			//maleMat.lightPicker = SceneFX.LIGHTPICKER;
+			//maleMat.shadowMethod = shadowMap;
+			maleMat.lightPicker = lightPicker;
 			
 			// Female Material
 			var femaleMat:ColorMaterial = femaleModel.getNewColourMaterial(0xcc558a, 1); 
-			femaleModel.mesh.material = femaleMat;
-			//femaleMat.shadowMethod = SceneFX.SHADOW;
-			//femaleMat.lightPicker = SceneFX.LIGHTPICKER;
+			femaleModel.mesh.material = femaleMat; 
+			//femaleMat.shadowMethod = shadowMap;
+			femaleMat.lightPicker = lightPicker;
+		}
+		
+		private function initLights():void
+		{
+			///add stats panel
+			light1 = new PointLight();
+			light2 = new PointLight();
+			
+			light1.castsShadows = true;
+			light1.shadowMapper.depthMapSize = 1024;
+			
+			light1.color = 0xffffff;
+			light2.color = 0xffff88;
+			
+			light1.diffuse = 0.7;
+			light2.diffuse = 0.7;
+			
+			light1.specular = 10;
+			light2.specular = .3;
+			light1.radius = light2.radius = 1000;
+			light1.fallOff = light2.fallOff = 700;
+			light1.ambient = light2.ambient = 0xffff66;
+			light1.ambient = light2.ambient = 0.5;
+			
+			light1.x = 100;
+			light1.y = 120;
+			light1.z = -50;
+			
+			light1.x = 200;
+			light1.y = 10;
+			light1.z = 200;
+			
+			lightPicker = new StaticLightPicker([light1]);
+			
+			addChild(light1);		
+			// addChild(light2);	
+			
+			shadowMap = new HardShadowMapMethod(light1);
+			shadowMap.alpha=0.3;
+			
+			ColorMaterial(plane.material).shadowMethod = shadowMap;
+			ColorMaterial(plane.material).lightPicker = lightPicker;
+			
+			//TweenMax.allTo([sphere,light], 3, {x:200, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			//TweenMax.allTo([sphere,light], 2, {y:0, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
+			//TweenMax.allTo([sphere,light], 1, {z:250, repeat:-1, yoyo:true, ease:Quad.easeInOut, overwrite:2});
 		}
 		
 		
