@@ -2,33 +2,37 @@ package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Elastic;
-	import com.greensock.easing.Quad;
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.Constants;
-	import com.rhythm.away3D4AR.SceneFX;
 	import com.rhythm.away3D4AR.SceneLoader;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Matrix;
+	import flash.geom.Point;
+	import flash.geom.Utils3D;
+	import flash.geom.Vector3D;
 	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
 	import away3d.animators.data.Skeleton;
 	import away3d.animators.nodes.SkeletonClipNode;
 	import away3d.containers.ObjectContainer3D;
+	import away3d.debug.Trident;
 	import away3d.entities.Mesh;
 	import away3d.events.AssetEvent;
 	import away3d.events.LoaderEvent;
 	import away3d.library.assets.AssetType;
 	import away3d.lights.PointLight;
 	import away3d.loaders.parsers.DAEParser;
+	import away3d.loaders.parsers.OBJParser;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.TextureMaterial;
 	import away3d.materials.lightpickers.StaticLightPicker;
 	import away3d.materials.methods.HardShadowMapMethod;
-	import away3d.primitives.WireframeSphere;
+	import away3d.primitives.WireframeCube;
 	import away3d.textures.BitmapTexture;
+	import away3d.tools.utils.Bounds;
 	import away3d.utils.Cast;
 	
 	public class FlaskScene extends SceneLoader
@@ -39,8 +43,15 @@ package com.rhythm.duttons.selectscience
 		[Embed(source="/assets/flask/MALE.dae", mimeType="application/octet-stream")]
 		private var DAE_MALE:Class;
 		
-		[Embed(source="/assets/flask/Female.dae", mimeType="application/octet-stream")]
+		[Embed(source="/assets/flask/FEMALE.dae", mimeType="application/octet-stream")]
 		private var DAE_FEMALE:Class;
+		
+		[Embed(source="/assets/flask/male_no_mat.obj", mimeType="application/octet-stream")]
+		private var OBJ_MALE_SYM:Class;
+		
+		[Embed(source="/assets/flask/female_no_mat.obj", mimeType="application/octet-stream")]
+		private var OBJ_FEMALE_SYM:Class;
+		
 		
 		private var flask:ObjectContainer3D;
 		private var bottle:Mesh;
@@ -58,6 +69,8 @@ package com.rhythm.duttons.selectscience
 
 		private var botMat:TextureMaterial;
 		private var flaskTextureBMP:Bitmap;
+		private var flaskEmitterPoint:ObjectContainer3D;
+		private var worldEmitterPoint:ObjectContainer3D;
 		
 		public function FlaskScene()
 		{
@@ -65,12 +78,8 @@ package com.rhythm.duttons.selectscience
 			
 			flask = new ObjectContainer3D();
 			flask.rotationX = 90;
-			//flask.z = flaskYOffset;
 			flask.scale(10);
-			//flask.scaleX = 10;
 			addChild(flask);
-			
-			
 		}
 		
 		// load the model assets
@@ -79,19 +88,19 @@ package com.rhythm.duttons.selectscience
 			loadModel(new DAE_BOTTLE, "bottle", new DAEParser);
 			loadModel(new DAE_MALE, "female", new DAEParser);
 			loadModel(new DAE_FEMALE, "male", new DAEParser);
-			
+			loadModel(new OBJ_MALE_SYM, "male-obj", new OBJParser);
+			loadModel(new OBJ_FEMALE_SYM, "female-obj", new OBJParser);
 		}
 		
 		override public function show():void
 		{
 			super.show();
-			
-			// flaskMaterial.play();
 
+			// flaskMaterial.play();
+			
 			TweenMax.killTweensOf(flask);
 			flask.scaleY = 0; 
 			flask.scaleZ = 0;
-			//flask.z = flaskYOffset;
 			
 			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
 			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
@@ -106,19 +115,14 @@ package com.rhythm.duttons.selectscience
 		
 		override protected function onAssetComplete(e:AssetEvent):void
 		{
-			//trace("!!! " + e.assetPrevName);
 			trace(e.asset.assetNamespace + " ==> " + e.asset.assetType);
 			
-			// skel
-			// mesh
-			// animNode
-			// 
-			
 			var m:AnimatedModel = getModelByName(e.asset.assetNamespace);
-			
+
 			if(e.asset.assetType == AssetType.MESH) {
 				
 				m.mesh = new Mesh(Mesh(e.asset).geometry, null);
+				e.asset.dispose();
 				
 				if(e.asset.assetNamespace == "bottle") {
 					bottle = m.mesh;
@@ -267,6 +271,13 @@ package com.rhythm.duttons.selectscience
 		{
 			// applyBottleTexture();
 			// initLights();
+			//point2.lookAt(point1.position);
+			
+			worldEmitterPoint.transform =  flaskEmitterPoint.sceneTransform;
+			
+			
+			flask.rotationX ++;
+			trace("New particle!");
 		}	
 		
 		override protected function onAllResourcesLoaded():void
@@ -274,6 +285,17 @@ package com.rhythm.duttons.selectscience
 			getModelByName("bottle").init();
 			getModelByName("male").init();
 			getModelByName("female").init();
+			
+			flaskEmitterPoint = new WireframeCube(0.1,0.1,0.1,0xff0000,1);
+			Bounds.getMeshBounds(getModelByName("bottle").mesh);
+			flaskEmitterPoint.y = Bounds.height;
+			
+			worldEmitterPoint = new WireframeCube(0.6,0.6,0.6,0x00FF00,1);
+			
+			flask.addChild(flaskEmitterPoint);
+			
+			worldEmitterPoint.addChild(new Trident(1000));
+			Constants.scene.addChild(worldEmitterPoint);
 			
 			super.onAllResourcesLoaded();
 		}

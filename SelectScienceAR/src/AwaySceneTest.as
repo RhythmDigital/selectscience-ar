@@ -44,7 +44,7 @@ package
 		public function AwaySceneTest()
 		{
 			Constants.stage = stage;
-			
+
 			view = new View3D(null);
 			view.antiAlias = 3;
 			addChild(view);
@@ -61,6 +61,7 @@ package
 			mover.addChild(world);
 			
 			view.scene.addChild(mover);
+			Constants.scene = view.scene;	
 			
 		//	initLights();
 			initModels();
