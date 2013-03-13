@@ -42,6 +42,8 @@ package
 		
 		public function AwaySceneTest()
 		{
+			Constants.stage = stage;
+			
 			view = new View3D(null);
 			view.antiAlias = 3;
 			addChild(view);
