@@ -112,9 +112,6 @@ package com.rhythm.duttons.selectscience
 			virus.addChild(virusDanceAfroMesh);
 			virus.addChild(virusDanceMesh);
 			
-			//getModelByName("virus_dance").restartAnimation();
-			//getModelByName("virus_dance_afro").restartAnimation();
-			
 			sc = discoMusic.play(0,9999);
 			
 			TweenMax.to(virus, 1, {rotationZ: 1080, ease:Expo.easeOut, overwrite:2});
