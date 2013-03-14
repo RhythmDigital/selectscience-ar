@@ -65,6 +65,8 @@ package com.rhythm.duttons.selectscience
 			trace("Monkey Scene");
 			super();
 			
+			messageType = 'chimp';
+			
 			monkeyFull = new ObjectContainer3D();
 			addChild(monkeyFull);
 			

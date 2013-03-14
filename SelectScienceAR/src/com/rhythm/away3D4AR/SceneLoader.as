@@ -1,6 +1,10 @@
 package com.rhythm.away3D4AR
 {
+	import com.rhythm.utils.CustomEvent;
+	
 	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.debug.Trident;
@@ -23,6 +27,9 @@ package com.rhythm.away3D4AR
 		public var ready:Boolean;
 		public var showing:Boolean;
 		public var id:int = 0;
+
+		protected var messageType:String;
+		private var timer:Timer;
 		
 		public function SceneLoader()
 		{
@@ -59,12 +66,32 @@ package com.rhythm.away3D4AR
 		{
 			if(!ready) return;
 			showing = true;
+			
+			if (timer == null)
+			{
+				timer = new Timer(5000, 1);
+				timer.addEventListener(TimerEvent.TIMER, onTimerTick, false, 0, true);
+				timer.start();
+			}			
+		}
+		
+		protected function onTimerTick(event:TimerEvent):void
+		{
+			dispatchEvent(new CustomEvent('SHOW_MESSAGE', {messageType:messageType}, true));
 		}
 		
 		public function hide():void
 		{
 			if(!ready) return;
 			showing = false;
+			
+			if (timer) 
+			{
+				timer.stop();
+				timer = null;
+			}		
+			
+			dispatchEvent(new Event('HIDE_MESSAGE', true));
 		}
 		
 		protected function loadTexture():void

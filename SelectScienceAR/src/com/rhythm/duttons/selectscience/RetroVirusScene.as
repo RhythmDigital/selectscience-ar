@@ -49,6 +49,7 @@ package com.rhythm.duttons.selectscience
 		{
 			super();
 			
+			messageType = 'virus';
 			discoMusic = new DISCO_MUSIC();
 			
 			
