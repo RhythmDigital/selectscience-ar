@@ -176,10 +176,10 @@ package com.rhythm.duttons.selectscience
 			super.onResourceComplete(e);
 		}
 		
-		override public function update():void {
-			trace("----\nBODY: " + getModelByName("virus_dance").animator.time);
-			trace("AFRO: " + getModelByName("virus_dance_afro").animator.time+"\n----");
-		}
+//		override public function update():void {
+//			trace("----\nBODY: " + getModelByName("virus_dance").animator.time);
+//			trace("AFRO: " + getModelByName("virus_dance_afro").animator.time+"\n----");
+//		}
 		
 		override protected function onAllResourcesLoaded():void
 		{

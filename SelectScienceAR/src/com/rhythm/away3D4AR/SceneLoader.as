@@ -25,7 +25,7 @@ package com.rhythm.away3D4AR
 		private var totalResources:int;
 		protected var plane:Mesh;
 		public var ready:Boolean;
-		public var showing:Boolean;
+		public var showing:Boolean = false;
 		public var id:int = 0;
 
 		protected var messageType:String;
