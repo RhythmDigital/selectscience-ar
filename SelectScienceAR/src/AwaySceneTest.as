@@ -149,16 +149,17 @@ package
 			world.addChild(monkey);
 			monkey.x = -150;
 			*/
-			/*
+			
 			flask = new FlaskScene();
 			flask.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(flask);
-			*/
 			
+			/*
 			retro = new RetroVirusScene();
 			retro.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(retro);
 			retro.x = 0;
+			*/
 			
 			total = 1;
 			numDone = 0;
