@@ -1,5 +1,7 @@
 package com.rhythm.away3D4AR
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -13,7 +15,7 @@ package com.rhythm.away3D4AR
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.MaterialBase;
 
-	public class AnimatedModel
+	public class AnimatedModel extends EventDispatcher
 	{
 		public var name:String;
 		public var mMesh:Mesh;
@@ -62,12 +64,10 @@ package com.rhythm.away3D4AR
 		{
 			trace(name + " initialised.");
 			animationNode.name = "default";
-			//animationNode.stitchFinalFrame = false;
+			//animationNode.stitchFinalFrame = true;
 			animationNode.looping = true;
 			animationSet.addAnimation(animationNode);
 			mesh.animator = animator;
-			//if(material) mesh.material = material;
-			//else mesh.material = getNewColourMaterial(Math.random()*0xFFFFFF, .6);
 			
 			animator.updatePosition = true;
 			
@@ -83,25 +83,23 @@ package com.rhythm.away3D4AR
 				t.addEventListener(TimerEvent.TIMER, onTimerTick);
 				t.start();
 			} else {
+				//animator.stop();
+				
 				resetMeshPos();
-				t.start();
 				animator.reset("default", 0);
-				//resetMeshPos();
+				//animator.start();
+				t.reset();
+				t.start();
 			}
 		}
-		/*
-		public function stopAnimation():void
-		{
-			t.stop();
-			animator.stop();
-			reset();
-		}*/
 		
 		protected function onTimerTick(e:TimerEvent):void
 		{
 			trace(name + " RESET ANIMATION");
 			t.stop();
 			restartAnimation();
+			
+			dispatchEvent(new Event("ANIMATION_LOOP_COMPLETE"));
 		}
 		
 		public function resetMeshPos():void
@@ -111,7 +109,7 @@ package com.rhythm.away3D4AR
 			mesh.z = 0;
 		}
 		
-		public function toString():String
+		override public function toString():String
 		{
 			return "AnimatedModel => " + name;
 		}

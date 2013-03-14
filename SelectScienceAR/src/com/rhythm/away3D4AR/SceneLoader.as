@@ -35,13 +35,12 @@ package com.rhythm.away3D4AR
 		{
 			super();
 			
-			plane = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
-			plane.rotationX = 90;
-			
-			var planeMat:ColorMaterial = ColorMaterial(plane.material);
-			//planeMat.shadowMethod = SceneFX.SHADOW;
-			//planeMat.lightPicker = SceneFX.LIGHTPICKER;
-			addChild(plane);
+			if(Constants.DEBUG_MODE) {
+				plane = new Mesh(new PlaneGeometry(100,100,3,3,true,true), new ColorMaterial(0xffffff, 1));
+				plane.rotationX = 90;
+				var planeMat:ColorMaterial = ColorMaterial(plane.material);
+				addChild(plane);
+			}
 			
 			// Show a Trident
 			if(Constants.DEBUG_MODE) {

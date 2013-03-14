@@ -128,8 +128,9 @@ package
 
 			
 			
-			if(flask.ready && flask.showing) flask.update();
-			
+			if(monkey && monkey.ready && monkey.showing) monkey.update();
+			if(flask && flask.ready && flask.showing) flask.update();
+			if(retro && retro.ready && retro.showing) retro.update();
 			
 			
 			view.camera.z = zPos;
@@ -148,15 +149,17 @@ package
 			world.addChild(monkey);
 			monkey.x = -150;
 			*/
+			/*
 			flask = new FlaskScene();
 			flask.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(flask);
-			/*
+			*/
+			
 			retro = new RetroVirusScene();
 			retro.addEventListener(Event.COMPLETE, onComplete);
 			world.addChild(retro);
-			retro.x = 150;
-			*/
+			retro.x = 0;
+			
 			total = 1;
 			numDone = 0;
 		}
@@ -179,18 +182,18 @@ package
 				case Keyboard.NUMBER_1:
 					trace("MONKEY");
 					//world.addChild(monkey);
-					monkey.show();
+					if(monkey) monkey.show();
 					
 					break;
 				case Keyboard.NUMBER_2:
 					trace("FLASK");
 					//world.addChild(flask);
-					flask.show();
+					if(flask) flask.show();
 					break;
 				case Keyboard.NUMBER_3:
 					trace("RETRO");
 					//world.addChild(retro);
-					retro.show();
+					if(retro) retro.show();
 					break;
 			}
 		}
@@ -199,13 +202,13 @@ package
 		{
 			switch(e.keyCode) {
 				case Keyboard.NUMBER_1:
-					monkey.hide();
+					if(monkey) monkey.hide();
 					break;
 				case Keyboard.NUMBER_2:
-					flask.hide();
+					if(flask) flask.hide();
 					break;
 				case Keyboard.NUMBER_3:
-					retro.hide();
+					if(retro) retro.hide();
 					break;
 			}
 		}

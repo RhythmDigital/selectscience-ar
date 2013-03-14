@@ -8,6 +8,7 @@ package com.rhythm.duttons.selectscience
 	import com.rhythm.away3D4AR.AnimatedModel;
 	import com.rhythm.away3D4AR.SceneLoader;
 	
+	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	
@@ -51,7 +52,6 @@ package com.rhythm.duttons.selectscience
 			
 			messageType = 'virus';
 			discoMusic = new DISCO_MUSIC();
-			
 			
 			virus = new ObjectContainer3D();
 			virus.rotationX = 90;
@@ -114,7 +114,6 @@ package com.rhythm.duttons.selectscience
 			
 			//getModelByName("virus_dance").restartAnimation();
 			//getModelByName("virus_dance_afro").restartAnimation();
-			
 			
 			sc = discoMusic.play(0,9999);
 			
@@ -180,13 +179,27 @@ package com.rhythm.duttons.selectscience
 			super.onResourceComplete(e);
 		}
 		
+		override public function update():void {
+			trace("----\nBODY: " + getModelByName("virus_dance").animator.time);
+			trace("AFRO: " + getModelByName("virus_dance_afro").animator.time+"\n----");
+		}
+		
 		override protected function onAllResourcesLoaded():void
 		{
 			getModelByName("virus_idle").init();
-			getModelByName("virus_dance").init();
 			getModelByName("virus_dance_afro").init();
 			
+			var virusBodyModel:AnimatedModel = getModelByName("virus_dance");
+			virusBodyModel.init();
+			virusBodyModel.addEventListener("ANIMATION_LOOP_COMPLETE", onBodyAnimationComplete);
+			
 			super.onAllResourcesLoaded();
+		}
+		
+		protected function onBodyAnimationComplete(e:Event):void
+		{
+			trace("RetroVirus Body Animation Complete.");
+			getModelByName("virus_dance_afro").restartAnimation();
 		}
 	}
 }
