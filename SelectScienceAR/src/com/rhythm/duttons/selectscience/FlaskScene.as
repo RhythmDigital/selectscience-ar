@@ -112,32 +112,35 @@ package com.rhythm.duttons.selectscience
 		}
 		
 		private function restartMainAnim():void
-		{
+		{			
 			// pop in...
 			TweenMax.killTweensOf(flask);
+			TweenMax.killTweensOf(botMat);
+			TweenMax.killTweensOf(this);
 			
 			flask.scaleY = flask.scaleZ = flask.x = flask.y = flask.z = 0;
 			
 			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
 			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut, onComplete:doShakeAnim});
 			
-			// material...
+			// materials...
 			applyBottleTexture();
 		}
 		
 		private function doShakeAnim():void
 		{
 			// material - darken
-			TweenMax.to(botMat, 3.5, {alpha:.8, hexColors:{color:0x000022}, ease:Sine.easeInOut, overwrite:1});
+			TweenMax.to(botMat, 2.5, {alpha:.9, hexColors:{color:0x000022}, ease:Sine.easeInOut, overwrite:1});
 			
 			// shake...
 			shake = 0;			
 			ticker.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
-			TweenMax.to(this, 3.5, {shake:15, ease:Sine.easeIn, onComplete:spewParticles});
+			TweenMax.to(this, 2.5, {shake:15, ease:Sine.easeIn, onComplete:explode, overwrite:1});
 		}
 		
-		private function spewParticles():void
+		private function explode():void
 		{
+			TweenMax.to(this, .4, {shake:0, ease:Sine.easeInOut, overwrite:1});			
 			emitter.start();
 		}
 		
@@ -245,12 +248,12 @@ package com.rhythm.duttons.selectscience
 			// botMat = new TextureMaterial(flaskTextureMat);
 		
 			botMat.color = 0xAAC3FF;
-			botMat.gloss = 30;
+			botMat.gloss = 10;
 			botMat.bothSides = true;
-			botMat.specular = 10;
+			botMat.specular = .4;
 			botMat.alpha = .65;
 			botMat.lightPicker = lightPicker;
-			botMat.ambient = .45;
+			botMat.ambient = .6;
 			
 			bottle.material = botMat;
 		}
