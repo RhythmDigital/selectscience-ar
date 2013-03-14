@@ -44,6 +44,7 @@ package
 	import com.rhythm.duttons.selectscience.FlaskScene;
 	import com.rhythm.duttons.selectscience.MonkeyScene;
 	import com.rhythm.duttons.selectscience.RetroVirusScene;
+	import com.rhythm.utils.CustomEvent;
 	
 	import flash.display.Screen;
 	import flash.display.Sprite;
@@ -99,7 +100,10 @@ package
 			
 			status = new LoadingStatus();
 			idleScreen = new IdleScreen();
+			
 			endMessages = new EndMessages();
+			endMessages.gotoAndStop(1);
+			endMessages.alpha = 0;
 			
 			showStartupScreen();
 		}
@@ -158,10 +162,8 @@ package
 			}
 			
 			status.txtStatus.text = msg;
-			status.txtStatus.x = status.dotsAnim.x = (stage.stageWidth >> 1) - (status.txtStatus.textWidth>>1);
+			status.txtStatus.x = (stage.stageWidth >> 1) - (status.txtStatus.textWidth>>1);
 			status.txtStatus.y = (stage.stageHeight >> 1) - (status.txtStatus.textHeight>>1);
-			
-			status.dotsAnim.y = status.txtStatus.y + 100;
 			
 			statusID++;
 		}
@@ -200,8 +202,33 @@ package
 			scenes[id] = new sceneClasses[id]();
 			scenes[id].id = id;
 			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
-			scenes[id].addEventListener("SCENE_LOADED", onSceneLoaded);
+			scenes[id].addEventListener("SHOW_MESSAGE", onShowMessage);
+			scenes[id].addEventListener("HIDE_MESSAGE", onHideMessage);
 			container.addChild(scenes[id]);
+		}
+		
+		private function onShowMessage(e:CustomEvent):void
+		{
+			endMessages.gotoAndStop(1);
+			endMessages.alpha = 0;
+			
+			TweenMax.to(endMessages, 1, {alpha:1, ease:Sine.easeIn, onComplete:function(messageType:String):void
+				{ 
+					endMessages.gotoAndStop(messageType); 
+				}, 
+				onCompleteParams:[e.params.messageType], overwrite:1 });
+			
+			addChild(endMessages);
+		}
+		
+		private function onHideMessage(e:Event):void
+		{
+			TweenMax.to(endMessages, 1, {alpha:0, ease:Sine.easeIn, onComplete:function():void
+				{ 
+					endMessages.gotoAndStop(1); 
+					removeChild(endMessages); 
+				}
+				, overwrite:1 });
 		}
 		
 		private function onSceneLoaded(e:Event):void
@@ -228,18 +255,18 @@ package
 		{
 			TweenMax.killAll(idleScreen);
 			
-			idleScreen.width = stage.nativeWindow.width;
-			idleScreen.height = stage.nativeWindow.height;
+			idleScreen.width = endMessages.width = stage.nativeWindow.width;
+			idleScreen.height = endMessages.height = stage.nativeWindow.height;
 			addChild(idleScreen);
 			
 			idleScreen.alpha = 0;
-			TweenMax.to(idleScreen, 1, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Sine.easeIn, overwrite:2});
+			TweenMax.to(idleScreen, 1, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Sine.easeIn, overwrite:1});
 		}
 		
 		private function hideIdleScreen():void
 		{
 			TweenMax.killAll(idleScreen);			
-			TweenMax.to(idleScreen, .5, {ease:Sine.easeIn, autoAlpha:0, onComplete:removeIdleScreen, overwrite:2});
+			TweenMax.to(idleScreen, .5, {ease:Sine.easeIn, autoAlpha:0, onComplete:removeIdleScreen, overwrite:1});
 		}
 		
 		private function removeIdleScreen():void

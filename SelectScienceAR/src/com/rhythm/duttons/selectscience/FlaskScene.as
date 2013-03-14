@@ -80,6 +80,7 @@ package com.rhythm.duttons.selectscience
 		public function FlaskScene()
 		{
 			super();
+			messageType = 'flask';
 			
 			flask = new ObjectContainer3D();
 			flask.rotationX = 90;
