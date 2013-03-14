@@ -17,6 +17,9 @@ package com.rhythm.duttons.selectscience
 	import flash.geom.Point;
 	import flash.geom.Utils3D;
 	import flash.geom.Vector3D;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	
 	import away3d.animators.SkeletonAnimationSet;
 	import away3d.animators.SkeletonAnimator;
@@ -58,6 +61,18 @@ package com.rhythm.duttons.selectscience
 		[Embed(source="/assets/flask/female_no_mat.obj", mimeType="application/octet-stream")]
 		private var OBJ_FEMALE_SYM:Class;
 		
+		// sounds
+		[Embed(source="/assets/audio/FINAL_bubbling.mp3")]
+		private var SND_BUBBLE_LOOP:Class;
+		
+		[Embed(source="/assets/audio/FINAL_explosion.mp3")]
+		private var SND_EXPLOSION:Class;
+		
+		[Embed(source="/assets/audio/fizz.mp3")]
+		private var SND_FIZZ_LOOP:Class;
+		
+		
+		
 		private var flask:ObjectContainer3D;
 		private var bottle:Mesh;
 		private var flaskMaterial:FlaskMaterial;
@@ -83,6 +98,12 @@ package com.rhythm.duttons.selectscience
 		public var shake:Number;
 		private var ticker:MovieClip = new MovieClip();
 		
+		private var bubblesSound:Sound = new SND_BUBBLE_LOOP();
+		private var explosionSound:Sound = new SND_EXPLOSION();
+		private var fizzSound:Sound = new SND_BUBBLE_LOOP();
+		private var bubbleSC:SoundChannel;
+		private var explosionSC:SoundChannel;
+		private var fizzSC:SoundChannel;
 		
 		public function FlaskScene()
 		{
@@ -125,6 +146,9 @@ package com.rhythm.duttons.selectscience
 			
 			// materials...
 			applyBottleTexture();
+			
+			bubbleSC = bubblesSound.play(0,0, new SoundTransform(.6));
+			
 		}
 		
 		private function doShakeAnim():void
@@ -142,6 +166,11 @@ package com.rhythm.duttons.selectscience
 		{
 			TweenMax.to(this, .4, {shake:0, ease:Sine.easeInOut, overwrite:1});			
 			emitter.start();
+			
+			bubbleSC.stop();
+			explosionSC = explosionSound.play(0);
+			
+			fizzSC = fizzSound.play(0, 0, new SoundTransform(.4));
 		}
 		
 		protected function onEnterFrame(event:Event):void
@@ -160,7 +189,16 @@ package com.rhythm.duttons.selectscience
 			ticker.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			emitter.stop();
 			
+			stopSounds();
+			
 			// flaskMaterial.gotoAndStop(0);
+		}
+		
+		private function stopSounds():void
+		{
+			if(bubbleSC) bubbleSC.stop();
+			if(explosionSC) explosionSC.stop();
+			//if(fizzSC) fizzSC.stop();	
 		}
 		
 		override protected function onAssetComplete(e:AssetEvent):void
