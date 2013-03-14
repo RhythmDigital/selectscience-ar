@@ -85,7 +85,7 @@ package com.rhythm.away3D4AR
 			pool.push(particles.splice(particles.indexOf(p), 1)[0]);
 			props.targ.removeChild(p);
 			
-			trace('PARTICLES:', particles.length, pool.length);
+			// trace('PARTICLES:', particles.length, pool.length);
 		}
 		
 		private function resetParticle(p:A3DParticle):void

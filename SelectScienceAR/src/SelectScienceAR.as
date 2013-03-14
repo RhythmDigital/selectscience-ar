@@ -312,7 +312,8 @@ package
 		{
 			trace("Hide scene: " + id);
 			scenes[id].hide();
-			showIdleScreen();
+			
+			if (!scenes[0].showing && !scenes[1].showing && !scenes[2].showing) showIdleScreen();
 		}
 		
 		override protected function onEnterFrame(e:Event):void

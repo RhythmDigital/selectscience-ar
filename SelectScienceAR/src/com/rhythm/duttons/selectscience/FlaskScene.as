@@ -100,10 +100,11 @@ package com.rhythm.duttons.selectscience
 		
 		private var bubblesSound:Sound = new SND_BUBBLE_LOOP();
 		private var explosionSound:Sound = new SND_EXPLOSION();
-		private var fizzSound:Sound = new SND_BUBBLE_LOOP();
+		private var fizzSound:Sound = new SND_FIZZ_LOOP();
 		private var bubbleSC:SoundChannel;
 		private var explosionSC:SoundChannel;
 		private var fizzSC:SoundChannel;
+		public var fizzVolume:Number;
 		
 		public function FlaskScene()
 		{
@@ -147,8 +148,13 @@ package com.rhythm.duttons.selectscience
 			// materials...
 			applyBottleTexture();
 			
-			bubbleSC = bubblesSound.play(0,0, new SoundTransform(.6));
+			if (bubbleSC) 
+			{
+				bubbleSC.stop();			
+				bubbleSC = null;
+			}
 			
+			bubbleSC = bubblesSound.play(0, 0, new SoundTransform(.6));			
 		}
 		
 		private function doShakeAnim():void
@@ -159,18 +165,22 @@ package com.rhythm.duttons.selectscience
 			// shake...
 			shake = 0;			
 			ticker.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
-			TweenMax.to(this, 2.5, {shake:15, ease:Sine.easeIn, onComplete:explode, overwrite:1});
+			TweenMax.to(this, 2.5, {shake:15, ease:Sine.easeIn, onComplete:explode});
 		}
 		
 		private function explode():void
 		{
-			TweenMax.to(this, .4, {shake:0, ease:Sine.easeInOut, overwrite:1});			
+			TweenMax.to(this, .4, {shake:0, ease:Sine.easeInOut});			
 			emitter.start();
 			
-			bubbleSC.stop();
-			explosionSC = explosionSound.play(0);
+			trace('STOPPING BUBBLING');
+			trace('\t bubbleSC:', bubbleSC);			
+			if (bubbleSC) bubbleSC.stop();
 			
-			fizzSC = fizzSound.play(0, 0, new SoundTransform(.4));
+			explosionSC = explosionSound.play(0);		
+			
+			fizzVolume = .2;
+			fizzSC = fizzSound.play(2000, 0, new SoundTransform(fizzVolume));
 		}
 		
 		protected function onEnterFrame(event:Event):void
@@ -186,18 +196,39 @@ package com.rhythm.duttons.selectscience
 		{
 			super.hide();
 			
+			TweenMax.killTweensOf(flask);
+			TweenMax.killTweensOf(botMat);
+			TweenMax.killTweensOf(this);			
+			
 			ticker.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			emitter.stop();
 			
 			stopSounds();
 			
-			// flaskMaterial.gotoAndStop(0);
+			TweenMax.to(this, 1, {fizzVolume:0, ease:Sine.easeIn, onUpdate:setFizzVolume, onComplete:stopFizz});
+		}
+		
+		private function setFizzVolume():void
+		{
+			if(fizzSC) {
+				//fizzSC.soundTransform.volume = fizzVolume;
+				fizzSC.soundTransform = new SoundTransform(fizzVolume);
+			} 
+		}
+		
+		private function stopFizz():void
+		{
+			if (fizzSC) fizzSC.stop();
 		}
 		
 		private function stopSounds():void
 		{
-			if(bubbleSC) bubbleSC.stop();
-			if(explosionSC) explosionSC.stop();
+			trace('STOPPING SOUNDS!');
+			trace('\t bubbleSC:', bubbleSC);
+			trace('\t explosionSC:', explosionSC);
+			
+			if (bubbleSC) bubbleSC.stop();
+			if (explosionSC) explosionSC.stop();
 			//if(fizzSC) fizzSC.stop();	
 		}
 		
