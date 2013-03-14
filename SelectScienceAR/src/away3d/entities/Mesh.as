@@ -159,7 +159,7 @@
 		public function set material(value : MaterialBase) : void
 		{
 			if (value == _material) return;
-			trace("Material is new? " + value);
+			
 			if (_material) _material.removeOwner(this);
 			_material = value;
 			if (_material) _material.addOwner(this);
