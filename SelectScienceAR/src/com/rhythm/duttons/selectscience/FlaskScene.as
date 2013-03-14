@@ -2,6 +2,7 @@ package com.rhythm.duttons.selectscience
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Elastic;
+	import com.greensock.easing.Sine;
 	import com.rhythm.away3D4AR.A3DParticle;
 	import com.rhythm.away3D4AR.A3DParticleEmitter;
 	import com.rhythm.away3D4AR.AnimatedModel;
@@ -10,6 +11,8 @@ package com.rhythm.duttons.selectscience
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Utils3D;
@@ -69,13 +72,17 @@ package com.rhythm.duttons.selectscience
 		private var lightPicker:StaticLightPicker;
 		private var shadowMap:HardShadowMapMethod;
 
-		private var botMat:TextureMaterial;
+		private var botMat:ColorMaterial;
 		private var flaskTextureBMP:Bitmap;
 		private var flaskEmitterPoint:ObjectContainer3D;
 		private var worldEmitterPoint:ObjectContainer3D;
 		private var emitter:A3DParticleEmitter;
 		private var femaleMat:ColorMaterial;
 		private var maleMat:ColorMaterial;
+		
+		public var shake:Number;
+		private var ticker:MovieClip = new MovieClip();
+		
 		
 		public function FlaskScene()
 		{
@@ -100,25 +107,56 @@ package com.rhythm.duttons.selectscience
 		
 		override public function show():void
 		{
-			super.show();
-
-			// flaskMaterial.play();
-			
+			if (!showing) restartMainAnim();	
+			super.show();	
+		}
+		
+		private function restartMainAnim():void
+		{
+			// pop in...
 			TweenMax.killTweensOf(flask);
-			flask.scaleY = 0; 
-			flask.scaleZ = 0;
+			
+			flask.scaleY = flask.scaleZ = flask.x = flask.y = flask.z = 0;
 			
 			TweenMax.to(flask, 1, {delay:.2, scaleY:10, overwrite:2, ease:Elastic.easeOut});
-			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut});
+			TweenMax.to(flask, 1.6, {delay:.3, scaleZ:10, overwrite:2, ease:Elastic.easeOut, onComplete:doShakeAnim});
 			
+			// material...
+			applyBottleTexture();
+		}
+		
+		private function doShakeAnim():void
+		{
+			// material - darken
+			TweenMax.to(botMat, 3.5, {alpha:.8, hexColors:{color:0x000022}, ease:Sine.easeInOut, overwrite:1});
+			
+			// shake...
+			shake = 0;			
+			ticker.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
+			TweenMax.to(this, 3.5, {shake:15, ease:Sine.easeIn, onComplete:spewParticles});
+		}
+		
+		private function spewParticles():void
+		{
 			emitter.start();
+		}
+		
+		protected function onEnterFrame(event:Event):void
+		{
+			flask.x = shake - Math.random()*shake;
+			flask.z = shake - Math.random()*shake;
+			
+			flask.rotationY = shake/4 - Math.random()*shake/4;
+			flask.rotationX = 90 + shake/4 - Math.random()*shake/4;
 		}
 		
 		override public function hide():void
 		{
 			super.hide();
 			
+			ticker.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			emitter.stop();
+			
 			// flaskMaterial.gotoAndStop(0);
 		}
 		
@@ -191,13 +229,11 @@ package com.rhythm.duttons.selectscience
 			// Male Material
 			maleMat = maleModel.getNewColourMaterial(0x8dcc, 1);
 			maleModel.mesh.material = maleMat;
-			//maleMat.shadowMethod = shadowMap;
 			maleMat.lightPicker = lightPicker;
 			
 			// Female Material
 			femaleMat = femaleModel.getNewColourMaterial(0xcc558a, 1); 
-			femaleModel.mesh.material = femaleMat; 
-			//femaleMat.shadowMethod = shadowMap;
+			femaleModel.mesh.material = femaleMat;
 			femaleMat.lightPicker = lightPicker;
 		}
 		
@@ -205,14 +241,16 @@ package com.rhythm.duttons.selectscience
 		{						
 			redrawBottleTexture();			
 			
-			if (botMat) botMat = null;
-			botMat = new TextureMaterial(flaskTextureMat);
-
-			botMat.gloss = 40;
+			if (!botMat) botMat = new ColorMaterial(0xAAC3FF, 1);			
+			// botMat = new TextureMaterial(flaskTextureMat);
+		
+			botMat.color = 0xAAC3FF;
+			botMat.gloss = 30;
 			botMat.bothSides = true;
 			botMat.specular = 10;
-			botMat.alpha = .99;
+			botMat.alpha = .65;
 			botMat.lightPicker = lightPicker;
+			botMat.ambient = .45;
 			
 			bottle.material = botMat;
 		}
@@ -271,9 +309,6 @@ package com.rhythm.duttons.selectscience
 			
 			if (!shadowMap) shadowMap = new HardShadowMapMethod(light1);			
 			shadowMap.alpha = 0.3;
-			
-			ColorMaterial(plane.material).shadowMethod = shadowMap;
-			ColorMaterial(plane.material).lightPicker = lightPicker;
 		}
 		
 		override public function update():void
@@ -294,12 +329,12 @@ package com.rhythm.duttons.selectscience
 			getModelByName("male").init();
 			getModelByName("female").init();
 			
-			flaskEmitterPoint = new WireframeCube(0.1,0.1,0.1,0xff0000,1);
+			flaskEmitterPoint = new ObjectContainer3D();
 			Bounds.getMeshBounds(getModelByName("bottle").mesh);
 			flaskEmitterPoint.y = Bounds.height - 4;
 			
-			worldEmitterPoint = new WireframeCube(0.6,0.6,0.6,0x00FF00,1);
-			
+			worldEmitterPoint = new ObjectContainer3D();
+
 			flask.addChild(flaskEmitterPoint);
 			
 			//worldEmitterPoint.addChild(new Trident(1000));
