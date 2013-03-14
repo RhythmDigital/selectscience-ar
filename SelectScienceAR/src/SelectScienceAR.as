@@ -50,10 +50,12 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.TimerEvent;
 	import flash.media.Camera;
 	import flash.text.TextFieldAutoSize;
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
+	import flash.utils.Timer;
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.lights.PointLight;
@@ -90,6 +92,7 @@ package
 		private var startupScreen:Sprite;
 		private var idleScreen:IdleScreen;
 		private var endMessages:EndMessages;
+		private var timer:Timer;
 		
 		
 		public function SelectScienceAR()
@@ -223,12 +226,13 @@ package
 		
 		private function onHideMessage(e:Event):void
 		{
-			TweenMax.to(endMessages, 1, {alpha:0, ease:Sine.easeIn, onComplete:function():void
-				{ 
-					endMessages.gotoAndStop(1); 
-					removeChild(endMessages); 
-				}
-				, overwrite:1 });
+			TweenMax.to(endMessages, 1, {alpha:0, ease:Sine.easeIn, onComplete:hideMessage, overwrite:1});
+		}
+		
+		private function hideMessage():void
+		{
+			endMessages.gotoAndStop(1); 
+			if (this.contains(endMessages)) removeChild(endMessages); 
 		}
 		
 		private function onSceneLoaded(e:Event):void
@@ -253,25 +257,48 @@ package
 		
 		private function showIdleScreen(immediate:Boolean = false):void
 		{
-			TweenMax.killAll(idleScreen);
-			
 			idleScreen.width = endMessages.width = stage.nativeWindow.width;
 			idleScreen.height = endMessages.height = stage.nativeWindow.height;
 			addChild(idleScreen);
 			
 			idleScreen.alpha = 0;
-			TweenMax.to(idleScreen, 1, {delay:immediate ? 0 : 10, autoAlpha:1, ease:Sine.easeIn, overwrite:1});
+			idleScreen.visible = false;
+			
+			if (immediate) showIdleScreenNow();
+			else {
+				if (timer == null)
+				{
+					timer = new Timer(10000, 1);
+					timer.addEventListener(TimerEvent.TIMER, onTimerTick, false, 0, true);
+					timer.start();
+				}	
+			}	
+		}
+		
+		private function onTimerTick(event:TimerEvent):void
+		{
+			showIdleScreenNow();
+		}
+		
+		private function showIdleScreenNow():void
+		{
+			TweenMax.to(idleScreen, 1, {autoAlpha:1, ease:Sine.easeIn, overwrite:1});
 		}
 		
 		private function hideIdleScreen():void
 		{
-			TweenMax.killAll(idleScreen);			
+			if (timer) 
+			{
+				timer.stop();
+				timer = null;
+			}		
+			
 			TweenMax.to(idleScreen, .5, {ease:Sine.easeIn, autoAlpha:0, onComplete:removeIdleScreen, overwrite:1});
 		}
 		
 		private function removeIdleScreen():void
 		{
-			if(this.contains(idleScreen)) removeChild(idleScreen);
+			if (this.contains(idleScreen)) removeChild(idleScreen);
 		}
 		
 		override protected function showScene(id:int):void
