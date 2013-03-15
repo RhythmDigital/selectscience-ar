@@ -27,7 +27,7 @@
 	<!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
 	Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
 	An updated version of application must have a versionNumber value higher than the previous version. Required for namespace >= 2.5 . -->
-	<versionNumber>0.0.0</versionNumber>
+	<versionNumber>1.0</versionNumber>
 		         
 	<!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users. Optional. -->
 	<!-- <versionLabel></versionLabel> -->
@@ -61,13 +61,13 @@
 		<!-- <visible></visible> -->
 
 		<!-- Whether the user can minimize the window. Optional. Default true. -->
-		<!-- <minimizable></minimizable> -->
+		<minimizable>false</minimizable>
 
 		<!-- Whether the user can maximize the window. Optional. Default true. -->
-		<!-- <maximizable></maximizable> -->
+		<maximizable>false</maximizable>
 
 		<!-- Whether the user can resize the window. Optional. Default true. -->
-		<!-- <resizable></resizable> -->
+		<resizable>false</resizable>
 
 		<!-- The window's initial width in pixels. Optional. -->
 		<!-- <width></width> -->
@@ -109,9 +109,9 @@
 		<!-- Whether or not to pan when a soft keyboard is raised or lowered (either "pan" or "none").  Optional.  Defaults "pan." -->
 		<!-- <softKeyboardBehavior></softKeyboardBehavior> -->
 
-	<autoOrients>false</autoOrients>
+		<autoOrients>false</autoOrients>
         <fullScreen>false</fullScreen>
-        <visible>true</visible>
+        <visible>false</visible>
     </initialWindow>
 
 	<!-- We recommend omitting the supportedProfiles element, -->
@@ -133,8 +133,8 @@
 
 	<!-- The icon the system uses for the application. For at least one resolution,
 	specify the path to a PNG file included in the AIR package. Optional. -->
-	<!-- <icon>
-		<image16x16></image16x16>
+	<icon>
+	<!-- 	<image16x16></image16x16>
 		<image29x29></image29x29>
 		<image32x32></image32x32>
 		<image36x36></image36x36>
@@ -145,11 +145,12 @@
 		<image72x72></image72x72>
 		<image100x100></image100x100>
 		<image114x114></image114x114>
-		<image128x128></image128x128>
-		<image144x144></image144x144>
-		<image512x512></image512x512>
+		<image128x128></image128x128>-->
+		<image144x144>icon_144.png</image144x144>
+		<!-- <image512x512></image512x512>
 		<image1024x1024></image1024x1024>
-	</icon> -->
+		 -->
+	</icon>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
