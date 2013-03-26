@@ -237,7 +237,7 @@ package
 		
 		private function onSceneLoaded(e:Event):void
 		{
-			if (modelsLoaded == 3) {
+			if (modelsLoaded == sceneClasses.length) {
 				removeChild(status);
 				startSelectScience();
 				
@@ -313,7 +313,12 @@ package
 			trace("Hide scene: " + id);
 			scenes[id].hide();
 			
-			if (!scenes[0].showing && !scenes[1].showing && !scenes[2].showing) showIdleScreen();
+			var showing:int = 0;
+			for each(var s:SceneLoader in scenes) {
+				if(s.showing) showing ++;
+			}
+			
+			if (showing == scenes.length) showIdleScreen();
 		}
 		
 		override protected function onEnterFrame(e:Event):void

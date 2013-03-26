@@ -1,14 +1,18 @@
 package com.rhythm.display
 {
 	import com.quasimondo.bitmapdata.CameraBitmap;
+	import com.rhythm.utils.CustomTimer;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
 	import flash.geom.Rectangle;
 	import flash.media.Video;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	
 	import away3d.containers.ObjectContainer3D;
 	import away3d.containers.Scene3D;
@@ -25,6 +29,8 @@ package com.rhythm.display
 	
 	public class FullscreenARView extends FullscreenAIRDisplay
 	{	
+		private const HIDE_MARKER_TIMEOUT:int = 400;
+		
 		//protected var bmp:Bitmap;
 		//protected var camera:CameraBitmap;
 		protected var bg:BitmapTexture;
@@ -37,7 +43,7 @@ package com.rhythm.display
 		// AR
 		private var arParams:Object;
 		
-		protected var isShowBinRaster:Boolean = false;
+		protected var isShowBinRaster:Boolean = true;
 		private var marker_ids:Array = [];
 		private var scenes:Array = [];
 		private var marker_node:ObjectContainer3D;
@@ -58,6 +64,7 @@ package com.rhythm.display
 		private var camera:CameraBitmap;
 		private var cameraResized:BitmapData;
 		private var cameraResizeMatrix:Matrix;
+		private var hideMarkerTimers:Dictionary;
 		
 		protected var cameraID:int = 0;
 		
@@ -68,7 +75,7 @@ package com.rhythm.display
 		
 		public function start(flarParams:Object):void
 		{
-			
+			hideMarkerTimers = new Dictionary();
 			
 			sizeParamSetup();
 			initCamera();
@@ -90,7 +97,7 @@ package com.rhythm.display
 			//camWidth = 1024;
 			//camHeight = 512;
 			
-			rasterWidth  = 300;
+			rasterWidth  = 400;
 			rasterHeight = int(rasterWidth*ratio);
 			
 			codeWidth = 80;
@@ -202,17 +209,15 @@ package com.rhythm.display
 					markerSys.getAway3dMarkerMatrix(m, resultMat);
 					scenes[m].transform = resultMat;
 					_objectTransform(scenes[m]);
-					
-					if(scenes[m].visible == false) {
-						scenes[m].visible = true;
-						showScene(m);
-					}
+						
+					triggerMarkerVisible(m);
+					if(!scenes[m].visible) showScene(m);
+					scenes[m].visible = true;
 					
 				} else {
 					
 					if(scenes[m].visible == true) {
-						scenes[m].visible = false;
-						hideScene(m);
+						triggerMarkerHidden(m);
 					}
 					
 				}
@@ -225,13 +230,57 @@ package com.rhythm.display
 			view.render();
 		}
 		
+		private function triggerMarkerHidden(id:int):void
+		{	
+		
+			if(hideMarkerTimers[id]) {
+				var t:Timer = hideMarkerTimers[id] as CustomTimer;
+				if(!t.running) {
+					trace("Marker " + id + " hidden. Starting Timer.");
+					t.start();
+				}
+				
+			}
+		}
+		
+		private function triggerMarkerVisible(id:int):void
+		{
+			
+			if(hideMarkerTimers[id]) {
+				var t:Timer = hideMarkerTimers[id] as CustomTimer;
+				if(t.running) {
+					trace("Marker " + id + " visible, cancelling timer.");
+					t.reset();
+					t.stop();
+				}
+				
+			}
+		}
+		
+		private function onHideMarkerTimerComplete(e:TimerEvent):void
+		{
+			var t:CustomTimer = e.target as CustomTimer;
+			t.reset();
+			t.stop();
+			trace("Timer Complete, hide marker " + t.id);
+			scenes[t.id].visible = false;
+			hideScene(t.id);
+		}
+		
 		/**
 		 * 3Dオブジェクト生成
 		 */
 		private function createScene(id:int):ObjectContainer3D
 		{
+			trace("CREATING SCENE " + id);
+			
 			var container:ObjectContainer3D = new ObjectContainer3D();
 			constructScene(container, id);
+			
+			// create hide marker timer
+			hideMarkerTimers[id] = new CustomTimer(HIDE_MARKER_TIMEOUT, 0, id);
+			hideMarkerTimers[id].addEventListener(TimerEvent.TIMER, onHideMarkerTimerComplete);
+			
 			return container;
 		}
 		

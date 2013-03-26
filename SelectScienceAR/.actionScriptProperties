@@ -54,7 +54,6 @@
       <airSettings airCertificatePath="/Users/jamiewhite/Documents/Development/rhythm-git/selectscience-ar/rhythm.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes>
           <pathEntry path="Orig_Textures.zip"/>
-          <pathEntry path="Icon.png"/>
         </airExcludes>
         <anePaths/>
         <newLaunchParams/>
